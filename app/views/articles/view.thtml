@@ -1,0 +1,7 @@
+<? if(count($data)):?>
+<h1><?=$data[0]['Article']['header']?></h1>
+<?=$data[0]['Article']['text']?>
+<? endif; ?>
+<p>
+<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+<div style="text-align:right;" class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="icon" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,lj"></div>

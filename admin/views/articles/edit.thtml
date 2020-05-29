@@ -1,0 +1,108 @@
+<h1><?php
+			if(isset($this->params['data']['Article']['id'])) 
+			echo 'Редактирование статьи';
+			else
+			echo 'Новая статья';
+			?> (<?=($site_id==2  ? 'ugparts.ru'  :  'sm-jm.ru')?>)</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+
+<form method="post" enctype="multipart/form-data">
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры статьи</th>
+		</tr>
+               <tr> 
+			<td class="row1">Категория:</td>
+			<td class="row2">
+				<select name="data[Article][art_category_id]" size="1">
+				<option value="">= Выберите категорию =</option>
+					  <?foreach($categories as $row) {
+					   if($row['ArtCategory']['id']==@$this->params['data']['Article']['art_category_id'])
+						 echo "<option value='".$row['ArtCategory']['id']."' selected>".$row['ArtCategory']['name']."</option>";
+					   else
+					    echo "<option value='".$row['ArtCategory']['id']."'>".$row['ArtCategory']['name']."</option>";
+						}
+					 	?>
+					  </select>
+					  <?php echo $html->tagErrorMsg('Article/art_category_id', '<font color=blue><small>обязательное поле</small></font>')?>
+			</td>
+		</tr>
+                <tr> 
+			<td class="row1">Заголовок:<br><small>Заголовки "Поиск запчастей", "Контакты", "Партнерская программа" и "Книга отзывов" зарезервированы для специальных страничек сайта</small></td>
+			<td class="row2">
+				<?php echo $html->input('Article/header',array('style'=>'width:400px;'))?>
+				<?php echo $html->tagErrorMsg('Article/header', '<font color=blue><small>обязательное поле</small></font>')?>
+			</td>
+		</tr>
+               <tr> 
+			<td class="row1" width=40%>Кратко<br><small>Для форматирования текста используйте html-разметку</small>:</td>
+			<td class="row2">
+				<?php echo $html->textarea('Article/short',array('style'=>'width:400px;height:200px;'))?>
+			</td>
+		</tr>
+                <tr> 
+			<td class="row1">Ссылка:</td>
+			<td class="row2">
+				<?php echo $html->input('Article/link',array('style'=>'width:400px;'))?>	
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Подробно<br><small>Для форматирования текста используйте html-разметку</small>:</td>
+			<td class="row2">
+				<?php echo $html->textarea('Article/text',array('style'=>'width:400px;height:200px;'))?>
+			</td>
+		</tr>
+		    <tr> 
+			<td class="row1">Мета title:</td>
+			<td class="row2">
+				<?php echo $html->input('Article/meta_title',array('style'=>'width:400px;'))?>	
+			</td>
+		</tr>
+		     <tr> 
+			<td class="row1">Мета description:</td>
+			<td class="row2">
+				<?php echo $html->input('Article/meta_description',array('style'=>'width:400px;'))?>	
+			</td>
+		</tr>
+		     <tr> 
+			<td class="row1">Мета keywords:</td>
+			<td class="row2">
+				<?php echo $html->input('Article/meta_keywords',array('style'=>'width:400px;'))?>	
+			</td>
+		</tr>
+		 <tr> 
+			<td class="row1">ЧПУ:</td>
+			<td class="row2">
+				<?php echo $html->input('Article/url',array('style'=>'width:400px;'))?>	
+			</td>
+		</tr>
+		<?php if(isset($this->params['data']['Article']['id'])):?>
+		<tr> 
+			<td class="row1"  colspan="2">
+			<input type="button" value="Добавить фото к статье" onClick="window.location.href='/admin/article_pictures/add/<?=$this->params['data']['Article']['id']?>'" class="mainoption"> 
+			<? if(count($this->params['data']['ArticlePicture'])) :?>
+			<input type="button" value="Просмотр других фото статьи" onClick="window.location.href='/admin/article_pictures/view/<?=$this->params['data']['Article']['id']?>'" class="mainoption"> 			
+			<? endif; ?>
+			</td>
+		</tr>
+		<?endif;?>			
+		<tr> 
+			<td class="row1">Показывать на сайте:</td>
+			<td class="row2">
+				<?=$html->checkbox('Article/active')?><br />
+			</td>
+		</tr>
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+		  <?php
+			if(isset($this->params['data']['Article']['id'])):
+			echo $html->hidden('Article/id');
+			endif;
+			?>
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+

@@ -1,0 +1,10 @@
+User-agent: Yandex
+Disallow: /rasprodaja.html
+Disallow: /skidki.html
+Disallow: /vacancy.html
+Disallow: /registr.html
+Disallow: /fogotten_password.html
+Disallow: /sto.html
+Disallow: /strahovanie.html
+Disallow: /websites.html
+Disallow: /reklama.html

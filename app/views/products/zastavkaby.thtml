@@ -1,0 +1,10 @@
+	<? if(isset($products)) :?>
+<? if(count($products)>0) :?>
+
+<? echo $this->renderElement("product_list"); ?>
+
+<? else: ?>
+<center style="color:red;font-size:16pt;"><b>Страничка на оформлении.<br>Мы занимаемся поставкой б/у запчастей на все марки и модели иномарок.<br>
+По всем вопросам обращаться по<br>тел. 8-905-485-62-22.</b></center>
+<? endif; ?>
+<? endif; ?>

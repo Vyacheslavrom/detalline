@@ -1,0 +1,76 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<?php foreach($credentials as $row_cel):?>
+<div style="position:absolute;top:10px;right:10px;"><small> <?=$this->params[data]['Buyer']['customer_name']?><br><?=$this->params[data]['Buyer']['customer_phone']?><br><?=$this->params[data]['Buyer']['customer_phone2']?><br><?=$this->params[data]['Buyer']['customer_phone3']?></small></div>
+<b><?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?>
+<table cellpadding=0 cellspacing=0 border=0 width=100%><tr>
+<td width=50%>ИНН: <?=$row_cel['Credential']['inn']?></td>
+<td width=50%>Лист закупки № <?php echo $this->params[data][Buyer][check_number]; ?></td>
+</tr><tr>
+<td width=50%>ОГРНИП: <?=$row_cel['Credential']['ogrn']?></td>
+<td width=50%><?=date("d.m.Y",strtotime($this->params[data][Buyer][check_date]))?> года</td>
+</tr></table>
+<?=$row_cel['Credential']['adress']?></b>          
+</b>
+<p>т. 863 260-17-29</p>
+<br>
+<center>Марка/Модель: <?php foreach ($datas as $row):?><?=$row['Mark']['name'].'/'.$row['Model']['name']?>, Год: <?=$this->params[data]['Buyer']['year']?>, Номер обращения: <?=$this->params[data]['Buyer']['id']?><? endforeach;?><?php foreach($orders as $order){ echo " Номер заказа: ".$order['Order']['pre_number'].$order['Order']['order_number'];}?></center>
+<table cellpadding=3 cellspacing=0 border=1 width=100%>
+<Tr BGCOLOR="#EEEEEE">
+<TH>№</TH>
+<TH>Наименование</TH>
+<TH>Кол-во товара</TH>
+<TH>Цена, руб.</TH>
+<TH>Сумма, руб.</TH>
+</TR>
+<?php 
+
+		$number = 0;
+		$sum = 0;
+		$rows_cnt =  count(@$this->params[data]['BuyerPart']) ? count(@$this->params[data]['BuyerPart']) : 10;
+		for($j=0;$j<$rows_cnt;$j++) {
+			for($i=0;$i<3;$i++) {
+				if($this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][buy]==1){
+		?>
+<TR>
+<TD ALIGN="RIGHT"><?php echo (++$number); ?></TD>
+<TD><B><?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][name]?></B></TD>
+<TD ALIGN="RIGHT">	
+<? 
+$sum += $this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][itog_price]*$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i]['count'];
+echo $this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i]['count'];
+?>
+</TD>
+<TD ALIGN="RIGHT"><?php echo number_format($this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][itog_price],2,'.',',') ?></TD>
+<TD ALIGN="RIGHT"><?php echo number_format($this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][itog_price]*$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i]['count'],2,'.',',') ?></TD>
+</TR>
+<?php }}} ?>
+<TR>
+<TD COLSPAN=4 ALIGN="RIGHT"><B>Итого:</B></TD>
+<TD COLSPAN=2 ALIGN="RIGHT"><B><?php echo number_format($sum,2,'.',',') ?> руб.</B></TD>
+</TR>
+<TR>
+<TD COLSPAN=4 ALIGN="RIGHT"><B>Скидка:</B></TD>
+<TD COLSPAN=2 ALIGN="RIGHT"><B><?php echo number_format($sum-$sum*(1+$this->params[data]['Buyer']['discount']/100),2,'.',',') ?> руб.</B></TD>
+</TR>
+<TR>
+<TD COLSPAN=4 ALIGN="RIGHT"><B>Итого со скидкой:</B></TD>
+<TD COLSPAN=2 ALIGN="RIGHT"><B><?php echo number_format($sum*(1+$this->params[data]['Buyer']['discount']/100),2,'.',',') ?> руб.</B></TD>
+</TR>
+</table>
+<p>
+	<i>
+		В случае некорректной закупки или предоставление <br>
+		неполной информации клиенту или поставщику материальную ответственность несет закупщик.<br>
+		Ответственным лицом по данной закупки является.<br>
+	</i>
+<br>
+	ФИО___________________ Подпись________________
+</p>
+<p>Сумма прописью: <?php echo ucfirst($this->controller->Semantic->num2str($sum*(1+$this->params[data]['Buyer']['discount']/100))); ?></p>
+<? endforeach;?>
+</body>
+</html>

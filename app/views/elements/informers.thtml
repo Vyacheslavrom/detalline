@@ -1,0 +1,15 @@
+
+<a href="http://prognoz-pogoda.com/russia-rostoff.html"><img src="http://prognoz-pogoda.com/images/i2/10.png" border="0" alt="Прогноз погоды в Ростове информер" title="Ростов погода информер" /></a><br>
+
+<script>
+document.write( '<a href="http://www.informer.ru/cgi-bin/redirect.cgi?id=3_1_1_19_43_1-0&url=http://www.rbc.ru&src_url=elections.gif" target="_blank"><img src="http://pics.rbc.ru/img/grinf/elections.gif?'+ Math.floor( 100000*Math.random() ) + '" WIDTH=120 HEIGHT="136" border=0></a>') ;
+</script>
+	
+<br><a href="http://www.rbc.ru/?informers" target="_blank" title="РБК" style="font-size:10px; text-align:right">РИА РБК</a><br />
+<script language=JavaScript
+src="http://pics.rbc.ru/js/top_last_topnews.js"></script>
+<script>
+<!--
+print_top_news(5,true);
+//-->
+</script>

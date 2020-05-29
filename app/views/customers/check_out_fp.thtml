@@ -1,0 +1,50 @@
+<h1>Авторизация</h1>
+<p>
+<TABLE WIDTH=100% CELLPADDING=3 CELLSPACING=0 BORDER=1>
+<TR><TD CLASS="txt" ALIGN="CENTER"><B>ЯВЛЯЕТЕСЬ ПОКУПАТЕЛЕМ</B></TD></TR>
+<TR><TD CLASS="txt" ALIGN="CENTER"><?=@$auth_msg?><FORM method="post" action="/check_out_signin.html" style="margin:0px;padding:0px;">
+
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0 WIDTH=100%>
+
+<TR class="specialth">
+<TD CLASS="txt" colspan="2" ALIGN="LEFT">Если у Вас уже есть аккаунт, войдите в него. Если вы забыли пароль, <a href="/check_out_fp.html">нажмите сюда</a></TD>
+</TR>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" width=40%>E-mail</TD>
+<TD CLASS="txt" ALIGN="LEFT"><INPUT TYPE="text" name="data[Customer][login]" value="Ваш email"  SIZE=30 CLASS="formfield" STYLE="width: 200px"></TD>
+</TR>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" VALIGN="TOP">Пароль</TD>
+<TD CLASS="txt" ALIGN="LEFT"><INPUT type="password" name="data[Customer][passw]" SIZE=30 CLASS="formfield" VALUE="" STYLE="width: 200px"></TD>
+</TR>
+<TR><TD CLASS="txt" align=center colspan=2><INPUT TYPE="submit" CLASS="button" value="След. шаг &gt;"></form></TD></TR>
+</TABLE>
+</TD></TR>	
+
+<TR><TD CLASS="txt" ALIGN="CENTER"><B>ЗАБЫЛИ ПАРОЛЬ?</B></TD></TR>
+<TR><TD CLASS="txt" ALIGN="CENTER"><? $session->flash(); ?>
+				
+<? if(!isset($sent)):?>
+<FORM method="post" action="/fogotten_password.html"  style="margin:0px;padding:0px;">
+<TABLE CELLPADDING=3 CELLSPACING=2 BORDER=0 WIDTH=100%>
+
+<TR class="specialth">
+<TD CLASS="txt" colspan=2 ALIGN="LEFT">Чтобы получить Ваш пароль по email, заполните, пожалуйста, следующее поле
+</TR>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" width=40%>E-mail</TD>
+<TD CLASS="txt"><INPUT TYPE="text" name="data[Customer][fp_email]" SIZE=30 CLASS="formfield" VALUE="" STYLE="width: 200px"></TD>
+</TR>
+<TR><TD CLASS="txt" align=center colspan=2><input type="button" value="&lt; Назад" onClick="history.back(-1);return false;"  class=button>
+<input type="submit" value="ОК" name="from_check_out"  class=button></form></TD></TR>
+</TABLE>
+</TD></TR>	
+
+<? else:?>
+Новый пароль выслан на Ваш почтовый ящик
+</TD></TR>
+<? endif;?>
+</TABLE>
+
+	
+      

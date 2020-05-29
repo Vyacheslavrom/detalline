@@ -1,0 +1,69 @@
+<div class="b-fon b-fon_bg_ADC3E5 b-fon_width_full">
+                <b class="b-fon__b1"></b>
+                <b class="b-fon__b2"></b>
+				<div class="b-fon__body b-fon__body_pad_0_6_10_0">
+					<div class="b-search">
+						<ul class="b-menu__list">
+							<li class="b-menu__item b-menu__item_first <?=($this->controller->params['url']['url']!='search.html' || $sess_search["tp"] == "numbers" ? 'b-menu__item_active' : '')?>"><a class="b-menu__link" id="search_by_number_link" href="javascript:void(null);">Поиск по номеру</a></li>
+							<!--<li class="b-menu__item <?=($this->controller->params['url']['url']=='search.html' && $sess_search["tp"] == "spareparts" ? 'b-menu__item_active' : '')?>"><a class="b-menu__link" href="javascript:void(null);" id="search_by_auto_link">Поиск по авто</a></li>-->
+							<li class="b-menu__item b-menu__item_last"><a class="b-menu__link" href="/zapros_zapchastei.html" style="color:#fcfd6b">Запрос запчастей</a></li>
+							<li class="b-menu__item b-menu__item_last"><a class="b-menu__search"> <?php if(!empty($search_num)){?> Ранее вы искали: <select onchange="$('#search_across').val(this.value);"><option></option><? foreach($search_num as $history_search) echo "<option>".$history_search['Search']['number']."</option>";?></select><?}?></a></li>
+						</ul>
+						<form id="form-search" class="b-fon__body_transparent" action="/search.html">
+							<input type=hidden name=tp value="<?=(($this->controller->params['url']['url']!='search.html' || $sess_search["tp"] == "numbers")  ? 'numbers' : 'spareparts')?>">
+							<table class="b-search__table" cellspacing="0" cellpadding="0" border="0">
+								<tbody>
+									<tr class="b-search__tr">
+										<td class="b-search__input">
+											<div class="b-input-hint <?=(($this->controller->params['url']['url']!='search.html' || $sess_search["tp"] == "numbers")  ? '' : 'b-search_hide')?>" id="search-by-number">
+												<label class="b-input-hint__label <?if(!empty($_SESSION["search"]["nums"])) echo "b-input-hint__label_hide";?>" for="search_across">Введите номер запчасти. Например, 33151S3VA11</label>
+												<div class="b-input b-input_height_23" id="body_search_across">
+													<input id="search_across" class="b-input__text" type="text" name="nums" autocomplete="off" value="<?=@$_SESSION["search"]["nums"]?>" />
+												</div>
+											</div>
+											<table width=100% cellpadding=0 cellspacing=0 border=0 class="<?=($this->controller->params['url']['url']=='search.html' && $sess_search["tp"] == "spareparts" ? '' : 'b-search_hide')?>"  id="search-by-auto">
+												<tr>
+													<td><select class="b-select" name=mark><option value=0>Выберите марку</option>
+													<? foreach($marks as $mark) { ?>
+													<option value="<?=($mark["Mark"]["id"])?>" <?=($sess_search["mark"]==$mark["Mark"]["id"] ? "selected=selected":"")?>><?=$mark["Mark"]["name"]?></option>
+													<? } ?>
+													</select></td>
+													<td><span id="models"><select class="b-select" name=model><option value=0>Выберите модель</option></select></span>
+													<script>
+														var markObj = document.getElementById("form-search").mark;
+														markObj.onchange = function() {choose_model(markObj.value, <?=$sess_search["model"]?$sess_search["model"]:0?>, $('#models'), document.getElementById('form-search').model);};
+														choose_model(markObj.value, <?=$sess_search["model"]?$sess_search["model"]:0?>, $('#models'), document.getElementById('form-search').model); 
+
+													$('#search_across').bind('keypress', function(e) {if(e.keyCode==13){ $('#search_button_orange').click();}});												
+													</script>
+													</td>
+													<td><select class="b-select" name="year"><option value=0>Выберите год</option><? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>"  <?=($sess_search["year"]==$i ? "selected=selected":"")?>><?=$i?></option>
+		<? endfor;?></select></td> 
+													<td>
+														<div class="b-input-hint">
+															<label class="b-input-hint__label <?=(!empty($sess_search["name"]) ? 'b-input-hint__label_hide':'')?>" for="search_across">Введите название запчасти</label>
+															<div class="b-input b-input_height_23" id="body_search_across">
+																<input id="search_across" class="b-input__text" type="text" autocomplete="off" name=name value="<?=$sess_search["name"]?>" />
+															</div>
+														</div>
+													</td>
+												</tr> 
+											</table>
+										</td>
+										<td class="b-search__button">
+											<a id="search_button_orange" class="button orange" href="/search.html" onclick=
+											"if(document.getElementById('form-search').mark.value==0 && document.getElementById('form-search').tp.value=='spareparts') alert('Выберите марку авто!'); else $('#form-search').submit(); return false;">Найти</a>
+										</td>
+									</tr>
+									<tr><td colspan=2 class="b-search__options">Сортировать <input type=radio name=sortBy value=days_shipping <?=($sess_search["sortBy"]!="price" ? "checked=checked":"")?>> По <strong>сроку</strong> доставки  <input type=radio name=sortBy value=price <?=($sess_search["sortBy"]=="price" ? "checked=checked":"")?>> По <strong>цене</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=checkbox name=exists <?=(!empty($sess_search["exists"]) ? "checked=true":"")?>> Только в наличии</td></tr>
+								</tbody>
+							</table>
+							<input type="hidden" name="action" value="search">						
+						</form>
+					</div>
+				</div>
+                <b class="b-fon__b2"></b>
+                <b class="b-fon__b1"></b>
+ </div>
+

@@ -1,0 +1,43 @@
+<?php 
+$where = explode('/',$_SERVER['REQUEST_URI']);
+if($where[3] == 'login?from=prices') { header("Location: /price.html");}
+?>
+<table width="100%" height="100%">
+<tr>
+<td align="center" valign="middle">
+
+	<form action="<?php echo $html->url('/users/login'); ?>" method="post">
+    <table cellpadding="4" cellspacing="1" border="0" class="forumline" width="150">
+	    <tr> 
+			  <th class="thHead"><b>Авторизация</b></th>
+		</tr>
+	  	<tr> 
+		<td class="row1">
+			<?if (@$auth_msg): ?>
+			<div style="color:blue;text-align:center;"><?=$auth_msg?></div>
+			<? endif; ?>
+			<table border="0" cellpadding="3" cellspacing="1" width="100%">
+				  <tr> 
+					<td class="row1">
+		          <span class="genmed">Имя пользователя:<br>
+		          <?php echo $html->input('User/username', array('size' => 25, 'class' => 'post')); ?>
+				  </span></td>
+				  </tr>
+				  <tr> 
+					<td> 
+					<span class="genmed">Пароль:<br>
+					<?php echo $html->password('User/password', array('size' => 14, 'class' => 'post')); ?>&nbsp;<?php echo $html->submit('Войти', array('class'=>'mainoption')); ?></span></td>
+				  </tr>
+				  <tr align="center"> 
+					<td></td>
+				  </tr>
+			</table>			
+		</td>
+	  </tr>
+	</table>
+	</form>
+
+
+</td>
+</tr>
+</table>

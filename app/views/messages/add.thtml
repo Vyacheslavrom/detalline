@@ -1,0 +1,35 @@
+<h1>Обратная связь</h1>
+<? if(!empty($sent)): ?>
+<p>
+Ваше сообщение успешно отправлено!  Наши администраторы рассмотрят его в течении 1-2 дней.
+<? else: ?>
+<? $session->flash()?>
+<p>
+Вы можете отправить нам письмо прямо сейчас, воспользовавшись следующей формой обратной связи:<br>
+Поля отмеченные *, являются обязательными для заполнения
+<p>
+<form action="/message.html" method="post">
+<TABLE CELLSPACING=5 BORDER=0 WIDTH=100%>
+<TR>
+<TD ALIGN="RIGHT">ФИО<sup><font color=red>*</font></sup>:</td><TD ALIGN="LEFT"><?php echo $html->input('Message/fio',array('style'=>'width:180px;'))?>
+<?php echo $html->tagErrorMsg('Message/fio', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+<TR>
+<TD ALIGN="RIGHT">Email<sup><font color=red>*</font></sup>:</td><TD ALIGN="LEFT"><?php echo $html->input('Message/email',array('style'=>'width:180px;'))?>
+<?php echo $html->tagErrorMsg('Message/email', '<font color=red><small>неверный email</small></font>')?></td></tr>
+<TR>
+<TD ALIGN="RIGHT" >Тема сообщения<sup><font color=red>*</font></sup>:</td><TD   ALIGN="LEFT"><?php echo $html->input('Message/subject',array('style'=>'width:180px;'))?>
+<?php echo $html->tagErrorMsg('Message/subject', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+<TR>
+<TD ALIGN="RIGHT" valign=top>Текст&nbsp;сообщения<sup><font color=red>*</font></sup>:&nbsp;</td><TD ALIGN="LEFT"><?php echo $html->textarea('Message/body',array('style'=>'width:180px;height:150px;'))?>
+<?php echo $html->tagErrorMsg('Message/body', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+<TR>
+<TD ALIGN="RIGHT"   valign=top>Введите защитный код<sup><font color=red>*</font></sup>:&nbsp;</td><TD   ALIGN="LEFT">
+<?=$html->input("Message/code", array('style'=>'width:100px;' ,'id'=>'code'));?> 
+<input type="hidden" name=data[Message][hash] value="<?=$tuning_hash?>"> <img src="<?=$tuning_url.'?'.time();?>" border="0" width="35" height="15" /> 
+<?php echo $html->tagErrorMsg('Message/code', '<font color=red><small>введите правильный код</small></font>')?></td></tr>
+<TR>
+<TD ALIGN="RIGHT"></TD>
+<TD ALIGN="LEFT"><input type=submit value=Отправить class="button"> <input type=reset value=Очистить class="button"></td></tr>
+</table>
+</form>
+<? endif; ?>

@@ -1,0 +1,44 @@
+<h1>Добавить/редактировать модификацию модели "<?=$model['Model']['name']?>"</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+
+<form method="post" action="/admin/model_modifications/add" enctype="multipart/form-data">
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры модификации</th>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Наименование:</td>
+			<td class="row2" width="50%">
+				<?=$html->input('ModelModification/name')?><br><small>Допускаются латинские буквы, цифры, круглые скобки, пробелы и знак -</small>
+				<?php echo $html->tagErrorMsg('ModelModification/name', '<small>обязательное поле, проверьте правильность заполнения</small>')?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Год начала выпуска (min):</td>
+			<td class="row2" width="50%">
+				<select name=data[ModelModification][year_min] id=ModelModificationYearMin><option value="novalue">= выберите год =</option>
+				<? for($i=date('Y');$i>=1980;$i--) echo '<option value="'.$i.'" '.($this->params['data']['ModelModification']['year_min']==$i?'selected':'').'>'.$i.'</option>';?>
+				</select>
+				<?php echo $html->tagErrorMsg('ModelModification/year_min', '<small>обязательное поле</small>')?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Год начала выпуска (max):</td>
+			<td class="row2" width="50%">
+				<select name=data[ModelModification][year_max] id=ModelModificationYearMin><option value="novalue">= выберите год =</option>
+				<? for($i=date('Y');$i>=1980;$i--) echo '<option value="'.$i.'" '.($this->params['data']['ModelModification']['year_max']==$i?'selected':'').'>'.$i.'</option>';?>
+				</select>
+				<?php echo $html->tagErrorMsg('ModelModification/year_max', '<small>обязательное поле</small>')?>
+			</td>
+		</tr>
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+		  <?=$html->hidden('ModelModification/model_id')?>
+		  <?=$html->hidden('ModelModification/id')?>
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+

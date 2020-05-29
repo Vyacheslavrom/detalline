@@ -1,0 +1,142 @@
+<form method="post" enctype="multipart/form-data">
+<?php foreach ($data as $row_s): ?>
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры загрузчика прайса</th>
+		</tr>
+		<tr> 
+			<td class="row1">Номер прайса:</td>
+			<td class="row2">
+				<?=$row_s['Price']['id']?>
+			</td>
+		</tr>
+		 <tr> 
+			<td class="row1">Наименование прайса:</td>
+			<td class="row2">
+				<input type="text" name="name" value="<?=$row_s['Price']['name']?>" style="width:400px">
+			</td>
+		</tr>
+               <tr> 
+			<td class="row1">Параметры:</td>
+			<td class="row2">
+				<? foreach($price_params as $param) :?>
+				<div style="float:left"><select name="param<?=$param['PriceParamName']['id']?>_id" size="1">
+				<option value="">= Выберите <?=$param['PriceParamName']['name']?> =</option>
+					  <?foreach($param['PriceParamValue'] as $value) {
+					  
+					   if($value['id']==@$row_s['Price']['param'.$param['PriceParamName']['id'].'_id'])
+						 echo "<option value='".$value['id']."' selected>".$value['name']."</option>";
+					   else
+					    echo "<option value='".$value['id']."'>".$value['name']."</option>";
+						}
+					 	?>
+					  </select>
+				<? endforeach; ?><br style="clear:both;">
+			</td>
+		</tr>
+		<tr> 
+			<td class="row2" colspan=2>
+				<div style="float:left">
+				<br>Производитель:<br>
+				<select name="manufacturer">
+				<option value='0'>Столбец CSV</option>
+				<?foreach($manufacturers as $row) {
+					  
+					   if($row['Manufacturer']['name'] === @$row_s['Price']['manufacturer_csv'])
+						 echo "<option value='".$row['Manufacturer']['name']."' selected>".$row['Manufacturer']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Manufacturer']['name']."'>".$row['Manufacturer']['name']."</option>";
+						}
+					 	?>
+				</select><br>
+				Номер столбца:<br><input type="text" name="manufacturer_csv" value="<?=is_numeric($row_s['Price']['manufacturer_csv'])? $row_s['Price']['manufacturer_csv'] : '';?>" style="width:100px">
+			    </div>
+				
+				<div style="float:left">
+				Номер<br>производителя:<br><input type="text" name="manuf_number_csv" value="<?=$row_s['Price']['manuf_number_csv']?>" style="width:100px">
+				</div>
+			    	
+				<div style="float:left">
+				Наименование<br>запчасти:<br><input type="text" name="name_csv" value="<?=$row_s['Price']['name_csv']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Цена:<br><input type="text" name="price_csv" value="<?=$row_s['Price']['price_csv']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Количество:<br><input type="text" name="quantity_csv" value="<?=$row_s['Price']['quantity_csv']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				Доставка<br>(мин. дней):<br><input type="text" name="days_shipping_min" value="<?=$row_s['Price']['days_shipping_min']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				Доставка<br>(гарант. дней):<br><input type="text" name="days_shipping_garant" value="<?=$row_s['Price']['days_shipping_garant']?>" style="width:100px">
+				</div>
+				<br style="clear:both;">
+				<div style="float:left">
+				<br>Марка и модель<br><input type="text" name="mark_and_model" value="<?=$row_s['Price']['mark_and_model']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Артикуль<br><input type="text" name="articul" value="<?=$row_s['Price']['articul']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Описание<br><input type="text" name="" value="<?=$row_s['Price']['description']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Примечание<br><input type="text" name="" value="<?=$row_s['Price']['note']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Год1<br><input type="text" name="year1" value="<?=$row_s['Price']['year1']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Год2<br><input type="text" name="year2" value="<?=$row_s['Price']['year2']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Номер<br><input type="text" name="number" value="<?=$row_s['Price']['number']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				Начать <br>после строки:<br><input type="text" name="row" value="<?=$row_s['Price']['row']?>" style="width:100px">
+				</div>
+				
+				<div style="float:left">
+				Оптовая<br>наценка, чел.<br><input type="text" name="wholesale_price_pers" value="<?=$row_s['Price']['wholesale_price_pers']?>" style="width:100px">
+				</div>
+				
+				<br style="clear:both;">
+				<div style="float:left">
+				<br>Марка кросса<br><input type="text" name="mark" value="<?=$row_s['Price']['mark']?>" style="width:100px">
+				</div>
+				<div style="float:left">
+				<br>Номер кросса<br><input type="text" name="number_cross" value="<?=$row_s['Price']['number_cross']?>" style="width:100px">
+				</div>
+				
+				
+			</td>
+		</tr>
+		<tr>
+			<td class="row2" colspan="2" border=1>
+			<a style="cursor: pointer;" onclick="$('#instruction').css('display')=='none'? $('#instruction').show() : $('#instruction').hide();">Инструкция</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="row2" colspan="2" id="instruction" style="display:none;">
+			Заполните поля указав соответствующий им номер столбца из файла, счет начинается с 0.
+			<br>
+			Если вы выбрали во втором параметре "По номерам", то достаточно заполнить только: <u>Производитель/Номер столбца</u>, <u>Номер производителя</u>,<u> Наименование запчасти</u>, <u>Цена</u>, <u>Наценка</u>, <u>Колличество</u>, <u>Доставка(мин.дней)</u>, <u>Доставка(макс.дней)</u>, а все остальные оставить пустыми или поставить 0.
+			<br>
+			Если вы выбрали во втором параметре "В каталог", то нужно еще заполнить: <u>Марка и модель</u>, <u>Артикуль</u>, <u>Описание</u>, <u>Примечание</u>, <u>Год1</u>, <u>Год2</u>, <u>Номер</u>, <u>Оптовая наценка в %</u>, <u>Начать после строки</u>, <u>Оптовая наценка чел.</u> Если в прайс-документе, откуда берутся данные, нету какого-либо поля, укажите в нем значение 99. 
+			<br>
+			<b>Важно:</b> если отсутствует поля под второй год, и он находиться в том же поле что и первый, но требует форматирование этого поля, то в поле <u>Год2</u> указать способ форматирование, а в поле <u>Год1</u> указать откуда брать данные для форматирования. Пример: год находиться между символами "(","-",")" а именно <i>Audi A4 (04-08)</i>, то и нужно указать через запятую эти символы (Пример ввода: "(,-,)").
+			<br>
+			<b>Важно:</b> поле <u>Начать после строки</u> показывает программе после какой строки начинать экспорт из файла, если вам нужно чтобы данные брались с самого начала - укажите 0.
+			<br>
+			Если вы выбрали во втором параметре "В каталог" и в пятом "Кросс-прайс", то нужно еще заполнить: <u>Марка кросса</u>, <u>Номер кросса</u>.
+			</td>
+		</tr>
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>
+<?php endforeach; ?>
+</form>

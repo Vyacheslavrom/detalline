@@ -1,0 +1,90 @@
+<?php
+if(count($subs)) header("Location:");
+foreach($subs as $sub) {$i=0; while($i<23){ $i++;$row[$i]= $sub['ResolutionUser']['sub'.$i];}};
+?>
+					<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline">
+					<tr> 
+					  <th height="25" class="thHead"><b>Админка</b></th>
+					</tr>
+					<tr <?=$row[1]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/products/edit'>Новая запчасть</a></span></td>
+					</tr>					
+					<tr <?=$row[2]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/products/'>Запчасти</a></span></td>
+					</tr>
+					<tr <?=$row[3]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/prices/'>Прайсы</a></span></td>
+					</tr>
+					<tr <?=$row[4]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/customers/'>Покупатели</a></span></td>
+					</tr>
+					<tr <?=$row[5]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/orders/'>Заказы</a></span></td>
+					</tr>
+					<tr <?=$row[6]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/messages/'>Сообщения</a></span></td>
+					</tr>
+					<tr <?=$row[7]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/articles/?site_id=1'>Информация (sm-jm.ru)</a></span></td>
+					</tr>
+                    <tr <?=$row[8]? '':'style="display:none"'?>>  
+					  <td class="row1"><span class="genmed"><a href='/admin/articles/?site_id=2'>Информация (ugparts.ru)</a></span></td>
+					</tr>
+					<tr <?=$row[9]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/adverts/'>Реклама  (ugparts.ru)</a></span></td>
+					</tr>
+					<tr <?=$row[10]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/polls/'>Опросы</a></span></td>
+					</tr>
+					<tr <?=$row[11]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/admin/?del_sessions'>Очистить сессии пользователей</a></span></td>
+					</tr>
+					<tr <?=$row[12]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href='/' target="_blank">Сайт</a></span></td>
+					</tr>
+					<tr <?=$row[13]? '':'style="display:none"'?>> 
+					  <td class="row1"><span class="genmed"><a href="/admin/users/logout">Выход</a></span></td>
+					</tr>
+					<tr> 
+					  <th height="25" class="thHead"><b>Справочники</b></th>
+					</tr>
+					<tr <?=$row[14]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/marks/'>Марки</a></span></td>
+					</tr>
+					<tr <?=$row[15]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/models/'>Модели</a></span></td>
+					</tr>
+					<tr <?=$row[16]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/subcategories/'>Подкатегории</a></span></td>
+					</tr>
+					<tr <?=$row[17]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/payments/'>Способы оплаты</a></span></td>
+					</tr>	
+					<tr <?=$row[18]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/manufacturers/'>Производители</a></span></td>
+					</tr>		
+					<tr> 
+					  <th height="25" class="thHead"><b>Бухгалтерия</b></th>
+					</tr>
+					<tr <?=$row[19]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/movements/'>Баланс</a></span></td>
+					</tr>
+					<tr <?=$row[22]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/movements/credentials'>Учредительные данные</a></span></td>
+					</tr>
+					<tr> 
+					  <th height="25" class="thHead"><b>Склад</b></th>
+					</tr>
+					<tr <?=$row[20]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/storages/'>Склады</a></span></td>
+					</tr>
+					<tr> 
+					  <th height="25" class="thHead"><b>Админская</b></th>
+					</tr>
+					<tr <?=$row[21]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/users/'>Пользователи</a></span></td>
+					</tr>			
+					<tr <?=$row[22]? '':'style="display:none"'?>> 
+						<td class="row1"><span class="genmed"><a href='/admin/contact/'>Редактор</a></span></td>
+					</tr>
+				  </table>

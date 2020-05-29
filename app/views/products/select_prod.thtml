@@ -1,0 +1,247 @@
+<script>
+function select_prod(name, number, price, description, dt, bu, price_id, buy)
+{
+	window.opener.document.getElementById('dataRequestAnswerName_<?=$_GET["j"]?>_<?=$_GET["i"]?>').value = name;
+	window.opener.document.getElementById('dataRequestAnswerNumber_<?=$_GET["j"]?>_<?=$_GET["i"]?>').value = number;
+	window.opener.document.getElementById('dataRequestAnswerPrice_<?=$_GET["j"]?>_<?=$_GET["i"]?>').value = price;
+	window.opener.document.getElementById('dataRequestAnswerDescription_<?=$_GET["j"]?>_<?=$_GET["i"]?>').value = description;
+	window.opener.document.getElementById('dataRequestAnswerDeliveryTerm_<?=$_GET["j"]?>_<?=$_GET["i"]?>').value = dt;
+	window.opener.document.getElementById('dataRequestAnswerState_<?=$_GET["j"]?>_<?=$_GET["i"]?>').selectedIndex = 1+bu;
+	window.opener.document.getElementById('dataRequestPriceId_<?=$_GET["j"]?>_<?=$_GET["i"]?>').value = price_id;
+	if(buy!=1) window.opener.document.getElementById('en').value = 1;
+	else window.close();
+}
+
+function select_prod_for_prod_edit(mark_and_model, name, number, yr1, yr2, price, articul, description, bu)
+{
+	window.opener.document.getElementById('spareform').mm[1].checked = true;
+	window.opener.document.getElementById('ProductMarkAndModel').value = mark_and_model;
+	window.opener.document.getElementById('ProductMarkAndModel').disabled = false;
+	window.opener.document.getElementById('ProductMark').disabled = true;
+	window.opener.document.getElementById('spareform').model.disabled = true;
+	window.opener.document.getElementById('ProductName').value = name;
+	window.opener.document.getElementById('ProductNumber').value = number;
+	window.opener.document.getElementById('ProductArticul').value = articul;
+	window.opener.document.getElementById('ProductYear1').value = yr1;
+	window.opener.document.getElementById('ProductYear2').value = yr2;
+	window.opener.document.getElementById('ProductDescription').value = description;
+	window.opener.document.getElementById('ProductBu').checked = bu == 1 ? true : false;
+	window.opener.document.getElementById('ProductPrice').value = price;
+	window.close();
+}
+$(window).bind("load", function() {
+if(window.opener.document.getElementById('en').value==1) {window.opener.document.getElementById('en').value='';window.close();}
+});
+</script>
+<h1>Выбор запчасти</h1>
+<form method="get" action="/select_prod.html" name="sparepartsform" id="sparepartsform">
+<?if(isset($_GET['prod_edit'])) :?>
+<input type=hidden name=prod_edit value="">
+<? else:?>
+<input type=hidden name=i value="<?=$_GET['i']?>"><input type=hidden name=j value="<?=$_GET['j']?>"><input type=hidden name=z value="<?=$_GET['z']?>"><input type=hidden name=end value="<?=$_GET['end']?>">
+<? endif;?>
+<table width=100%>
+<tr>
+<td valign=top width=50%>
+										<ul>
+	                                         <li>Марка авто: <select id="select_mark" name=mark ><? foreach($marks as $mark) { ?>
+		<option value="<?=($mark["Mark"]["id"])?>" <?=($sess_search["mark"]==$mark["Mark"]["id"] ? "selected=selected":"")?>><?=$mark["Mark"]["name"]?></option>
+		<? } ?></select></li>
+			                                 <li>Модель авто: <span id="models"><select name=model id="select_model"><option value=0>= Выберите модель авто =</option></select></span>
+											 <script>
+											 document.getElementById('select_mark').value=window.opener.document.getElementById('request_mark').value;
+                                                                                           var markObj = document.getElementById("sparepartsform").mark;
+                                                                                           markObj.onchange = function() {choose_model(markObj.value, <?=$sess_search["model"]?$sess_search["model"]:0?>, $('#models'), document.getElementById('sparepartsform').model);};
+											    choose_model(markObj.value, <?=$sess_search["model"]?$sess_search["model"]:0?>, $('#models'), document.getElementById('sparepartsform').model);  
+								
+											   </script>
+											 </li>
+										     <li>Год: <select id="select_year" name=year><option value=0>---</option><? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>"  <?=($sess_search["year"]==$i ? "selected=selected":"")?>><?=$i?></option>
+		<? endfor;?></select></li>
+										    <li>Категория:<select name=cat>
+											<option value=any>Новые и Б/У</option><option value=new <?=($sess_search["cat"]=="new" ? "selected=selected":"")?>>Новые</option><option value=bu <?=($sess_search["cat"]=="bu" ? "selected=selected":"")?>>Б/У</option>
+											</select></li>
+										    <li>Название запчасти: <input type=text name=name style="width:155px;" value="<?=$sess_search["name"]?>" id="tests"><br><small>не более 1го слова</small></li>
+											<li><input type="submit"  class="button" value="ИСКАТЬ ЗАПЧАСТИ" name="search_prod"></li>
+	                                    <ul>
+	                                </td><td valign=top>
+										<ul>
+	                                        <li >Цена:<br />
+от <input type=text name=prc1 style="width:50px;" value="<?=$sess_search["prc1"]?>"> до <input type=text name=prc2 style="width:50px;" value="<?=$sess_search["prc2"]?>"> руб.</li>
+			                                <li>Срок доставки:<br />
+от <input type=text name=tm1 style="width:50px;" value="<?=$sess_search["tm1"]?>"> до <input type=text name=tm2 style="width:50px;" value="<?=$sess_search["tm2"]?>"> дн.</li>
+										    <li>Сортировка:<br /><select name=sortBy>
+                <option value="days_shipping" <?=($sess_search["sortBy"]=="days_shipping" ? "selected=selected":"")?>>по сроку доставки</option>
+		<option value="price" <?=($sess_search["sortBy"]=="price" ? "selected=selected":"")?>>по цене</option>
+		</select></li>
+										    <li><input type=checkbox name=exists <?=(!empty($sess_search["exists"]) ? "checked=true":"")?>> только в наличии</li>
+										<ul>
+</td></tr></table>
+								
+
+<hr style="border: none;background-color: black;height: 2px;">
+								
+<ul>								
+	<li>Номер запчасти: <input type=text name=number style="width:155px;" value="<?=$sess_search["number"]?>"><br></li>
+	<li><input type="submit"  class="button" value="ИСКАТЬ ПО НОМЕРУ" name="search_prod_number"></li>
+</ul>
+								</form>
+<?php 
+while($nproduct = mysql_fetch_array($nproducts)) :
+$t++;
+?>
+<ul class=spisok>
+<li><h2><?=$nproduct['name']?>  на заказ</h2>
+<table>
+	<tr>
+		<th class="t02">Оригинал.<br>номер: </th>
+		<th class="t03" title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">Года<br>выпуска: </th>
+		<th class="t04" title="Указан средний и гарантированный срок поставки запасти">Доставка:</th>
+		<th class="t05">Цена:</th>
+		<td class="t06" rowspan=2 >
+		<input type=button value="выбрать" onclick="select_prod('<?=$nproduct['name']?>', '<?=$nproduct['manuf_number']?>', '<?=$nproduct['price']?>','На заказ','<?=$nproduct['shipping_info']?>',2,<?=$nproduct['price_id']?>,1)">
+		<br>
+		<div class="zakaz" style="display:none;">
+		<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+			<input name="add_from_search_by_num" value="<?=$nproduct['id']?>" type="hidden">
+			<a class="button grey" href="/cart.html" onclick="select_prod('<?=$nproduct['name']?>', '<?=$nproduct['manuf_number']?>', '<?=$nproduct['price']?>','На заказ','<?=$nproduct['shipping_info']?>',2,<?=$nproduct['price_id']?>,'');$(this).parent('.form-cart').submit(); return false;">в корзину</a>
+		</FORM>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td><?=$nproduct['manuf_number']?></td>
+		<td title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">На заказ</td>
+		<td title="Указан средний и гарантированный срок поставки запасти"><?=$nproduct['shipping_info']?></td>
+		<td class="t05"><?=$nproduct['price']?> руб.</td>
+	</tr>
+</table>
+</li>
+		</ul>
+<?
+endwhile; 
+?>
+<? if($tp != 'numbers') {
+
+$who_check=2;
+$can_search=0;
+$statuses = mysql_query('SELECT * FROM visible_searches');
+while($status = mysql_fetch_array($statuses)){
+
+	if($status[0] == 1 && $status[1] == 0)
+		$who_check = 3;
+	
+	if($who_check == $status[0])
+		$can_search = $status[1];
+
+}
+if($can_search==2 || $can_search==1){
+		$can_go=true;
+		if($can_search==1 && !$this->controller->logged)
+			$can_go=false;
+			
+		if($can_go==true){
+		try {
+			$client = new SoapClient("http://www.avtoto.ru/services/search/soap.wsdl", 
+			array('soap_version' => SOAP_1_1));
+			
+			
+			// Параметры запроса
+			$params = array(
+				'user_id' => 33593,
+				'user_login' => 'detalline',
+				'user_password' => 'cvbnmx1',	
+				'search_code' => $num,
+				'search_cross' => 'on'
+			);
+
+			// Поиск
+			if(round($all_count*0.195)<=$buy_count)
+			$result = $client->SearchParts($params);
+		} catch(Exception $e) {
+		
+		}}}
+		
+		// Обработка результата
+		$avtoto = array();
+		$avtoto_crosses = array();
+		if (isset($result['Parts']) && count($result['Parts'])>0) {
+			foreach($result['Parts'] as $element) {
+				if($element['Code'] == $num)
+					$avtoto[] = $element;
+				else
+					$avtoto_crosses[] = $element;
+			}
+		}
+}
+?>
+
+<? foreach($avtoto as $element) {
+$price = ceil($element['Price']*1.3);
+?>
+<ul class=spisok>
+<li><h2><?=iconv('UTF-8','WINDOWS-1251',$element['Name'])?>  на заказ</h2>
+<table>
+<tr>
+<th class="t02">Оригинал.<br>номер: </th>
+<th class="t03" title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">Года<br>выпуска: </th>
+<th class="t04" title="Указан средний и гарантированный срок поставки запасти">Доставка:</th>
+<th class="t05">Цена:</th>
+</tr>
+<tr class="">
+<td><a href="/search.html?tp=numbers&nums=<?=$element['Code']?>&sortBy=days_shipping&action=search"><?=$element['Code']?></a></td>
+<td><br style="clear:both;"><?=date('d.m.Y')?></td>
+<td title="Указан средний и гарантированный срок поставки запасти"><?=$element['Delivery']?> дн.</td>
+<td class="cost"><?=$price*(1+$skidka/100)?> руб.</td>
+<td class="date">
+<input type=button value="выбрать" onclick="select_prod('<?=$element['Name']?>', '<?=$element['Code']?>', '<?=$element['Price']?>', 'На заказ','<?=$element['Delivery']?>',2,0,1)">
+<div class="zakaz" style="display:none">
+<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+<input name="add_from_avtoto" value="<?=(time()*1000 + $element['AvtotoData']['PartId'])?>" type="hidden">
+<input name="name" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Name'])?>" type="hidden">
+<input name="code" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Code'])?>" type="hidden">
+<input name="manuf" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Manuf'])?>" type="hidden">
+<input name="price" value="<?=$price?>" type="hidden">
+<input name="Price" value="<?=$element['Price']?>" type="hidden">
+<input name="Storage" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Storage'])?>" type="hidden">
+<input name="Delivery" value="<?=$element['Delivery']?>" type="hidden">
+<input name="BaseCount" value="<?=$element['BaseCount']?>" type="hidden">
+<input name="SearchID" value="<?=$searchID?>" type="hidden">
+<input name="price_id" value="29" type="hidden">
+<input name="skolko" maxlength="4" value="<?=$element['BaseCount']?>" type="hidden"> 
+<a class="button grey" href="/cart.html" onclick="select_prod('<?=$element['Name']?>', '<?=$element['Code']?>', '<?=$element['Price']?>', 'На заказ','<?=$element['Delivery']?>',2,0,'');$(this).parent('.form-cart').submit(); return false;">в корзину</a>
+</FORM>
+</div>
+</td>
+</tr>
+</table>
+</li>
+		</ul>
+<?
+}
+?>
+					
+<? if(isset($products)) :?>
+<? if(count($products)>0) :?>
+
+<? echo $this->renderElement("select_product_list"); ?>
+
+<? else: if($t<1):?>
+<center>По Вашему запросу ничего не найдено</center>
+<? endif; ?>
+<? endif; ?>
+<? endif; ?>
+<script>
+document.getElementById('select_year').value=window.opener.document.getElementById('request_year').value;
+
+selectList = window.opener.document.forms["requestform"].elements["model"];
+selectedIndex = selectList.selectedIndex;
+value = selectList.options[selectedIndex].value;
+
+$(document).bind("ajaxComplete",function(){
+document.getElementById('select_model').value=value;
+});
+
+if('<?=$_GET['z']?>'!='') $('.zakaz').show();
+</script>

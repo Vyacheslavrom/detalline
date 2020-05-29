@@ -1,0 +1,11 @@
+<form method="get" action="/search.html" name="numbersform">
+<input type=hidden name=tp value=numbers>
+<div class="search">
+	<div class="search-column">
+		<ul>
+	        <li>Введите номер(а) запчастей через пробел:<br>
+				<textarea name=nums style="width: 300px; height:80px;"><?=@$_SESSION["search"]["nums"]?></textarea><br><small>например: 33151S3VA11 51111888265</small></li>
+			<li><input class="button"  type="submit" value="ИСКАТЬ ЗАПЧАСТИ"></li>
+	</div>
+</div>
+</form>

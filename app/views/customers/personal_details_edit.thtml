@@ -1,0 +1,158 @@
+<h1>Настройки аккаунта</h1>
+<? $session->flash()?>				
+<form action="/personal_details.html" method="post" id="personalform">
+<CENTER>
+<TABLE CELLSPACING=5 BORDER=0>
+<TR class="specialth">
+	<TD CLASS="txt" colspan=2>Поля отмеченные *, являются обязательными для заполнения</TD>
+	</TR>
+	<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">ОБЩЕЕ</TH></TR>
+	<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt" WIDTH=40%>Фамилия<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/lname',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/lname', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Имя<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/fname',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/fname', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Отчество<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/otch',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/otch', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">E-mail<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><b><?php echo $this->params['data']['Customer']['email']?></b></TD></TR>
+
+	<TR bgcolor=#999999><TH COLSPAN=2 class="txt">ВАШ АДРЕС</TH></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Область<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT">	
+	<select name="data[Customer][region_id]" style="width:200px;" class="formfield" id="reg2">
+<? foreach($regions as $row):?>
+	<option value="<?=$row['Region']['id']?>" <?=($this->params['data'][Customer][region_id]==$row['Region']['id']?"selected=selected":"")?>><?=$row['Region']['name']?></option>
+<? endforeach; ?>
+</select></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Город<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT">
+	<span id="request_cities"><select name="city" id="request_city"><option value="">---</option></select></span>
+<?php if(is_numeric($this->params['data']['Customer']['city'])==false){$city_in=$this->params['data']['Customer']['city'];$city_req=0;}else{$city_in='1r6d1';$city_req=$this->params['data']['Customer']['city'];} ?>
+<span style="display:none" id="cities_new"><?php echo $html->input('Customer/city',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30', 'id'=>'cit', 'value'=>$city_in))?>
+<?php echo $html->tagErrorMsg('Customer/city', '<font color=red><small>обязательное поле</small></font>')?></span>
+не нашли свой?<input type="checkbox" id="newcity"></TD></TR>
+<script>
+var markObj2 = $('#reg2');
+markObj2.change( function() {choose_cities(markObj2.val(), 0, $('#request_cities'), document.getElementById('personalform').city);});
+choose_cities(markObj2.val(), <?=($city_req? $city_req : 0)?>, $('#request_cities'),document.getElementById('personalform').city);
+$('#newcity').click(function(){$('#newcity').prop("checked")? ($('#request_cities').hide(),$('#cit').val(''),$('#cities_new').show()):($('#request_cities').show(),$('#cit').val('1r6d1'),$('#cities_new').hide());});
+<?=$city_in=='1r6d1'? '': '$("#newcity").prop( "checked", true );$("#request_cities").hide();$("#cities_new").show()'?>
+</script>
+</TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Индекс<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/zipcode',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/zipcode', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес (улица, номер..)<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/address1',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/address1', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес (квартира, код..):</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/address2',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Дом. телефон:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/hphone',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Моб. телефон:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $html->input('Customer/mphone',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<tr class="specialth"><td class="txt" colspan=2 align="LEFT"><b><input type=checkbox name="jur_lico" <?=(!empty($this->params[data][Customer][organization]) || isset($_POST[jur_lico]) ? "checked":"")?> onclick="if(this.checked) $('#jur_lico').css({'display':'table'}); else $('#jur_lico').css({'display':'none'});"> Юридическое лицо</b>
+</TABLE>
+<TABLE CELLSPACING=5 BORDER=0 id="jur_lico" style="display:<?=(!empty($this->params[data][Customer][organization]) || isset($_POST[jur_lico]) ? "table":"none")?>">
+	<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">ЮРИДИЧЕСКОЕ ЛИЦО</TH></TR>
+	<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt" WIDTH=40%>Название организации<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/organization',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/organization', '<font color=red><small>обязательное поле</small></font>')?>
+</TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Юр. адрес<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/jur_address',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/jur_address', '<font color=red><small>обязательное поле</small></font>')?>
+	</TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">ИНН<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/inn',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/inn', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">КПП:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/kpp',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">ОГРН<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/ogrn',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/ogrn', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Наименование банка<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/bank',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/bank', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес банка<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/bank_address',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/bank_address', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">БИК<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/bik',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/bik', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Корр. счет<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/corr_schet',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/corr_schet', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Расчетный счет<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/raschet_shet',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+	<?php echo $html->tagErrorMsg('Customer/raschet_shet', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+</TABLE>
+<TABLE CELLSPACING=5 BORDER=0>
+<?if($this->controller->othAuth->group('id') == 4 || $this->controller->othAuth->group('id') == 5) :?>
+<TR bgcolor=#999999><TH COLSPAN=2 class="txt">МАРКИ АВТО, запчастями на которые вы занимаетесь</TH></TR>
+<TR class="specialth">
+	<TD CLASS="txt" ALIGN="LEFT" colspan=2>
+<?php echo $html->tagErrorMsg('Customer/marks', '<font color=red><small>выберите хотя бы одну марку авто</small></font>')?>
+	<table width=100%>
+<tr>
+<td valign=top width=30%>
+<? 
+$customer_marks = explode(",",$this->params['data']['Customer']['marks']);
+
+for($i=0;$i<floor(count($marks)/3);$i++) {
+echo '<input type=checkbox name="chk_mark_'.$marks[$i]['Mark']['id'].'" '.(in_array($marks[$i]['Mark']['id'],$customer_marks) ? 'checked=checked':'').'> '.$marks[$i]['Mark']['name'].'<br>';
+}
+?>
+</td>
+<td  valign=top width=30%>
+<? 
+for($i=floor(count($marks)/3);$i<floor(count($marks)/3*2);$i++) {
+echo '<input type=checkbox name="chk_mark_'.$marks[$i]['Mark']['id'].'" '.(in_array($marks[$i]['Mark']['id'],$customer_marks) ? 'checked=checked':'').'> '.$marks[$i]['Mark']['name'].'<br>';
+}
+?>
+</td>
+<td  valign=top width=30%>
+<? 
+for($i=floor(count($marks)/3*2);$i<count($marks);$i++) {
+echo '<input type=checkbox name="chk_mark_'.$marks[$i]['Mark']['id'].'" '.(in_array($marks[$i]['Mark']['id'],$customer_marks) ? 'checked=checked':'').'> '.$marks[$i]['Mark']['name'].'<br>';
+}
+?>
+</td>
+</table>
+
+	</TD></TR>
+	<? endif;?>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" COLSPAN=1><INPUT TYPE="submit" CLASS="button" VALUE="Сохранить"></TD>
+<TD CLASS="txt" COLSPAN=1  ALIGN="LEFT"><INPUT type="button" value="Отмена" name=cancel onclick=window.location.href="/personal_details.html" CLASS="button"></TD>
+</TR>
+</TABLE>
+</CENTER>
+</form>
+

@@ -1,0 +1,76 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<?php foreach($credentials as $row_cel):?>
+<b><?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?>
+<table cellpadding=0 cellspacing=0 border=0 width=100%><tr>
+<td width=50%>ИНН: <?=$row_cel['Credential']['inn']?></td>
+<td width=50%>Товарная накладная № <?php echo $data['Order']['check_number'] ? $data['Order']['pre_number'].$data['Order']['check_number'] : $data['Order']['id']; ?></td>
+</tr><tr>
+<td width=50%>ОГРН: <?=$row_cel['Credential']['ogrn']?></td>
+<td width=50%><?=date("d.m.Y",strtotime($data["Order"]["created"]))?> года</td>
+</tr></table>
+<?=$row_cel['Credential']['jadress']?></b>            
+</b>
+<p>т. 863 260-17-29</p>
+<br>
+<table cellpadding=3 cellspacing=0 border=1 width=100%>
+<Tr BGCOLOR="#EEEEEE">
+<TH>№</TH>
+<TH>Наименование / Производитель</TH>
+<TH>Кол-во товара</TH>
+<TH>Цена, руб.</TH>
+<TH>Сумма, руб.</TH>
+</TR>
+<?php 
+
+		$number = 0;
+		$sum = 0;
+ $main_col = 'count';
+                foreach ($data['OrderProduct'] as $prod) { 
+                      if($prod['status1']>0)
+                             $main_col = 'status1';
+                      
+                }
+
+		foreach ($data['OrderProduct'] as $prod) { 
+$main_count = $prod[$main_col];
+if($main_count == 0) continue;
+		?>
+<TR>
+<TD ALIGN="RIGHT"><?php echo (++$number); ?></TD>
+<TD><B><?=$prod['name']?><?=($prod['manufacturer']? ' / '.$prod['manufacturer']:'')?></B></TD>
+<TD ALIGN="RIGHT">
+<? 		
+			
+			$sum += $prod['price']*$main_count;
+			echo $main_count; ?>
+</TD>
+<TD ALIGN="RIGHT"><?php echo number_format($prod['price'],2,'.',',') ?></TD>
+<TD ALIGN="RIGHT"><?php echo number_format($prod['price']*$main_count,2,'.',',') ?></TD>
+</TR>
+<?php } ?>
+<TR>
+<TD COLSPAN=3 ALIGN="RIGHT"><B>Итого:</B></TD>
+<TD COLSPAN=2 ALIGN="RIGHT"><B><?php echo number_format($sum*(1+$data['Order']['skidka']/100),2,'.',',') ?> руб.</B></TD>
+</TR>
+</table>
+<p><i>Внимание!<br>
+Отказ возможен на любой стадии заказа, организация не несет материальную отвественность за причиненные убытки.<br>
+Гарантия на новые запчасти составляет 14 календарных дней. При установке запчасти не авторизированным <br>
+сервисным центром гарантия на запчасть не распространяется. Б.У. Запчасти обмену и возврату не подлежат.<br>
+На БУ агрегаты дается 5дней на установку и проверку работоспособности агрегата(двигатель, КПП), по окончанию<br>
+5-ти дней претензии не принимаются. Срок поставки Б.У. запчастей до 21го рабочего дня .</i> <br>
+</p>
+<p>Сумма прописью: <?php echo ucfirst($this->controller->Semantic->num2str($sum*(1+$data['Order']['skidka']/100))); ?></p>
+<table cellpadding=5 cellspacing=0 border=0 width=100%>
+<tr>
+<td width=50%>Продавец:  <?=$row_cel['Credential']['jname']?>. ___________________________</td>
+<td  width=50%>Ознакомлен и согласен. Товар получил. Претензий не имею. Покупатель ___________________________</td>
+</tr>
+</table>
+<? endforeach;?>
+</body>
+</html>

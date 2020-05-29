@@ -1,0 +1,59 @@
+
+<h1>Заказ ID:<?php
+			echo $this->params['data']['Order']['id'];
+			?></h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+
+<form method="post" enctype="multipart/form-data">
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры заказа</th>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Статус заказа:</td>
+			<td class="row2" width="50%">
+				<select name="data[Order][status_id]" size="1" onChange="setStatus();" id=status>
+					<?foreach($statuses as $row) {
+					   if($row['Status']['id']==2 && @$this->params['data']['Order']['payment']==1) continue;
+					   if($row['Status']['id']==@$this->params['data']['Order']['status_id'])
+						 echo "<option value='".$row['Status']['id']."' selected>".$row['Status']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Status']['id']."'>".$row['Status']['name']."</option>";
+						}
+					 	?>
+					  </select>
+			</td>
+		</tr>
+		<tr id="date_row"> 
+			<td class="row1">Дата и время смены статуса:<br><small>Формат даты: дд.мм.гггг<br>Формат времени: чч:мм</small></td>
+			<td class="row2">
+				<input name="data[Order][date]" type="text"  id="date" value="<?=@$this->params['data']['Order']['date']?>" style="width:80px;"><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('date', 'mm.y');" class="mainoption">&nbsp;&nbsp;&nbsp;в&nbsp;&nbsp;&nbsp;<input type=text name="data[Order][hh]" value="<?=@$this->params['data']['Order']['hh']?>"  style="width:25px;"> : <input type=text name="data[Order][mm]" value="<?=@$this->params['data']['Order']['mm']?>"  style="width:25px;">
+				<?php echo $html->tagErrorMsg('Order/stage_date', '<font color=red><small>дата в формате: дд.мм.гггг,время в формате: чч:мм, обязательное поле</small></font>')?>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Сумма доставки:</td>
+			<td class="row2">
+				 <?php echo $html->input('Order/ship_sum');?> РУБ
+			</td>
+		</tr>	
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+		  <?php
+			
+			echo $html->hidden('Order/id');
+			
+			?>
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+<script>
+function setStatus() {
+if($('status').value!=1) $('date_row').style.display = ''; else $('date_row').style.display = 'none';
+}
+setStatus();
+</script>
+

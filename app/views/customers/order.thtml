@@ -1,0 +1,64 @@
+<h1><b>Заказ №  <?php echo $_GET['orderID'] ?></b></h1>
+	<p>
+
+<? if(isset($data)) :?>
+<? if(count($data)) { $row=$data[0]; ?>
+<table width="100%" cellspacing=0 cellpadding=0>
+<tr>
+<td>Дата и время: <b><?=date("d.m.Y H:i",strtotime($row['Order']['created']))?></b></td>
+<td style="text-align:right;">Состояние заказа: <b><?php echo $row['Status']['name'] ?><?=($row['Status']['id']==1 ? "" : "(".date("d.m.Y H:i",strtotime($row['Order']['stage_date'])).")")?></b></td>
+</tr>
+</table>
+	<p>
+		<table  width="100%" cellspacing=1 cellpadding=2 align="center">
+		<tr>
+		<th>Товар</th>
+		<th>Распилка</th>
+		<th>Кол-во</th>
+		<th>Единица измерения</th>
+		<th>Цена,РУБ.</th>
+		<th>Стоимость,РУБ.</th>	
+		</tr>
+		<?php 
+		$total_count = 0;
+		foreach ($row['Product'] as $row_prod) { 
+		$prod = $this->controller->Order->product($row['Order']['id'],$row_prod['id']);
+		?>
+		<tr>
+		<td bgcolor=white>
+		<a href="/files/products/photos/<?=$row_prod['picture']?>" target=_blank><img src="/files/products/photos/98/<?=$row_prod['picture']?>" width=50></a><br>
+			<a href="/e-shopping.html?productID=<?=$row_prod['id']?>"><?=$row_prod['name']?></a>
+		</td>		
+		<td><?=$prod['height']?>x<?=$prod['width']?> мм</td>
+		<td style="text-align:right;"><?=$prod['count']?></td>
+		<td style="text-align:right;"><?=$mes['Measure']['name']?></td>
+		<td style="text-align:right;"><?=number_format($prod['price'],2,'.',',')?></td>
+		<td style="text-align:right;"><?=number_format($prod['price']*$prod['count'],2,'.',',')?></td>		
+		</tr>
+		<? $total_count +=$prod['count']; } ?>	
+		<td colspan=2 >
+			Итого:
+		</td>	
+		<td style="text-align:right"><?=$total_count?></td>
+		<td style="text-align:center">&nbsp;</td>
+		<td style="text-align:center">X</td>
+		<td style="text-align:right"><b><?php echo number_format($row['Order']['sum'],2,'.',',') ?></b></td>
+		</tr>
+		</table>
+		<p>Способ оплаты: <b><?php echo $row['Payment']['name'] ?></b>
+		<p><small>Адрес доставки: <?php echo $row['Region']['name'] ?>, <?php echo $row['Order']['zipcode'] ?> <?php echo $row['Order']['city'] ?>, <?php echo $row['Order']['address1'] ?> <?php echo $row['Order']['address2'] ?>
+		, тел.: <?php echo $row['Order']['mphone'] ?> <?php echo $row['Order']['hphone'] ?>, <?php echo $row['Order']['lname'] ?> 
+		<?php echo $row['Order']['fname'] ?> <?php echo $row['Order']['otch'] ?></small>
+		<!--<p>
+Уважаемый заказчик! Если Вы ошиблись при оформлении заказа, свяжитесь со службой поддержки, чтобы мы могли откорректировать Ваш заказ 
+и укажите номер Вашего заказа.<br>
+Контактная информация:<br>
+тел.: +7-903-437-11-00,<br> 
+email: <a href='mailto:nata267@yandex.ru'>nata267@yandex.ru</a>,<br>
+Наталья-->
+	<? }else{ ?>
+ЗАКАЗ НЕ НАЙДЕН
+<? } ?>
+<? endif; ?>
+<p>
+<input type="button" value="&lt; Назад" onClick="history.back(-1);return false;" class=input>

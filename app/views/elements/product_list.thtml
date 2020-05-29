@@ -1,0 +1,146 @@
+<? if(count($products_bu)>0) :?>
+<h2>БУ запчасти</h2>
+<div>Найдено результатов: <?=count($products_bu)?></div>
+<table class="main-list">
+<tbody><tr>
+<th class="photo">Фото</th>
+<th>Описание</th>
+<th>Номер детали</th>
+<th title="Марка и модель автомобиля, на который устанавливается данная деталь">Марка/модель</th>
+<th title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">Годы выпуска</th>
+<th>Наличие</th>
+<th title="Указан средний и гарантированный срок поставки запасти">Сроки поставки</th>
+<th class="cost">Цена</th>
+<th>&nbsp;</th>
+</tr>
+<? foreach($products_bu as $i=>$row):
+$visible = true;
+	for($i=0; $i<count($price_check_true); $i++)
+		if($row['Product']['price_id'] == $price_check_true[$i]) $visible = false;
+if($visible == true){
+?> 
+<tr class="">
+<td>
+<div>
+<?
+$dir = $row['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$row['Product']['price_id'];
+if($row['Product']['price_id']>=100   && file_exists("files/products/".$dir."/".$row['Product']['articul'].".jpg")) { ?>
+<a href="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } elseif(file_exists("files/products/photos/".$row['Product']['articul'].".jpg")) {?> 
+<a href="/files/products/photos/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/photos/<?=$row['Product']['articul']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } ?>
+</div></td>
+<td><?=$row['Product']['name']?><br><i>Доп. информация: <?=($row['Product']['bu'] ? 'Б/У. ':'')?>
+<?=($row['Product']['articul'] ? 'Артикул - '.$row['Product']['articul'].'.':'')?>
+<?=($row['Product']['manufacturer'] ? 'Производитель - '.$row['Product']['manufacturer'].'.':'')?>
+<?=($row['Product']['manuf_number'] ? 'Номер производителя - '.$row['Product']['manuf_number'].'.':'')?> <?=$row['Product']['description']?> <span style="color:#cccccc">(SM<?=$row['Product']['price_id']?>)</span></i></td>
+<td><a href="/search.html?tp=numbers&nums=<?=$row['Product']['number']?>&sortBy=days_shipping&action=search"><?=$row['Product']['number']?></a></td>
+<td class="min" title="Марка и модель автомобиля, на который устанавливается данная деталь"><?=$row['Product']['mark_and_model']?></td>
+<td title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)"><?=$row['Product']['year1']?>-<?=($row['Product']['year2']=='3000' ? ''  : $row['Product']['year2']) ?></td>
+<td><img src="/images/<?=( (time() - strtotime($row['Product']['modified'])) / 60/60/24 > 5 ? "red_quarter_green_circle.png" : "green_circle.png")?>" align=right><span style="float:left"><?=$row['Product']['quantity']?></span>
+<br  style="clear:both;"><?=date('d.m.Y', strtotime($row['Product']['modified']))?></td>
+<!--<td title="Указан средний и гарантированный срок поставки запасти"><?=$row['Product']['shipping_info']?></td>-->
+<td title="Указан средний и гарантированный срок поставки запасти">
+<?php 
+$shippingf=explode('-',$row['Product']['shipping_info']);
+$shippinge=explode('(',$row['Product']['shipping_info']);
+$shippinge=explode(')',$shippinge[1]);
+$shipping = ($shippingf[0]+$_SESSION['range']).'- ('.($shippinge[0]+$_SESSION['range']).') дн.';
+?>
+<?=$shipping?>
+</td>
+<td class="cost"><?=$row['Product']['price']*(1+intval($this->controller->othAuth->user("skidka"))/100)?> руб.</td>
+<td class="date">
+<? if($row['Product']['quantity']):?>
+<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+<input name="add" value="<?=$row['Product']['id']?>" type="hidden">
+<input name="skolko" maxlength="4" value="1" style="text-align: center; width: 38px" type="text"> 
+<input type=submit class="buton" value="в корзину">
+</FORM>
+<? else: ?>
+нет в наличии
+<? endif;?>
+</td>
+</tr>
+<?}endforeach;?>
+</tbody></table>
+<? endif;?>
+
+<? if(count($products)>0) :?>
+<h2>Новые запчасти</h2>
+<div>Найдено результатов: <?=count($products)?></div>
+<table class="main-list">
+<tbody><tr>
+<th class="photo">Фото</th>
+<th>Описание</th>
+<th>Номер детали</th>
+<th title="Марка и модель автомобиля, на который устанавливается данная деталь">Марка/модель</th>
+<th title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">Годы выпуска</th>
+<th>Наличие</th>
+<th title="Указан средний и гарантированный срок поставки запасти">Сроки поставки</th>
+<th class="cost">Цена</th>
+<th>&nbsp;</th>
+</tr>
+<? foreach($products as $i=>$row):
+$visible = true;
+	for($i=0; $i<count($price_check_true); $i++)
+		if($row['Product']['price_id'] == $price_check_true[$i]) $visible = false;
+if($visible == true){
+?> 
+<tr class="">
+<td>
+<div>
+<?
+$dir = $row['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$row['Product']['price_id'];
+if($row['Product']['price_id']>=100   && file_exists("files/products/".$dir."/".$row['Product']['articul'].".jpg")) { ?>
+<a href="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } elseif(file_exists("files/products/photos/".$row['Product']['articul'].".jpg")) {?> 
+<a href="/files/products/photos/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/photos/<?=$row['Product']['articul']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } ?>
+</div></td>
+<td><?=$row['Product']['name']?><br><i>Доп. информация<?=$price_check_true[0]?>: <?=($row['Product']['bu'] ? 'Б/У. ':'')?>
+<?=($row['Product']['articul'] ? 'Артикул - '.$row['Product']['articul'].'.':'')?>
+<?=($row['Product']['manufacturer'] ? 'Производитель - '.$row['Product']['manufacturer'].'.':'')?>
+<?=($row['Product']['manuf_number'] ? 'Номер производителя - '.$row['Product']['manuf_number'].'.':'')?> <?=$row['Product']['description']?> <span style="color:#cccccc">(SM<?=$row['Product']['price_id']?>)</span></i></td>
+<td><a href="/search.html?tp=numbers&nums=<?=$row['Product']['number']?>&sortBy=days_shipping&action=search"><?=$row['Product']['number']?></a></td>
+<td class="min" title="Марка и модель автомобиля, на который устанавливается данная деталь"><?=$row['Product']['mark_and_model']?></td>
+<td title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)"><?=$row['Product']['year1']?>-<?=($row['Product']['year2']=='3000' ? ''  : $row['Product']['year2']) ?></td>
+<td><img src="/images/<?=( (time() - strtotime($row['Product']['modified'])) / 60/60/24 > 5 ? "red_quarter_green_circle.png" : "green_circle.png")?>" align=right><span style="float:left"><?=$row['Product']['quantity']?></span>
+<br  style="clear:both;"><?=date('d.m.Y', strtotime($row['Product']['modified']))?></td>
+<!--<td title="Указан средний и гарантированный срок поставки запасти"><?=$row['Product']['shipping_info']?></td>-->
+<td title="Указан средний и гарантированный срок поставки запасти">
+<?php 
+$shippingf=explode('-',$row['Product']['shipping_info']);
+$shippinge=explode('(',$row['Product']['shipping_info']);
+$shippinge=explode(')',$shippinge[1]);
+$shipping = ($shippingf[0]+$_SESSION['range']).'- ('.($shippinge[0]+$_SESSION['range']).') дн.';
+?>
+<?=$shipping?>
+</td>
+<td class="cost"><?=$row['Product']['price']*(1+intval($this->controller->othAuth->user("skidka"))/100)?> руб.</td>
+<td class="date">
+<? if($row['Product']['quantity']):?>
+<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+<input name="add" value="<?=$row['Product']['id']?>" type="hidden">
+<input name="skolko" maxlength="4" value="1" style="text-align: center; width: 38px" type="text"> 
+<a class="button grey" href="/cart.html" onclick="$(this).parent('.form-cart').submit(); return false;">в корзину</a>
+</FORM>
+<? else: ?>
+нет в наличии
+<? endif;?>
+</td>
+</tr>
+<?}endforeach;?>
+</tbody></table>
+<? endif;?>
+
+
+

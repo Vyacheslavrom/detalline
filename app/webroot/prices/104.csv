@@ -1,0 +1,407 @@
+;        AUDI;;;;;;;
+;            AUDI 100 (12/91-8/94);;;;;;;
+;                Решетка в бампер Audi 100 (91-94);2,000;STAU13000G2;00000001327;SAT;Audi A4  (01-04);310,00;шт
+;            AUDI A4 (05-);;;;;;;
+;                Крыло переднее левое AUDI A4  (04-08)   (D97SM) ;1,000;AD10014AL;00000000033;TONG YANG;Audi A4  (04-08);491,10;шт
+;            AUDI A4 (1/99-1/01);;;;;;;
+;                Крыло переднее левое AUDI A4  (99-01)   (D317SM) ;1,000;99253BL;00000000050;GORDON;Audi A4  (99-01);491,10;шт
+;            AUDI A4 (12/94-12/98);;;;;;;
+;                Крыло переднее левое Audi A4  (95-98)  ( D306SM );1,000;99253L;00000000082;GORDON;Audi A4  (95-98);491,10;шт
+;                Крыло переднее правое   Audi A4  (95-98)  (D310SM);1,000;99253R;00000000068;GORDON;Audi A4  (95-98);491,10;шт
+;                Радиатор кондиционера Audi A4 (94-01)  (D408SM) ;1,000;AI0A494931;00000000201;BODYPARTS;Audi A4 (94-01);892,90;шт
+;                Радиатор охлаждения двиг. Audi A4/A6  (94-01)  (D371SM) ;1,000;60489K;00000000222;TONG YANG;Audi A4, A6 (94-01);892,90;шт
+;                Радиатор охлаждения двиг. Audi A4/A6  (94-01)  (D386SM) ;1,000;AI0A496914;00000000224;BODYPARTS;Audi A4, A6 (94-01);892,90;шт
+;                Радиатор охлаждения двиг. Audi A4/A6  (94-01)  (D407SM) ;1,000;60489K;00000000190;TONG YANG;Audi A4, A6 (94-01);892,90;шт
+;                Электровентилятор с мотором, охлаждения двиг Audi (94-01)  (D509SM);1,000;VWPAS97940;00000000241;BODYPARTS;Hyundai Elantra (00-06);892,90;шт
+;                Электровентилятор с мотором, охлаждения двиг Audi (94-01)  (D510SM);1,000;VWPAS97940;00000000242;BODYPARTS;Hyundai Elantra (00-06);892,90;шт
+;        BMW;;;;;;;
+;            BMW E34 (2/88-3/94);;;;;;;
+;                Абсорбер BMW 3 E34 (89-95)  D432SM;1,000;DEL0829;00000000561;SAT;BMW 3 E34 (89-95);350,00;шт
+;            BMW E39 (11/95-03);;;;;;;
+;                Радиатор кондиционера BMW 5 (E39)  (96-03)  (D433SM) ;1,000;94529K;00000000366;TONG YANG;BMW 5 E39  (96-03);892,90;шт
+;                Радиатор охлаждения двиг. BMW  5/7  (96-03)   (D404SM);1,000;BME3895911;00000000212;BODYPARTS;BMW 5, 7  (96-03);892,90;шт
+;            BMW E92 (04-);;;;;;;
+;                Радиатор кондиционера BMW 3 E92 , 325 (04-);1,000;;00000001350;BODYPARTS;BMW 3  E92 (04-);1 500,00;шт
+;        CHERY;;;;;;;
+;            CHERY AMULET (05-);;;;;;;
+;                Радиатор кондиционера Chery Amulet (05-)  (D372SM);1,000;SETOL93930;00000000193;TONG YANG;Chery Amulet (05-);892,90;шт
+;                Радиатор кондиционера Chery Amulet (05-)  (D399SM);1,000;SETOL93930;00000000186;BODYPARTS;Chery Amulet (05-);892,90;шт
+;                Радиатор охлаждения двиг. Chery Amulet (05-)  (D361SM);1,000;CHAMU05911;00000000220;BODYPARTS;Chery Amulet (05-);892,90;шт
+;                Радиатор охлаждения двиг. Chery Amulet (05-)  (D377SM);1,000;CHAMU05911;00000000207;BODYPARTS;Chery Amulet (05-);892,90;шт
+;        CHEVROLET;;;;;;;
+;            CHEVROLET AVEO T200 (04-);;;;;;;
+;                Капот Chevrolet Aveo (хэтчбек) (03-08)  (D90SM);1,000;CVAVE04330;00000000113;TONG YANG;Chevrolet Aveo (03-08);1 340,00;шт
+;                Радиатор охлаждения двиг. Chevrolet Aveo (04-08)   (D345SM);1,000;61636K;00000000185;TONG YANG;Chevrolet Aveo (04-08);892,90;шт
+;                Радиатор охлаждения двиг. Chevrolet Aveo/Kalos  (04-08)  (D346SM);1,000;CVAVE04915;00000000235;BODYPARTS;Chevrolet Aveo, Kalos (04-08);892,90;шт
+;            CHEVROLET AVEO T250 (06-);;;;;;;
+;                Крыло переднее правое Chevrolet Aveo (06-)  ( D330SM );1,000;CV02201600R00;00000000061;API;Chevrolet Aveo (06-);491,10;шт
+;            CHEVROLET CRUZE (09-);;;;;;;
+;                Воздухозаборник (кожух панели капота) Chevrolet Cruze (09-);1,000;96981604;00000001403;GENERAL MOTORS;Chevrolet Cruze (09-);220,00;шт
+;            CHEVROLET LACETTI (04-) / DAEWOO NUBIRA (04-);;;;;;;
+;                Подкрылок передний левый Chevrolet Lacetti  (04-) ;1,000;STCVW1016L2;00000000803;SAT;Chevrolet Lacetti  (04-);214,00;шт
+;        DAEWOO ;;;;;;;
+;            DAEWOO ESPERO (94-);;;;;;;
+;                Радиатор кондиционера  Daewoo Espero/Nexia  (94-08) (D381SM);1,000;94424;00000000228;NISSENS;Daewoo Espero,Daewoo Nexia  (94-08);892,90;шт
+;                Радиатор охлаждения двиг. Daewoo Espero (94-99)  (D344SM);1,000;292004R;00000000221;AKS;Daewoo Espero,Daewoo Nexia  (94-08);892,90;шт
+;            DAEWOO MATIZ (98-);;;;;;;
+;                Дверь передняя правая (уценка) Daewoo Matiz (98-05)   ;1,000;96610956;00000001153;GENERAL MOTORS;Daewoo Matiz (98-05);8 300,00;шт
+;                Диффузор вентилятора Daewoo Matiz (98-)  ;1,000;;00000001358;GENERAL MOTORS;Daewoo Matiz (98-);2 142,86;шт
+;                Радиатор охлаждения двиг.  Daewoo Matiz (98-)  (D343SM);1,000;61646K;00000000238;TONG YANG;Daewoo Matiz (98-);892,90;шт
+;                Радиатор охлаждения двиг.  Daewoo Matiz (98-)  (D365SM);1,000;YT34374B;00000000232;TONG YANG;Daewoo Matiz (98-);892,90;шт
+;            DAEWOO NEXIA (08-);;;;;;;
+;                Корректор фары Daewoo Nexia  (08-)  ;1,000;891010002;00000001442;GENERAL MOTORS;Daewoo Nexia  (08-);950,00;шт
+;        FORD;;;;;;;
+;            FORD FOCUS (08-10);;;;;;;
+;                Крыло переднее правое  Ford Focus (08-10)  ;1,000;99C07R;00000000064;GORDON;Ford Focus (08-10);785,00;шт
+;                Фара правая (хром) Ford Focus (08-10)   ;1,000;4311181RMLDEM1;00000000007;DEPO;Ford Focus (08-10);2 178,00;шт
+;            FORD FOCUS (11-);;;;;;;
+;                Крыша без люка Ford Focus (11-)  ;1,000;1723298;00000001239;FORD;Ford Focus (11-) ;7 556,10;шт
+;                Радиатор охлаждения двиг. Ford Focus/C-Max  (11-)  (D351SM)  ;1,000;PL322307;00000000197;KOYO;Ford Focus, C-Max (11-) ;892,90;шт
+;            FORD FOCUS C-MAX (03-);;;;;;;
+;                Крыло переднее правое  Ford Focus C-Max (03-06)  (D313SM);1,000;FD10149AR;00000000069;TONG YANG;Ford Focus C-Max  (03-06);491,10;шт
+;            FORD MONDEO (04/07-);;;;;;;
+;                Радиатор кондиционера Ford Mondeo (07-) (D388SM) ;1,000;CD320464;00000000209;KOYO;Ford Mondeo (07-);892,90;шт
+;            FORD MONDEO (3/93-8/96);;;;;;;
+;                Радиатор кондиционера Ford Mondeo (93-01)  (D394SM) ;1,000;FDMON93931;00000000231;BODYPARTS;Ford Mondeo (93-01);892,90;шт
+;                Радиатор охлаждения двиг. Ford Mondeo  (93-01)  (D382SM) ;1,000;FDMON93911;00000000188;BODYPARTS;Ford Mondeo (93-01);892,90;шт
+;                Радиатор охлаждения двиг. Ford Mondeo  (93-01)  (D398SM)  ;1,000;FDMON93911;00000000189;BODYPARTS;Ford Mondeo (93-01);892,90;шт
+;            FORD MONDEO (4/01-);;;;;;;
+;                Подкрылок передний левый  Ford Mondeo (00-06);2,000;STFD29016L2;00000001371;SAT;Ford Mondeo (00-06);430,00;шт
+;            FORD MONDEO (9/96-3/01);;;;;;;
+;                Крыло переднее левое  Ford Mondeo (97-00)  (D322SM) ;1,000;FD10092AL;00000000081;TONG YANG;Ford Mondeo (97-00);491,10;шт
+;                Крыло переднее правое Ford Mondeo (97-00) (D314SM);1,000;FD10092AR;00000000058;TONG YANG;Ford Mondeo (97-00);491,10;шт
+;                Радиатор кондиционера Ford Mondeo (97-00)   (D374SM);1,000;FDMON97931;00000000195;TONG YANG;Ford Mondeo (97-00);892,90;шт
+;        GEELY MK/ MK CROSS;;;;;;;
+;            Уплотнитель лобового стекла Geely MK CROSS (08-);1,000;1018004759;00000001439;GEELY;Geely MK Cross (08-);100,00;шт
+;        HONDA ;;;;;;;
+;            HONDA ACCORD (08-) ЕВРОПА;;;;;;;
+;                Радиатор кондиционера Honda Accord (08-)  ;1,000;HDACR08931;00000000179;BODYPARTS;Honda Accord (08-);2 514,00;шт
+;                Радиатор охлаждения двиг. Honda Accord (08-13)  ;1,000;HDACR08910;00000000178;BODYPARTS;Honda Accord (08-13);2 519,00;шт
+;            HONDA ACCORD CB (90-93);;;;;;;
+;                Радиатор кондиционера Honda Accord (91-96)  (D364SM);1,000;94076;00000000202;NISSENS;Honda Accord (91-96);892,90;шт
+;            HONDA ACCORD CL/CM (2/03-) ЕВРОПА;;;;;;;
+;                Диффузор (кожух вентилятора) правый Honda Accord  (03-07)  (D508SM);1,000;38615RBB003;00000000244;HONDA;Honda Accord (03-07);892,90;шт
+;                Петля капота левая Honda Accord (03-07)  ;1,000;HD023228AL;00000000140;TONG YANG;Honda Accord (03-07);273,00;шт
+;                Петля капота правая Honda Accord (03-07)  ;1,000;HD023228AR;00000000139;TONG YANG;Honda Accord (03-07);273,00;шт
+;                Подкрылок передний правый Honda Accord (03-07)  ;1,000;LTHD6096;00000000098;TONG YANG;Honda Accord (03-07);495,00;шт
+;                Радиатор охлаждения двиг. Honda Accord (03-07)  ;2,000;218112;00000000182;TERMAL;Honda Accord (03-07);2 519,00;шт
+;                Радиатор охлаждения двиг. Honda Accord (03-07)  ;1,000;219475J;00000000183;TERMAL;Honda Accord (03-07);2 519,00;шт
+;                Фильтр воздушный Honda Accord (03-07)  ;1,000;17220RAAY00;00000001404;HONDA;Honda Accord (03-07);450,00;шт
+;            HONDA CIVIC (06-) ;;;;;;;
+;                Кронштейн крепления бампера левый  Honda Civic (06-);1,000;71198SMGE00;00000001341;HONDA;Honda Civic (06-);243,00;шт
+;                Радиатор охлаждения двиг. Honda Civic (06-)  (D378SM);1,000;HDCVC06914;00000000191;BODYPARTS;Honda Civic (06-);892,90;шт
+;                Усилитель бампера Honda Civic H/B (06-);1,000;HD090000R1000;00000001420;API;Honda Civic H/B (06-);3 000,00;шт
+;                Фара левая (белый поворот) Honda Civic (06-11)  ;1,000;ST2171159L;00000000667;SAT;Honda Civic (06-11);2 230,00;шт
+;                Фара правая  Honda Civic (06-11)  ;1,000;20A923056B;00000001433;TYC;Honda Civic (06-11);2 368,00;шт
+;                Фара правая (белый поворот) Honda Civic (06-11)  ;1,000;ST2171159R;00000000666;SAT;Honda Civic (06-11);2 230,00;шт
+;            HONDA CRV (02-05);;;;;;;
+;                Радиатор охлаждения двиг. Honda CRV (02-05) (D354SM);1,000;68103;00000000218;NISSENS;Honda CRV (02-05);892,90;шт
+;            HONDA CRV (06-11);;;;;;;
+;                Кронштейн бампера правый Honda CRV  (06-11)  ;1,000;60212SWAA00ZZ;00000001392;HONDA;Honda CRV (06-11);285,00;шт
+;                Кронштейн крепления бампера переднего левый Honda CRV  (06-11)  ;1,000;71190SXSA00;00000001396;HONDA;Honda CRV (06-11);300,00;шт
+;                Крыло переднее левое  Honda CRV (06-11)  ;1,000;HDCRV07270L;00000000091;TONG YANG;Honda CRV (06-11);866,00;шт
+;                Крыло переднее правое  Honda CRV (06-11)   ;1,000;HDCRV07270R;00000000066;BODYPARTS;Honda CRV (06-11);866,00;шт
+;            HONDA CRV (96-02);;;;;;;
+;                Крыло переднее левое Honda CRV (96-02)   (D307SM) ;1,000;HDCRV96270L;00000000048;TONG YANG;Honda CRV (96-02);491,10;шт
+;                Крыло переднее правое Honda CRV  (96-02)  (D340SM);1,000;HD10044BR;00000000057;TONG YANG;Honda CRV (96-02);491,10;шт
+;                Радиатор кондиционера Honda CRV (96-02)  (D383SM);1,000;HDCRV96930;00000000239;BODYPARTS;Honda CRV (96-02);892,90;шт
+;                Радиатор охлаждения двиг. Honda CRV (96-02)   (D369SM);1,000;YT27101B;00000000205;TONG YANG;Honda CRV (96-02);892,90;шт
+;            HONDA JAZZ/FIT (01-);;;;;;;
+;                Решетка радиатора Honda Fit  (03-05)  ;1,000;STHD75093A0;00000001437;SAT;Honda Fit (03-05);450,00;шт
+;                Фара противотуманная левая Honda Fit  (01-03)  ;1,000;ST2172027L;00000001232;SAT;Honda Fit (01-03);240,00;шт
+;                Фара противотуманная правая Honda Fit  (01-03)  ;1,000;ST2172027R;00000001233;SAT;Honda Fit (01-03);240,00;шт
+;            HR-V (00-);;;;;;;
+;                Отбойник амортизатора переднего на Honda HR-V (00-);2,000;51722S2H951;00000001340;HONDA;Honda HR-V (00-);509,00;шт
+;        HYUNDAI ;;;;;;;
+;            HYUNDAI ACCENT (00-) +ТАГАЗ;;;;;;;
+;                Подкрылок передний левый  Hyundai Accent (00-) ;1,000;8681125000;00000001375;BODYPARTS;Hyundai Accent (00-);380,00;шт
+;                Радиатор кондиционера Hyundai Accent (00-05) (D402SM);1,000;YTD11213;00000000206;TONG YANG;Hyundai Accent (00-05);892,90;шт
+;                Радиатор охлаждения двиг. Hyundai Accent (00-05)  (D376SM);1,000;HNACC00910;00000000236;BODYPARTS;Hyundai Accent (00-05);892,90;шт
+;            HYUNDAI ELANTRA (01-03);;;;;;;
+;                Крыло переднее правое  Hyundai Elantra  (00-06)  ;1,000;HNELA01271R;00000000603;BODYPARTS;Hyundai Elantra (00-06);957,00;шт
+;                Радиатор кондиционера Hyundai Elantra (00-06) (D405SM);1,000;HNELA00931;00000000214;BODYPARTS;Hyundai Elantra (00-06);892,90;шт
+;                Радиатор охлаждения двиг. Hyundai Elantra  (00-06)  (D353SM);1,000;HNELA00912;00000000237;BODYPARTS;Hyundai Elantra (00-06);892,90;шт
+;            HYUNDAI GETZ (02-);;;;;;;
+;                Катушка зажигания (оригинал) Hyundai Accent/Getz (1.4/1.6) (02-10)  ;1,000;2731022600;00000000166;HYUNDAI/KIA;Hyundai Accent, Getz (02-10) ;864,00;шт
+;                Крыло переднее левое (оригинал) Hyundai Getz (03-05);1,000;663111C350D;00000001362;HYUNDAI/KIA;Hyundai Getz  (02-05);2 700,00;шт
+;                Радиатор охлаждения двиг. Hyundai Getz (02-09) ;1,000;327495A;00000000169;TERMAL;Hyundai Getz  (02-09);1 425,00;шт
+;            HYUNDAI I20 (09-);;;;;;;
+;                Радиатор охлаждения двиг. Hyundai I20 (09-);1,000;253101J500;00000000884;HYUNDAI/KIA;Hyundai I20 (09-);5 298,96;шт
+;            HYUNDAI SANTA FE(01-06) / CLASIC TAGAZ (08-);;;;;;;
+;                Крыло переднее левое Hyundai Santa Fe  (00-06)  ;1,000;HNSFE01270L;00000000093;TONG YANG;Hyundai Santa Fe  (00-06);874,00;шт
+;                Крыло переднее правое  Hyundai Santa Fe  (00-06)  ;1,000;HNSFE01270R;00000000094;BODYPARTS;Hyundai Santa Fe  (00-06);874,00;шт
+;            HYUNDAI SOLARIS (11-);;;;;;;
+;                Фара левая Hyundai Solaris (11-)  ;1,000;ST22111S1L;00000000012;SAT;Hyundai Solaris  (11-);1 844,00;шт
+;                Фара противотуманная левая Hyundai Solaris  (11-)  ;1,000;HNSOL11071L;00000000600;TONG YANG;Hyundai Solaris  (11-);500,00;шт
+;                Фара противотуманная правая Hyundai Solaris  (11-);1,000;HNSOL11071R;00000000601;TONG YANG;Hyundai Solaris  (11-);500,00;шт
+;            HYUNDAI SONATA (02-) + ТАГАЗ;;;;;;;
+;                Радиатор кондиционера Hyundai Sonata (02-04)  (D403SM);1,000;YTD11218;00000000215;TONG YANG;Hyundai Sonata (02-04);892,90;шт
+;        KIA ;;;;;;;
+;            KIA CEED (07-11);;;;;;;
+;                Крыло переднее правое   Kia Ceed (07-12)  (D339SM);1,000;KA10019AR;00000000067;TONG YANG;Kia Ceed (07-11);491,10;шт
+;            KIA RIO (11-);;;;;;;
+;                Капот Kia Rio  (10-)  ;1,000;KA46101501000;00000001335;API;Kia Rio  (10-);3 996,28;шт
+;                Крыло переднее левое Kia Rio  (10-)  ;1,000;KA46101600L00;00000001333;API;Kia Rio  (10-);1 398,70;шт
+;                Крыло переднее правое Kia Rio  (10-)  ;1,000;KA46101600R00;00000001334;API;Kia Rio  (10-);1 448,65;шт
+;                Радиатор охлаждения двиг. Kia Rio (10-);1,000;336756H;00000001336;TERMAL;Kia Rio  (10-);1 484,58;шт
+;        LEXUS;;;;;;;
+;            LEXUS RX 270/350/450H (09-);;;;;;;
+;                Подкрылок передний правый Lexus RX 270/350/450H (09-);1,000;STLX47016L1;00000001374;SAT;Lexus RX 270/350/450H (09-);610,00;шт
+;                Радиатор охлаждения двиг. Lexus RX 270 (09-);1,000;TY0003RX270;00000001347;SAT;Lexus RX 270 (09-);3 000,00;шт
+;            LEXUS RX 330/350 (03-08);;;;;;;
+;                Радиатор охлаждения двиг. Lexus RX 330/350  (03-08)   (D348SM);1,000;YT26528B;00000000208;TONG YANG;Lexus RX 330, 350  (03-08);892,90;шт
+;        MAZDA;;;;;;;
+;            MAZDA 3 (04-08);;;;;;;
+;                Бампер передний  Mazda 3  (06-08);1,000;STMZV7000F0;00000000640;SAT;Mazda 3  (06-08);1 600,00;шт
+;                Крыло переднее левое  Mazda 3  (04-08)  ;1,000;MZ10051AL;00000000086;TONG YANG;Mazda 3 (04-08);792,00;шт
+;                Крыло переднее левое  Mazda 3  (04-08)  (D304SM) ;1,000;MZX0304270L;00000000083;TONG YANG;Mazda 3 (04-08);491,10;шт
+;                Крыло переднее левое  Mazda 3 хетчбек  (04-08) ;1,000;MZ14301601L00;00000000090;API;Mazda 3 (04-08);792,00;шт
+;                Крыло переднее правое MAZDA 3  (04-08)  (D332SM);1,000;MZ10051AR;00000000044;TONG YANG;Mazda 3 (04-08);491,10;шт
+;            MAZDA 3 (09-12);;;;;;;
+;                Радиатор охлаждения двиг. Mazda 3 (09-)  ;1,000;MZ00081;00000001345;SAT;Mazda 3 (09-);1 900,00;шт
+;                Радиатор охлаждения двиг. Mazda 3 (09-)  (D393SM);1,000;PL062305;00000000196;KOYO;Mazda 3 (09-);892,90;шт
+;            MAZDA 6 (02-07);;;;;;;
+;                Крыло переднее правое  Mazda 6  (02-07)  (D341SM);1,000;MZ10050CR;00000000070;TONG YANG;Mazda 6 (02-07);491,10;шт
+;                Крыло переднее правое  Mazda 6 (02-07)   (D331SM);1,000;MZ10050CR;00000000071;TONG YANG;Mazda 6 (02-07);491,10;шт
+;                Крыло переднее правое Mazda 6  (02-07)  ;1,000;MZ00602270R;00000000078;BODYPARTS;Mazda 6 (02-07);796,00;шт
+;                Стекло лобовое в клей Mazda 6 (02-07)  ;1,000;FW02308LFW/X;00000001305;;;1 860,00;шт
+;                Фонарь задний внешний правый Mazda 6 (02-07)  ;1,000;2161954RUE;00000000009;DEPO;Mazda 6 (02-07);883,00;шт
+;                Фонарь задний внутренний левый Mazda 6  (02-07)  ;2,000;2161303LU;00000000025;DEPO;Mazda 6 (02-07);663,00;шт
+;                Фонарь задний внутренний правый Mazda 6  (02-07)  ;2,000;2161303RU;00000000006;DEPO;Mazda 6 (02-07);663,00;шт
+;            MAZDA 6 (08-12);;;;;;;
+;                Крыло преднее правое Mazda 6 (08-)  ;1,000;MZ10078BR;00000000115;TONG YANG;Mazda 6 (08-);2 034,00;шт
+;            MAZDA CX5 (11-);;;;;;;
+;                Фонарь задний внутренний Mazda CX5 (11-);1,000;KD53513F0C;00000001388;MAZDA;Mazda CX5 (11-);4 450,00;шт
+;            MAZDA CX9 (08-);;;;;;;
+;                Радиатор охлаждения двиг.  Mazda CX9  (07-)  ;1,000;MZ0014;00000000661;SAT;Mazda CX9  (07-);2 251,00;шт
+;            MAZDA DEMIO (00-);;;;;;;
+;                Заглушка противотуманки левая Mazda Demio (00-);1,000;D35050C11C;00000001399;MAZDA;Mazda Demio (00-);300,00;шт
+;        MERCEDES;;;;;;;
+;            MERCEDES E-CLASS W212 (09-);;;;;;;
+;                Решетка в бампер Mercedes W212 (09-);1,000;ST-MD09-000G-0;00000001332;SAT;Mercedes W212 (09-);820,00;шт
+;            MERCEDES W124 (1/85-8/89) (9/89-6/93) E124 (7/93-6/95);;;;;;;
+;                Радиатор охлаждения двиг. Mercedes Kombi  (85-93)  (D363SM);1,000;MD12485912;00000000226;BODYPARTS;Mercedes Kombi (85-93);892,90;шт
+;            MERCEDES X204 GLK-CLASS ( 08- );;;;;;;
+;                Брызгавики передние к-т Mercedes-Benz GLK (08-);1,000;2048900278;00000001444;MERCEDES-BENZ;Mercedes-Benz X204 GLK (08-);2 900,00;шт
+;        MITSUBISHI;;;;;;;
+;            MITSUBISHI ASX (10-);;;;;;;
+;                Рамка кузова верхняя часть Mitsubishi ASX  (10-13)  ;2,000;STMAS1009A0;00000000980;SAT;Mitsubishi ASX  (10-13);350,00;шт
+;            MITSUBISHI L200 (05-);;;;;;;
+;                Радиатор охлаждения двиг. Mitsubishi L200  (05-)  (D392SM);1,000;PL032312;00000000216;KOYO;Mitsubishi L200 (05-);892,90;шт
+;            MITSUBISHI LANCER (04-2/07);;;;;;;
+;                Капот Mitsubishi Lancer (04-06) ;1,000;MB24401500000;00000000110;API;Mitsubishi Lancer (04-06);2 239,00;шт
+;                Капот Mitsubishi Lancer (04-06)  ;1,000;MBLAN04330;00000000111;GORDON;Mitsubishi Lancer (04-06);2 239,00;шт
+;                Крыло переднее левое Mitsubishi Lancer  (04-06) ;2,000;MB24401601L00;00000000084;API;Mitsubishi Lancer (04-06);719,00;шт
+;                Крыло переднее левое Mitsubishi Lancer (04-06)  ;1,000;MB24401600L00;00000000047;API;Mitsubishi Lancer (04-06);719,00;шт
+;                Повторитель поворота в крыло белый L=R  Mitsubishi Lancer (04-06);2,000;2141427NAE;00000000118;DEPO;Mitsubishi Lancer (04-06);155,00;шт
+;                Подкрылок передний левый Mitsubishi Lancer  (04-06) ;1,000;LTMB6057;00000000104;TONG YANG;Mitsubishi Lancer (04-06);478,00;шт
+;                Подкрылок передний левый Mitsubishi Lancer  (04-06)  ;1,000;STMBW4016LA2;00000000765;SAT;Mitsubishi Lancer (04-06);224,00;шт
+;                Подкрылок передний правый Mitsubishi Lancer  (04-06)  ;2,000;STMBW4016LA1;00000000764;SAT;Mitsubishi Lancer (04-06);224,00;шт
+;                Фонарь задний внешний левый 2L Mitsubishi Lancer  (04-06)  ;1,000;MN161197;00000000959;BODYPARTS;Mitsubishi Lancer (04-06);1 250,00;шт
+;                Фонарь задний внешний правый 2L Mitsubishi Lancer  (04-06)  ;1,000;MN161198;00000000024;BODYPARTS;Mitsubishi Lancer (04-06);1 323,00;шт
+;                Фонарь задний левый в бампер Mitsubishi Lancer (седан) (04-06)  ;1,000;2144001LLDUE;00000000022;DEPO;Mitsubishi Lancer (04-06);549,00;шт
+;            MITSUBISHI LANCER (3/07-);;;;;;;
+;                Зеркало левое электричаское с подогревом Mitsubishi Lancer  (07-)  ;-1,000;STMBW59402;00000000121;SAT;Mitsubishi Lancer (07-);1 511,00;шт
+;                Зеркало левое электрическое с обогревом Mitsubishi Lancer (07-)  ;-1,000;VM285EH8BL;00000000129;VIEW MAX;Mitsubishi Lancer (07-);1 023,00;шт
+;                Кронштейн бампера заднего левый (оригинал) Mitsubishi Lancer  (07-)  ;1,000;6410С543;00000000373;MITSUBISHI;Mitsubishi Lancer (07-);208,00;шт
+;                Кронштейн бампера заднего правый (оригинал) Mitsubishi Lancer  (07-)  ;1,000;6410С544;00000000161;MITSUBISHI;Mitsubishi Lancer (07-);216,33;шт
+;                Кронштейн бампера левый Mitsubishi Lancer (07-) ;1,000;5379A089;00000001395;MITSUBISHI;Mitsubishi Lancer (07-);80,00;шт
+;                Кронштейн бампера переднего левый (оригинал) Mitsubishi Lancer  (07-)  ;2,000;6400F549;00000000374;MITSUBISHI;Mitsubishi Lancer (07-);192,06;шт
+;                Кронштейн бампера переднего правый (оригинал) Mitsubishi Lancer  (07-)  ;1,000;6400F550;00000000580;MITSUBISHI;Mitsubishi Lancer (07-);193,61;шт
+;                Крыло переднее левое  Mitsubishi Lancer (07-)  ;1,000;STMBW50162;00000000728;SAT;Mitsubishi Lancer (07-);865,00;шт
+;                Крыло переднее правое Mitsubishi Lancer (07-)  ;1,000;STMBW50161;00000000729;GORDON;Mitsubishi Lancer (07-);865,00;шт
+;                Молдинг решетки радиатора (хром) Mitsubishi Lancer (10-)  ;6,000;STMBW5093M0;00000000168;SAT;Mitsubishi Lancer (10-);1 150,00;шт
+;                Панель суппорта радиатора (верхняя) Mitsubishi Lancer  (07-);2,000;STMBW50090;00000000727;SAT;Mitsubishi Lancer (07-);1 200,00;шт
+;                Панель суппорта радиатора левая (верняя) Mitsubishi Lancer (07-);3,000;STMBW50092;00000000886;SAT;Mitsubishi Lancer (07-);550,00;шт
+;                Панель суппорта радиатора правая (верняя) Mitsubishi Lancer (07-);3,000;STMBW50091;00000000887;SAT;Mitsubishi Lancer (07-);550,00;шт
+;                Пластиковая накладка на панель радиатора  (под капотом) Mitsubishi Lancer (07-);2,000;MB83011;00000000786;SAILING;Mitsubishi Lancer (07-);550,00;шт
+;                Пыльник пластиковый под бампер передний Mitsubishi Lancer  (10-)  ;1,000;STMBW5025C0;00000001377;SAT;Mitsubishi Lancer (10-);920,00;шт
+;                Пыльник пластиковый под бампер передний Mitsubishi Lancer (07-)  ;1,000;STMBW50250;00000000698;SAT;Mitsubishi Lancer (07-);550,00;шт
+;                Радиатор кондиционера Mitsubishi Lancer / Outlander XL  (07-13) ;1,000;STMBW53940;00000001247;SAT;Mitsubishi Lancer, Outlander XL (07-13) ;1 990,00;шт
+;                Решетка (заглушка) противотуманной фары левая Mitsubishi Lancer  (07-) ;2,000;MB99212CAL;00000000144;TONG YANG;Mitsubishi Lancer (07-);251,00;шт
+;                Решетка (заглушка) противотуманной фары левая Mitsubishi Lancer  (07-)  ;1,000;MB99211CAL;00000000147;TONG YANG;Mitsubishi Lancer (07-);226,00;шт
+;                Решетка (заглушка) противотуманной фары левая Mitsubishi Lancer  (10-)  ;3,000;STMBW5219A2;00000000597;SAT;Mitsubishi Lancer (10-);200,00;шт
+;                Решетка (заглушка) противотуманной фары правая Mitsubishi Lancer (10-)  ;3,000;STMBW5219A1;00000000596;SAT;Mitsubishi Lancer (10-);200,00;шт
+;                Решетка бампера центральная нижняя Mitsubishi Lancer  (07-09)  ;1,000;STMBW5000G0;00000000151;SAT;Mitsubishi Lancer (07-09);410,00;шт
+;                Решетка радиатора левая (верхняя) Mitsubishi Lancer  (10-)  ;1,000;STMBW50932;00000000594;SAT;Mitsubishi Lancer (10-);200,00;шт
+;                Фара левая Mitsubishi  Lancer (07-)  ;1,000;2141190LLDEM2;00000001379;DEPO;Mitsubishi Lancer (07-);2 800,00;шт
+;                Фара левая Mitsubishi  Lancer (07-)  ;1,000;UMLA3832139;00000001381;UKORAUTO;Mitsubishi Lancer (07-);1 800,00;шт
+;                Фара правая Mitsubishi  Lancer (07-)  ;1,000;2141190RLDEM2;00000001380;DEPO;Mitsubishi Lancer (07-);2 800,00;шт
+;                Фара противотуманная левая Mitsubishi Lancer  (07-09)  ;1,000;ST2142040L;00000001182;SAT;Mitsubishi Lancer (07-09);437,10;шт
+;                Фара противотуманная левая Mitsubishi Lancer  (07-09)  ;1,000;ST2142040R;00000001344;SAT;Mitsubishi Lancer (07-09);438,00;шт
+;                Фара противотуманная левая Mitsubishi Lancer  (10-)  ;1,000;ST3142040L;00000000018;SAT;Mitsubishi Lancer (10-);500,00;шт
+;                Фонарь задний внутренний правый Mitsubishi Lancer / Evolution (07-)  ;1,000;3141302RAS;00000000010;DEPO;Mitsubishi Lancer, Evolution (07-);1 295,00;шт
+;            MITSUBISHI LANCER СЕДАН (5/96-11/97) (1/98-02)/MIRAGE СЕДАН USA (96-02);;;;;;;
+;                Фара левая Mitsubishi Lancer (98-02);1,000;2141148LLDE;00000001357;DEPO;Mitsubishi Lancer (98-02);1 013,00;шт
+;                Фара правая Mitsubishi Lancer (98-02);1,000;2141148RLDE;00000001356;DEPO;Mitsubishi Lancer (98-02);1 013,00;шт
+;            MITSUBISHI PAJERO / MONTERO (00-02) (03-);;;;;;;
+;                Радиатор кондиционера Mitsubishi Pajero (00-06)  (D397SM);1,000;MBPAJ00931;00000000227;BODYPARTS;Mitsubishi Pajero (00-06);2 780,00;шт
+;                Радиатор охлаждения двиг. Mitsubishi Pajero (00-06)  (D391SM);1,000;PL031758;00000000217;KOYO;Mitsubishi Pajero (00-06);3 882,00;шт
+;            MITSUBISHI PAJERO SPORT (97-)/MONTERO SPORT (97-) /CHALENGER (97-);;;;;;;
+;                Накладка на переднее крыло левая Mitsubishi Pajero Sport (00-08);1,000;STMBY7016M2;00000001213;MITSUBISHI;Mitsubishi Pajero Sport (00-08);325,50;шт
+;                Накладка на переднее крыло правая Mitsubishi Pajero Sport (00-08);1,000;STMBY7016M1;00000001212;SAT;Mitsubishi Pajero Sport (00-08);325,50;шт
+;        NISSAN ;;;;;;;
+;            NISSAN ALMERA CLASSIC (01/06-);;;;;;;
+;                Кронштейн бампера передний левый железный (оригинал) Nissan Almera Classic (06-)  ;1,000;6318395F0B;00000000163;NISSAN;Nissan Almera Classic  (06-);240,00;шт
+;                Кронштейн бампера передний правый железный (оригинал) Nissan Almera Classic (06-)  ;1,000;6318295F0B;00000000162;NISSAN;Nissan Almera Classic  (06-);240,00;шт
+;                Крыло переднее правое Nissan Almera Classic (06-)  ;1,000;NNALC06271R;00000000065;BODYPARTS;Nissan Almera Classic  (06-);2 011,00;шт
+;                Подкрылок передний левый Nissan Almera Classic (06-)  ;1,000;LTNS6225;00000000117;TONG YANG;Nissan Almera Classic  (06-);417,00;шт
+;                Подкрылок передний правый Nissan Almera Classic (06-)  ;1,000;LTNS6226;00000000116;TONG YANG;Nissan Almera Classic  (06-);417,00;шт
+;"                Суппорт радиатора (телевизор) ""уценка""  Nissan Almera Classic (06-)  ";1,000;NNALC06381;00000000500;TONG YANG;Nissan Almera Classic  (06-);2 000,00;шт
+;            NISSAN MAXIMA QX A32 (95-99);;;;;;;
+;                Радиатор охлаждения двиг. Nissan Maxima (95-99)  ;1,000;NNMXQ95913;00000000204;BODYPARTS;Nissan Maxima (95-99);2 628,00;шт
+;            NISSAN MICRA  (03-10);;;;;;;
+;                Шрус внутренний передний Nissan Micra (03-10);1,000;NSIUK12;00000001436;ASVA;Nissan Micra (03-10);2 380,00;шт
+;            NISSAN MURANO (04-);;;;;;;
+;                Радиатор кондиционера Nissan Murano (03-08)  (D368SM);1,000;YTD42040;00000000192;TONG YANG;Nissan Murano (03-08);892,90;шт
+;            NISSAN NOTE ( 1/06-) E11E;;;;;;;
+;                Бампер передний Nissan Note (06-);1,000;STDTE10000;00000001430;SAT;Nissan Note (06-);2 330,00;шт
+;            NISSAN QASHQAI (07-);;;;;;;
+;                Крыло переднее левое Nissan Qashqai (07-)  (D323SM) ;1,000;99B77L;00000000035;GORDON;Nissan Qashqai (07-);491,10;шт
+;                Крыло переднее правое  Nissan Qashqai (07-)  (D335SM);1,000;99B77R;00000000062;GORDON;Nissan Qashqai (07-);491,10;шт
+;                Пыльник и отбойник амортизатора переднего к-т  Nissan Qashqai (07-) ;1,000;AK735436;00000001432;OPTIMAL;Nissan Qashqai (07-);489,00;шт
+;            NISSAN TEANA ( 04-07);;;;;;;
+;                Радиатор охлаждения двиг. Nissan Teana (J31)  (04-07)  (D355SM);1,000;214609W61A;00000000229;NISSAN;Nissan Teana (04-07)  ;892,90;шт
+;            NISSAN TIIDA ( 07-);;;;;;;
+;                Бампер передний Nissan Tiida (07-)  ;1,000;NNTII07160B;00000000497;TONG YANG;Nissan Tiida (07-);1 252,00;шт
+;                Зеркало левое 3-х контактное Nissan Tiida (04-)  ;1,000;STDTW5940A2;00000001326;SAT;Nissan Tiida (04-);1 180,00;шт
+;                Крыло переднее левое  NissanTiida (07-)  ;1,000;DT20101601L00;00000000085;API;Nissan Tiida (07-);933,00;шт
+;                Крыло переднее левое Nissan Tiida (07-)  ;1,000;99A96AL;00000000032;GORDON;Nissan Tiida (07-);933,00;шт
+;                Крыло переднее правое  NissanTiida (07-)  ;1,000;DT20101601R00;00000001361;API;Nissan Tiida (07-);933,00;шт
+;                Усилитель бампера переднего нижний (оригинал) Nissan Tiida (07-)  ;1,000;F2030EM0MB;00000000159;NISSAN;Nissan Tiida (07-);4 806,00;шт
+;            NISSAN X-TRAIL (06/01-);;;;;;;
+;                Крыло переднее правое  Nissan X-Trail  (01-06)  ;1,000;NNXTR01270L;00000001359;BODYPARTS;Nissan X-Trail (01-06);4 000,00;шт
+;                Крыло переднее правое  Nissan X-Trail  (01-06)  (D312SM);1,000;NNXTR01270R;00000000518;BODYPARTS;Nissan X-Trail (01-06);2 500,00;шт
+;                Стекло лобовое  Nissan X-Trail  (01-06)  ;1,000;T30RHLFW/H/X;00000001351;SAT;Nissan X-Trail (01-06);2 500,00;шт
+;                Указатель поворота левый  Nissan X-Trail  (01-03)  ;1,000;2151599LAC;00000001385;DEPO;Nissan X-Trail (01-03);550,00;шт
+;                Указатель поворота правый  Nissan X-Trail  (01-03)  ;1,000;2151599RAC;00000001386;DEPO;Nissan X-Trail (01-03);550,00;шт
+;                Фара левая  Nissan X-Trail  (01-06)  ;1,000;21511A4LLDE1;00000001389;DEPO;Nissan X-Trail (01-06);1 800,00;шт
+;                Фара правая  Nissan X-Trail  (01-06)  ;1,000;21511A4RLDE1;00000001390;DEPO;Nissan X-Trail (01-06);1 800,00;шт
+;        OPEL ;;;;;;;
+;            OPEL ASTRA (10/91-2/98);;;;;;;
+;                Радиатор охлаждения двиг. Opel Astra F/MK  (91-01) (D357SM);1,000;OPAST91916;00000000225;BODYPARTS;Opel Astra F (91-01);892,90;шт
+;            OPEL ASTRA (3/98-03);;;;;;;
+;                Диффузор с вентилятором и мотором Opel Astra G  (98-04)  (D512SM);1,000;OP48039300000;00000000243;API;Opel Astra G (98-04);892,90;шт
+;                Крыло переднее левое Opel Astra (98-04)  (D318SM) ;1,000;OPAST98270L;00000000056;BODYPARTS;Opel Astra G (98-04);491,10;шт
+;                Подкрылок передний левый Opel Astra (98-03)  ;1,000;OPAST98300L;00000000103;TONG YANG;Opel Astra G (98-03);287,00;шт
+;            OPEL ASTRA A (88-95);;;;;;;
+;                Радиатор охлаждения двиг. Opel Astra A (88-95) (D375SM);1,000;OPVCA88-914;00000000200;BODYPARTS;Opel Astra A (88-95);892,90;шт
+;            OPEL ASTRA H (6/04-);;;;;;;
+;                Молдинг решетки радиатора  Opel Astra H (хэтчбек) (10.03-04.07) ;1,000;1400746;00000000154;OPEL;Opel Astra H (03-07);963,00;шт
+;                Решетка радиатора Opel Astra H (хэтчбек) (03-07)  ;1,000;OP07021GAN;00000000148;TONG YANG;Opel Astra H (03-07);1 094,00;шт
+;            OPEL CORSA (06-);;;;;;;
+;                Радиатор охлаждения двиг. Opel Corsa  (06-)  (D366SM);1,000;YT18149;00000000233;TONG YANG;Opel Corsa (06-);892,90;шт
+;            OPEL CORSA (10/00-);;;;;;;
+;                Крыло переднее правое Opel Corsa (00-06)  (D327SM);1,000;OP10020AR;00000000041;TONG YANG;Opel Corsa (00-06);491,10;шт
+;            OPEL MERIVA-B (10-);;;;;;;
+;                Нащельник, передняя дверь, л/с Opel Meriva B (10-);1,000;13266907;00000001401;GENERAL MOTORS;Opel Meriva B (10-);1 000,00;шт
+;            OPEL OMEGA B (3/94-9/99);;;;;;;
+;                Молдинг под фару правый Opel Omega B (94-03)  ;1,000;OP41020600R00;00000001337;API;Opel Omega B (94-03);329,00;шт
+;                Радиатор охлаждения двиг. (без патрубков насоса подкачки) Opel Omega B (94-03)  (D408SM);1,000;OPOMB94915;00000000230;BODYPARTS;Opel Omega B (94-03);892,90;шт
+;                Фара противотуманная левая Opel Omega B (94-03)  ;1,000;44220008LUE;00000001383;DEPO;Opel Omega B (94-03);770,00;шт
+;                Фара противотуманная правая Opel Omega B (94-03)  ;1,000;44220008RUE;00000001384;DEPO;Opel Omega B (94-03);770,00;шт
+;            OPEL ZAFIRA (7/04-);;;;;;;
+;                Бампер передний Opel Zafira B (05-);1,000;OP80100000000;00000001429;API;Opel Zafira B (05-);4 000,00;шт
+;        PEUGEOT ;;;;;;;
+;            PEUGEOT 107 (05-);;;;;;;
+;                Стекло лобовое Peugeot 107 (05-);1,000;8363AGNBLLFW/X;00000001207;XYG;Peugeot 107 (05-);1 590,30;шт
+;            PEUGEOT 307 (8/01-);;;;;;;
+;                Кронштейн крепления переднего бампера комплект Peugeot 307  (01-10)   ;1,000;741634;00000001407;CITROEN/PEUGEOT;Peugeot 307 (01-10);850,00;шт
+;                Фонарь задний внешний левый ( уценка )  Peugeot 307 (хэтчбек) (01-10)   ;1,000;PG30701741L;00000000026;BODYPARTS;Peugeot 307 (01-10);650,00;шт
+;            PEUGEOT 308 (07-);;;;;;;
+;                Подкрылок передний правый Pegeot 308 (07-);1,000;IF0146R;00000001373;GORDON;Peugeot 308 (07-);550,00;шт
+;        RENAULT ;;;;;;;
+;            RENAULT MEGANE (03-07);;;;;;;
+;                Радиатор кондиционера Renault Megane (03-09)  (D380SM);1,000;RNMEG03931;00000000203;BODYPARTS;Renault Megane (03-09);892,90;шт
+;                Рамка фары передняя левая Renault Megane (03-06)  ;1,000;RN03001AL;00000001408;BODYPARTS;Renault Megane (03-06);450,00;шт
+;        SKODA;;;;;;;
+;            SKODA FABIA / ROOMSTER (07-);;;;;;;
+;                Фара правая Skoda Fabia (07-10);1,000;6651114RLDEM;00000000746;DEPO;Skoda Fabia (07-10);1 716,00;шт
+;        SSANGYONG;;;;;;;
+;            SSANGYONG NEW ACTYON (2010 - 2012);;;;;;;
+;                Молдинг противотуманной фары левый Ssang Yong (10-12)  ;1,000;7871434000;00000000155;SSANGYONG;Ssang Yong (10-12);160,00;шт
+;        SUZUKI ;;;;;;;
+;            SUZUKI AERIO (95-02);;;;;;;
+;                Пыльник Амортизатора Suzuki Aerio (95-02);2,000;4193154G00;00000000952;SUZUKI;Suzuki Aerio (95-02);385,62;шт
+;        TOYOTA;;;;;;;
+;            TOYOTA AVENSIS (03-07);;;;;;;
+;                Замок капота  Toyota Avensis (03-07)  ;1,000;5351005050;00000001423;TOYOTA;Toyota Avensis (03-07);1 500,00;шт
+;                Крыло переднее правое  Toyota Avensis (03-05)  (D334SM);1,000;99A12R;00000000040;GORDON;Toyota Avensis (03-05);491,10;шт
+;                Радиатор охлаждения двиг.  Toyota Avensis (03-06)  ;1,000;TY0002-ADT250;00000001328;SAT;Toyota Avensis (03-07);2 420,00;шт
+;            TOYOTA CAMRY V30 (10/01-);;;;;;;
+;                Крыло переднее левое  Toyota Camry (01-05)  ;1,000;TY10151BL;00000000089;TONG YANG;Toyota Camry (01-05);956,00;шт
+;                Крыло переднее правое Toyota Camry (USA) (01-05) ;1,000;TY38001600R00;00000000075;API;Toyota Camry (01-05) ;956,00;шт
+;                Подкрылок передний левый Toyota Camry (01-05);1,000;TY11151EL;00000000101;TONG YANG;Toyota Camry (01-05);349,00;шт
+;                Подкрылок передний правый Toyota Camry (01-05);1,000;TY11151ER;00000000097;TONG YANG;Toyota Camry (01-05);349,00;шт
+;            TOYOTA CAMRY V40 (1/06-);;;;;;;
+;                Бампер передний Toyota Camry (09-11)  ;1,000;STTYL5000B0;00000001427;SAT;Toyota Camry (09-11);2 130,00;шт
+;                Крышка форсунки омывателя правая Toyota Camry  (06-11);1,000;8504433090A0;00000000882;TOYOTA;Toyota Camry (06-11);300,21;шт
+;                Подкрылок передний левый Toyota Camry (06-11)  ;1,000;STTYL5016LA2;00000000814;SAT;Toyota Camry (06-11);210,00;шт
+;                Подкрылок передний правый Toyota Camry (06-11)  ;3,000;STTYL5016LA1;00000000815;SAT;Toyota Camry (06-11);210,00;шт
+;                Решетка радиатора Toyota Camry (06-11);1,000;TY381000G0000;00000000150;API;Toyota Camry (06-11);509,00;шт
+;                Решетка радиатора Toyota Camry (06-11)  ;1,000;5311233030;00000000149;TOYOTA;Toyota Camry (06-11);836,00;шт
+;                Форсунка омывателя левая Toyota Camry (06-11);1,000;8504533040A0;00000000773;TOYOTA;Toyota Camry (06-11);680,37;шт
+;                Форсунка омывателя левая Toyota Camry (09-13);1,000;8504533070A0;00000000750;TOYOTA;Toyota Camry (09-13);554,07;шт
+;                Форсунка омывателя правая Toyota Camry (06-11);1,000;8504433090A0;00000001391;TOYOTA;Toyota Camry (06-11);428,00;шт
+;            TOYOTA COROLLA 90 (5/87-4/92) ЛИФТБЭК/УНИВЕРСАЛ/5ДВ;;;;;;;
+;                Крыло переднее левое Toyota Corolla (88-92)  (D305SM) ;1,000;TY25001606L00;00000000080;API;Toyota Corolla (88-92);491,10;шт
+;            TOYOTA COROLLA DE120/ZE120 (02-) ;;;;;;;
+;                Крыло переднее правое (без упаковки) Toyota Corolla  (02-05)   (D337SM);1,000;TYCRL02272R;00000000409;TOYOTA;Toyota Corolla (02-05);491,10;шт
+;                Радиатор кондиционера Toyota Corolla (00-05)  (D384SM);1,000;YTD41067;00000000184;TONG YANG;Toyota Corolla (00-05);892,90;шт
+;            TOYOTA COROLLA E150 (06-);;;;;;;
+;                Бампер передний Toyota Corolla (06-09)  ;1,000;STTY290000;00000001428;SAT;Toyota Corolla (06-09);1 488,00;шт
+;                Зеркало левое электрическое с подогревом (с указателем пов.) Toyota Corolla (10-)  ;1,000;VM6264NEAL;00000000135;VIEW MAX;Toyota Corolla (10-);2 200,00;шт
+;                Капот Toyota Corolla (седан) (06-)  ;1,000;TYCRL06331;00000000106;TONG YANG;Toyota Corolla (06-);2 363,00;шт
+;                Крыло переднее левое Toyota Corolla (06-) ;1,000;STTY290162;00000000699;SAT;Toyota Corolla (06-);791,00;шт
+;                Крыло переднее правое Toyota Corolla (06-) ;1,000;STTY290161;00000001365;SAT;Toyota Corolla (06-);791,00;шт
+;                Подкрылок передний левый Toyota Corolla (06-)  ;1,000;STTY29016L2;00000001449;SAT;Toyota Corolla (06-);450,00;шт
+;                Подкрылок передний правый Toyota Corola (06-);1,000;STTY29016L1;00000001450;SAT;Toyota Corolla (06-);450,00;шт
+;                Радиатор кондиционера Toyota Corolla/Auris/Avensis (06-11)  ;1,000;CD010374;00000000180;KOYO;Toyota Corolla, Auris, Avensis  (06-11);2 000,00;шт
+;                Радиатор охлаждения двиг. Toyota Corolla (06-)  ;1,000;TYCRL06912;00000000174;BODYPARTS;Toyota Corolla (06-);1 532,00;шт
+;                Стекло зеркала заднего вида левое Toyota Corolla (06-11)  ;1,000;TY281941G1L00;00000001415;API;Toyota Corolla (06-11);590,00;шт
+;                Суппорт радиатора (телевизор) Toyota Corolla (06-)  (D70SM);1,000;TYCRL06382;00000000502;BODYPARTS;Toyota Corolla (06-);892,90;шт
+;            TOYOTA LANDCRUISER PRADO 120 (9/02-);;;;;;;
+;                Радиатор охлаждения двиг. Toyota Land Cruiser Prado 120  (03-08)  (D395SM);1,000;YT26333B;00000000210;TONG YANG;Toyota Land Cruiser Prado (03-08);892,90;шт
+;            TOYOTA PRIUS (00-);;;;;;;
+;                Опора амортизатора подвески Toyota Prius (00-03);2,000;4860947020;00000001441;TOYOTA;Toyota Prius (00-03);1 900,00;шт
+;            TOYOTA RAV4 (00-03) (04-05);;;;;;;
+;                Диффузор с вентилятором и мотором Toyota RAV 4/Yaris  (01-06)  ;1,000;404396TO;00000000245;TERMAL;Toyota Rav 4 (01-06);1 415,00;шт
+;                Крыло переднее левое  Toyota RAV4  (00-04)  (D316SM) ;1,000;TYRV400273L;00000000054;TONG YANG;Toyota Rav 4 (00-04);948,00;шт
+;                Крыло переднее правое  Toyota Rav 4 (00-04) ( D338SM );1,000;TY10153DR;00000000059;TONG YANG;Toyota Rav 4 (00-04);948,00;шт
+;            TOYOTA RAV4 (11/05-);;;;;;;
+;                Пыльник моторного отсека  Toyota RAV4  (05-12);1,000;5144442010;00000001122;TOYOTA;Toyota Rav 4 (05-12);547,00;шт
+;            TOYOTA RAV4 (4/94-8/97) (9/97-8/00);;;;;;;
+;                Радиатор охлаждения двиг. Toyota Rav4 (94-00)  ;1,000;YT26247;00000000198;TONG YANG;Toyota Rav4 (94-00);3 058,00;шт
+;            TOYOTA YARIS (99-11/02) (12/02-07/05);;;;;;;
+;                Радиатор охлаждения двиг. Toyota Yaris (99-05)  ;1,000;DRM50002;00000000181;DENSO;Toyota Yaris (99-05);3 029,00;шт
+;        VOLKSWAGEN;;;;;;;
+;            VW PASSAT B5+ (10/00-);;;;;;;
+;                Крыло переднее левое   Volkswagen Passat (00-05)  (D320SM) ;1,000;VW10039BL;00000000037;TONG YANG;Volkswagen Passat (00-05);491,10;шт
+;                Крыло переднее правое Volkswagen Passat (00-05) ( D328SM );1,000;VW10039BR;00000000042;TONG YANG;Volkswagen Passat (00-05);491,10;шт
+;                Крыло переднее правое Volkswagen Passat (97-00) ( D329SM );1,000;VW10025AR;00000000063;TONG YANG;Volkswagen Passat (96-00);491,10;шт
+;            VW PASSAT B6 (6/05-);;;;;;;
+;                Крыло переднее левое Volkswagen Passat (06-10)  (D315SM) ;1,000;99669L;00000000053;GORDON;Volkswagen Passat (06-10);491,10;шт
+;                Крыло переднее правое  Volkswagen Passat (06-10) (D333SM);1,000;VW10039AR;00000000039;TONG YANG;Volkswagen Passat (06-10);491,10;шт
+;                Молдинг переднего бампера левый (внутренний) Volkswagen Passat (06-10) ;1,000;3C0807645AGRU;00000001307;VAG;Volkswagen Passat (06-10);479,00;шт
+;                Молдинг переднего бампера левый Volkswagen Passat (06-10) ;1,000;VW04093MBL;00000001023;TONG YANG;Volkswagen Passat (06-10);254,33;шт
+;            VW POLO (9/99-7/01);;;;;;;
+;                Зеркало правое электрическое с подогревом Volkswagen Polo (99-01)  ;1,000;VM192EHR;00000000131;VIEW MAX;Volkswagen Polo (99-01);1 052,00;шт
+;        VOLVO ;;;;;;;
+;            VOLVO XC90 (03-);;;;;;;
+;                Фонарь задний правый в бампер (оригинал) Volvo  XC90  (03-06)  ;1,000;8693012;00000000367;VOLVO;Volvo  XC90  (03-06);925,00;шт
+;        КЛИПСА;;;;;;;
+;            Клипсы пластиковые ;47,000;KJ849;00000001426;MASUMA;;6,60;шт
+;        КОЛОДКИ;;;;;;;
+;            Колодки тормозные дисковые задние, комплект;1,000;2144.50;00000001412;ROAD HOUSE;;600,00;шт
+;        ПРОКЛАДКА;;;;;;;
+;            Прокладка ГБЦ ;1,000;2231127010;00000001422;HYUNDAI/KIA;;2 000,00;шт
+;        ПЫЛЬНИК;;;;;;;
+;            Пыльник рулевой рейки универсальный;1,000;FERKB001;00000001417;FEBEST;;250,00;шт
+;        РАДИАТОР ОТОПИТЕЛЯ;;;;;;;
+;            Радиатор отопителя;1,000;812 235;00000001419;VALEO;;3 700,00;шт
+;        САЙЛЕНТБЛОК;;;;;;;
+;            Сайлентблок подвески;2,000;F85297;00000001431;OPTIMAL;;248,00;шт
+;        СТОЙКА СТАБИЛИЗАТОРА;;;;;;;
+;            Стойка стабилизатора задняя ;1,000;TSP2125;00000001397;PILENGA;;165,00;шт
+;        ФИЛЬТР;;;;;;;
+;            Фильтр воздушный;1,000;AP 130/1;00000001414;FILTRON;;150,00;шт

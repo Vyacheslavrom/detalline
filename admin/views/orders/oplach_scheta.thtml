@@ -1,0 +1,30 @@
+<h1>Оплаченные счета за <?=$year?> год</h1>
+
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+<?php foreach ($data as $row) {
+$sum = 0;
+$main_col = 'count';
+foreach ($row['OrderProduct'] as $prod) { 
+    if($prod['status1']>0)
+        $main_col = 'status1';             
+ }
+foreach ($row['OrderProduct'] as $prod) {	
+	$main_count = $prod[$main_col];
+	$sum += $prod['price']*$main_count;
+}
+
+if($row['Payment']['id'] == 2)
+	$zag = "Счет № ".($row['Order']['schet_number'] ? $row['Order']['pre_number'].$row['Order']['schet_number'] : $row['Order']['id']);
+	
+if($row['Payment']['id'] == 3)
+	$zag = "Оплата заказа № ".($row['Order']['order_number'] ? $row['Order']['pre_number'].$row['Order']['order_number'] : $row['Order']['id']);
+?>
+<a href="/schet.html?id=<?php echo $row['Order']['id'] ?>" target=_blank><?php echo $row['Payment']['name'] ?> <?=$zag?>  от <?=date("d.m.Y H:i",strtotime($row['Order']['created']))?> на сумму <?php echo number_format($sum*(1+$row['Order']['skidka']/100),2,'.',',') ?></a>
+<? if($row['Payment']['id'] == 3) echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/schet.html?id='.$row['Order']['id'].'&check" target=_blank>Товарный чек № '.($row['Order']['check_number'] ? $row['Order']['pre_number'].$row['Order']['check_number'] : $row['Order']['id']).'</a>'; ?>
+<br>
+<?php } ?>
+<? else: ?>
+по вашему запросу ничего не найдено
+<? endif; ?>
+<? endif; ?>

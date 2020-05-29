@@ -1,0 +1,58 @@
+<div>Найдено результатов: <?=$paging['count']?></div>
+
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+
+<table class="main-list">
+<tbody><tr>
+<th class="photo">Фото</th>
+<th>Описание</th>
+<th>Номер детали</th>
+<th title="Марка и модель автомобиля, на который устанавливается данная деталь">Марка/модель</th>
+<th title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">Годы выпуска</th>
+<th title="Указан средний и гарантированный срок поставки запасти">Сроки поставки</th>
+<th class="cost">Цена</th>
+<th>&nbsp;</th>
+</tr>
+<? foreach($products as $i=>$row):?> 
+<tr class="">
+<td>
+<div>
+<?
+$dir = $row['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$row['Product']['price_id'];
+if($row['Product']['price_id']>=100   && file_exists("files/products/".$dir."/".$row['Product']['articul'].".jpg")) { ?>
+<a href="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } elseif(file_exists("files/products/photos/".$row['Product']['articul'].".jpg")) {?> 
+<a href="/files/products/photos/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/photos/<?=$row['Product']['articul']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } ?>
+</div></td>
+<td><?=$row['Product']['name']?><br><i>Доп. информация: <?=($row['Product']['bu'] ? 'Б/У. ':'')?><?=($row['Product']['articul'] ? 'Артикул - '.$row['Product']['articul'].'.':'')?> <?=$row['Product']['description']?> <span style="color:#cccccc">(SM<?=$row['Product']['price_id']?>)</span></i></td>
+<td><?=$row['Product']['number']?></td>
+<td class="min" title="Марка и модель автомобиля, на который устанавливается данная деталь"><?=$row['Product']['mark_and_model']?></td>
+<td title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)"><?=$row['Product']['year1']?>-<?=($row['Product']['year2']=='3000' ? ''  : $row['Product']['year2']) ?></td>
+<td title="Указан средний и гарантированный срок поставки запасти"><?=$row['Product']['shipping_info']?></td>
+<td class="cost"><?=$row['Product']['price']?> руб.</td>
+<td class="date">
+<? if($row['Product']['quantity']):?>
+<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+<input name="add" value="<?=$row['Product']['id']?>" type="hidden">
+<input name="skolko" maxlength="4" value="1" style="text-align: center; width: 38px" type="text"> 
+<input type=submit class="buton" value="в корзину">
+</FORM>
+<? else: ?>
+нет в наличии
+<? endif;?>
+</td>
+</tr>
+<?endforeach;?>
+</tbody></table>
+
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+
+
+

@@ -1,0 +1,124 @@
+<? if($this->controller->params['action']!='zapchasti' || $this->controller->params['pass'][0] || empty($this->controller->params['mark']) ) :?>
+<h2 class="b-layout__title b-layout__title_padtop_12 b-layout__title_padbot_30">Каталог автозапчастей</h2>					
+<div class="b-catalog b-fon b-fon_bg_ADC3E5">
+	<b class="b-fon__b1"></b>
+	<b class="b-fon__b2"></b>
+	<div class="b-fon__body">
+		<ul class="b-catalog__list " id="accordion">
+			<? for($i=0;$i<count($marks);$i++) {
+			if($marks[$i]['Mark']['products']>0 || $marks[$i]['Mark']['products_bu']>0 )
+				echo '<li class="b-catalog__item b-catalog__item_bg_ADC3E5"><div class="b-catalog__item-inner b-catalog__item-inner_pad_5_10">
+					<a href="/zapchasti/'.$marks[$i]['Mark']['name'].'" class="b-catalog__link b-catalog__link_color_fff">'.$marks[$i]['Mark']['name'].' ('.($marks[$i]['Mark']['products']+$marks[$i]['Mark']['products_bu']).')</a>
+				</div></li>';
+			else
+				echo '<li class="b-catalog__item b-catalog__item_bg_ADC3E5"><div class="b-catalog__item-inner b-catalog__item-inner_pad_5_10">
+					'.$marks[$i]['Mark']['name'].'
+				</div></li>';
+			}?>									
+		</ul>
+	</div>
+	<b class="b-fon__b2 b-fon__b2_clear_left"></b>
+	<b class="b-fon__b1"></b>
+</div>
+<? elseif($this->controller->params['action']=='zapchasti' && !empty($this->controller->params['mark']) && empty($this->controller->params['subcat'])) :?>
+<h2 class="b-layout__title b-layout__title_padtop_12 b-layout__title_padbot_30">
+<span class="b-catalog_path"><a href="/zapchasti" class="b-catalog_path_link">Все марки авто</a></span>
+Запчасти <?=$mark['Mark']['name']?> 
+</h2>
+<div class="b-catalog b-fon b-fon_bg_ADC3E5">
+	<b class="b-fon__b1"></b>
+	<b class="b-fon__b2"></b>
+	<div class="b-fon__body">
+		<ul class="b-catalog__list" id="accordion">
+			<? foreach($data as $model => $cats) {?>
+				<li class="b-catalog__item b-catalog__item_bg_ADC3E5 " >
+					<div class="b-catalog__item-inner b-catalog__item-inner_pad_5_10">
+						<a href="javascript:void(null);" class="b-catalog__link b-catalog__link_color_fff"><?=$model?></a>
+					</div>
+				</li>
+			<?
+				foreach($cats as $modif => $cat_data)
+				{?>
+					<li class="b-catalog__item b-catalog__item_bg_f5">
+						<div class="b-catalog__item-inner b-catalog__item-inner_pad_3_10_0">
+							<a class="toggler b-catalog__link b-catalog__link_color_000 b-catalog__link_padbot_7" href="javascript:void(null);"><?=$modif?></a>
+							<ul class="element b-catalog__inner-list" style="display:none;">
+							<? foreach($cat_data as $cat_id => $cat_value) { ?>
+								<li class="b-catalog__item b-catalog__item_bordtop_color_e7e6e5">
+									<div class="b-catalog__item-inner b-catalog__item-inner_pad_3_10_0">
+										<a href="javascript:void(null);" class="toggler b-catalog__link b-catalog__link_color_000 b-catalog__link_padbot_7"><?=$cat_value['name']?></a>
+										<ul class="element b-catalog__inner-list" style="display:none;">
+										<? foreach($cat_value['subcats'] as $subcat) {?>
+											<li class="b-catalog__item b-catalog__item_bordtop_color_e7e6e5 ">
+												<div class="b-catalog__item-inner b-catalog__item-inner_pad_3_10_0">
+													<span class="b-catalog__number"><?=$subcat['product_cnt']?></span>
+													<a href="/zapchasti/<?=$mark['Mark']['name'].'/'.str_replace(' ','_',$modif).'/'.$subcat['slug']?>" class="b-catalog__link b-catalog__link_color_000 b-catalog__link_padbot_7 b-catalog__link_padleft_10">- <?=$subcat['description']?></a>
+												</div>
+											</li>	  
+										<?}?>
+										</ul>
+									</div>
+								</li>
+							<?}?>
+							</ul>
+						</div>
+					</li>	
+				<?}
+			}?>																
+		</ul>
+	</div>
+	<b class="b-fon__b2 b-fon__b2_clear_left"></b>
+	<b class="b-fon__b1"></b>
+</div>
+<? elseif($this->controller->params['action']=='zapchasti' && !empty($this->controller->params['subcat'])) :?>
+<h2 class="b-layout__title b-layout__title_padtop_12 b-layout__title_padbot_30">
+<span class="b-catalog_path"><a href="/zapchasti/<?=$mark['Mark']['name']?>" class="b-catalog_path_link">Все модели <?=$mark['Mark']['name']?></a><br><a href="/zapchasti" class="b-catalog_path_link">Все марки авто</a></span>
+Запчасти <?=$mark['Mark']['name']?> <?=$modif['name']?>
+</h2>
+<div class="b-catalog b-fon b-fon_bg_ADC3E5">
+	<b class="b-fon__b1"></b>
+	<b class="b-fon__b2"></b>
+	<div class="b-fon__body">
+		<ul class="b-catalog__list" id="accordion">
+			<li class="b-catalog__item b-catalog__item_bg_ADC3E5 " >
+				<div class="b-catalog__item-inner b-catalog__item-inner_pad_5_10">
+						<a href="/zapchasti/<?=$mark['Mark']['name']?>" class="b-catalog__link b-catalog__link_color_fff"><?=$mark['Mark']['name']?></a>
+				</div>
+			</li>
+			<li class="b-catalog__item b-catalog__item_bg_f5">
+				<div class="b-catalog__item-inner b-catalog__item-inner_pad_3_10_0">
+							<a class="toggler b-catalog__link b-catalog__link_color_000 b-catalog__link_padbot_7" href="javascript:void(null);"><?=$modif['name']?></a>
+							<ul class="element b-catalog__inner-list">
+							<? foreach($cats as $cat_id => $cat_value) { ?>
+								<li class="b-catalog__item b-catalog__item_bordtop_color_e7e6e5">
+									<div class="b-catalog__item-inner b-catalog__item-inner_pad_3_10_0">
+										<a href="javascript:void(null);" class="toggler b-catalog__link b-catalog__link_color_000 b-catalog__link_padbot_7"><?=$cat_value['name']?></a>
+										<ul class="element b-catalog__inner-list" id="ul<?=$cat_id?>" style="display:none;">
+										<? foreach($cat_value['subcats'] as $subcat) {
+											if($subcat['slug'] == $this->controller->params['subcat']) 
+												$cat_open=$cat_id;
+										?>
+											<li class="b-catalog__item b-catalog__item_bordtop_color_e7e6e5 ">
+												<div class="b-catalog__item-inner b-catalog__item-inner_pad_3_10_0" <?=($subcat['slug'] == $this->controller->params['subcat']?'style="font-weight:bold"':'' )?>>
+													<span class="b-catalog__number"><?=$subcat['product_cnt']?></span>
+													<a href="/zapchasti/<?=$mark['Mark']['name'].'/'.str_replace(' ','_',$modif['name']).'/'.$subcat['slug']?>" class="b-catalog__link b-catalog__link_color_000 b-catalog__link_padbot_7 b-catalog__link_padleft_10">- <?=$subcat['description']?></a>
+												</div>
+											</li>	  
+										<?}?>
+										</ul>
+									</div>
+								</li>
+							<?}?>
+							</ul>
+				</div>
+			</li>																
+		</ul>
+	</div>
+	<b class="b-fon__b2 b-fon__b2_clear_left"></b>
+	<b class="b-fon__b1"></b>
+</div>
+<?
+if($cat_open)
+ echo '<script>$(\'#ul'.$cat_open.'\').css("display","block");</script>';
+?>
+<? endif; ?>

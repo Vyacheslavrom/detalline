@@ -1,0 +1,67 @@
+<h1>Запись на СТО online</h1>
+	
+<? if(!empty($sent)): ?>
+<script>window.close();</script>
+<? else: ?>
+<form action="sto_online.html" method="post">
+<p><span class=txt>
+<? $session->flash()?>
+<CENTER>
+<TABLE CELLPADDING=3 CELLSPACING=5 BORDER=0 WIDTH=100%>
+<TR class="specialth">
+<TD CLASS="txt" colspan=2>Вы можете отправить нам заявку на СТО прямо сейчас, воспользовавшись следующей формой:<br>
+Поля отмеченные *, являются обязательными для заполнения
+</TR>
+<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">БЛАНК ЗАПИСИ НА СТО</TH></TR>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">ФИО<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('StoRequest/fio',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('StoRequest/fio', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Телефон<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('StoRequest/phone',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('StoRequest/phone', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Email:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('StoRequest/email',array('style'=>'width:180px;','class'=>'formfield'))?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Марка, модель<br>и год выпуска авто<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('StoRequest/mark_and_model',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('StoRequest/mark_and_model', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Желаемый день ремонта<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('StoRequest/date',array('style'=>'width:100px;','class'=>'formfield','readonly'=>'true'))?><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('StoRequestDate', 'mm.y');" class="mainoption"> время <?php echo $html->input('StoRequest/hh',array('style'=>'width:20px;','class'=>'formfield','maxlength'=>'2'))?>:<?php echo $html->input('StoRequest/mm',array('style'=>'width:20px;','class'=>'formfield','maxlength'=>'2'))?>
+<?php echo $html->tagErrorMsg('StoRequest/date', '<font color=red><small>обязательное поле</small></font>')?>
+<?php echo $html->tagErrorMsg('StoRequest/hh', '<font color=red><small>неверно указаны часы</small></font>')?>
+<?php echo $html->tagErrorMsg('StoRequest/mm', '<font color=red><small>неверно указаны минуты</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="CENTER" CLASS="txt" valign=top colspan=2>Выберите удобное для Вас СТО<sup><font color=red>*</font></sup>:<?php echo $html->tagErrorMsg('StoRequest/sto_id', '<font color=red><small>Не выбрана СТО</small></font>')?>
+<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=3 BORDER=0><TR>
+
+<? foreach($stos as $row) { ?>
+
+<TD CLASS="txt" ALIGN="CENTER"><INPUT TYPE="radio" name="data[StoRequest][sto_id]" value="<?=$row['Sto']['id']?>" <?=(@$this->data[StoRequest][sto_id]==$row['Sto']['id'] ? "checked":"")?>><BR>
+<b><?=$row['Sto']['address']?></b><br><?=$row['Sto']['services']?></TD>
+
+<? } ?>
+
+</TR></TABLE></TD></TR>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" valign=top>Опишите проблему и работы,<br>которые вы хотели бы выполнить<sup><font color=red>*</font></sup>:&nbsp;</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->textarea('StoRequest/description',array('style'=>'width:180px;height:150px;', 'class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('StoRequest/description', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" valign=top>Введите защитный код<sup><font color=red>*</font></sup>:&nbsp;</td><TD CLASS="txt" ALIGN="LEFT">
+<?=$html->input("StoRequest/code", array('style'=>'width:100px;' ,'id'=>'code', 'class'=>'formfield'));?> 
+<input type="hidden" name=data[StoRequest][hash] value="<?=$tuning_hash?>"> <img src="<?=$tuning_url.'?'.time();?>" border="0" width="35" height="15" /> 
+<?php echo $html->tagErrorMsg('StoRequest/code', '<font color=red><small>введите правильный код</small></font>')?></td></tr>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt"></TD>
+<TD CLASS="txt" ALIGN="LEFT"><input type=submit value=отправить CLASS="formbutton"> <input type=reset value=очистить CLASS="formbutton"></td></tr>
+</table>
+</center>
+</form>
+<? endif; ?>

@@ -1,0 +1,22 @@
+<table width=100% border=0>
+<tr>
+<td width=50% valign=top>
+<font size="1" face="Verdana, Arial, Helvetica, sans-serif"><SPAN class=txt>
+<h1 class=chapterheader>Новости автомира</h1>
+<? foreach($other_news as $row) {
+        echo '<h2 class=itemheader>'.$row['Article']['header'].'</h2>'.$row['Article']['short'].(!empty($row['Article']['text'])? '<br><a href="/article.html?id='.$row['Article']['id'].'">Читать подробнее>></a>':'').
+(!empty($row['Article']['link'])? '<br><a href="http://'.$row['Article']['link'].'" target=_blank>Читать подробнее>></a>':'');
+}?>
+</span></font>
+</td>
+<td valign=top>
+<font size="1" face="Verdana, Arial, Helvetica, sans-serif"><SPAN class=txt>
+<h1 class=chapterheader>Наши новости</h1>
+<? foreach($our_news as $row) {
+        echo '<h2 class=itemheader>'.$row['Article']['header'].'</h2>'.$row['Article']['short'].(!empty($row['Article']['text'])? '<br><a href="/article.html?id='.$row['Article']['id'].'">Читать подробнее>></a>':'').
+(!empty($row['Article']['link'])? '<br><a href="http://'.$row['Article']['link'].'" target=_blank>Читать подробнее>></a>':'');
+}?>
+</span></font>
+</td>
+</tr>
+</table>

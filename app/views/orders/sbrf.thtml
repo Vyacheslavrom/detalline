@@ -1,0 +1,149 @@
+<html>
+
+<head>
+
+<?php
+
+$sum = 0;
+
+$main_col = 'count';
+                foreach ($data['OrderProduct'] as $prod) { 
+                      if($prod['status1']>0)
+                             $main_col = 'status1';
+                       
+                }
+
+foreach ($data['OrderProduct'] as $prod) { 
+	
+$main_count = $prod[$main_col];
+if($main_count == 0) continue;
+	
+      
+			$sum += $prod['price']*$main_count;
+}
+$sum += $sum*($data['Order']['skidka']/100);
+?>
+<style type="text/css">
+P	{font-family: Arial, Helvetica, sans-serif; font-size:  9pt};
+TD	{font-family: Arial, Helvetica, sans-serif; font-size:  9pt};
+#small	{font-family: Arial, Helvetica, sans-serif; font-size:  8pt};
+#title	{font-family: Tahoma, Helvetica; font-size: 11pt};
+A:hover   { color: #FF0000; };
+</style>
+<title>Квитанция для оплаты услуг</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#000080" vlink="#000080">
+<?php foreach($credentials as $row_cel):?>
+<h3 align="center">Извещение для оплаты заказа № <?php echo $data['Order']['order_number'] ? $data['Order']['pre_number'].$data['Order']['order_number'] : $data['Order']['id']; ?> от <?=date("d.m.Y",strtotime($data["Order"]["created"]))?></h3>
+
+<table border="0" width="640"><tr><td ID="small">Распечататйте бланк извещения, вырежьте и оплатите в любом удобном для Вас отделении Сбербанка России.</td></tr></table>
+
+<br><br>
+<table CELLSPACING="0" BORDER="1" CELLPADDING="3" WIDTH="640" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+  <tr>
+    <td ALIGN="left" WIDTH="240" VALIGN="middle">
+      &nbsp;&nbsp;<b>ИЗВЕЩЕНИЕ</b>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      &nbsp;&nbsp;Кассир<br>
+    </td>
+    <td ALIGN="right" WIDTH="400" VALIGN="middle">
+    <table CELLSPACING="0" BORDER="1" CELLPADDING="3" WIDTH="410" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+      </tr>
+        <td colspan="3">Получатель платежа: <?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?>,<BR>
+        ИНН: <?=$row_cel['Credential']['inn']?><br>
+        Р/c: <?=$row_cel['Credential']['rasch_schet']?>,<?=$row_cel['Credential']['name_bank']?><br>
+        Корр.сч.: <?=$row_cel['Credential']['korr_schet']?>,<br>
+        БИК: <?=$row_cel['Credential']['bik']?></td>
+      <tr>
+        <td COLSPAN="3"><br><br>
+        <hr size="1" color="#000000">
+        <div align="center" style="font-family: sans-serif; font-size: 8pt"><small><small>фамилия, и. о., адрес</small></small></div>
+        </td>
+      </tr>
+      <tr>
+        <td ALIGN="center">Вид платежа</td>
+        <td ALIGN="center">Дата</td>
+        <td ALIGN="center">Сумма</td>
+      </tr>
+      <tr>
+        <td ALIGN="left">Оплата заказа № <?php echo $data['Order']['order_number'] ? $data['Order']['pre_number'].$data['Order']['order_number'] : $data['Order']['id']; ?> от <?=date("d.m.Y",strtotime($data["Order"]["created"]))?>. Без НДС</td>
+        <td valign="bottom"><img src="/images/b.gif" width="75" height="1" border="0"></td>
+        <td valign="bottom"><?php echo number_format($sum,2,'.',','); ?></td>
+      </tr>
+      <tr>
+        <td ALIGN="left" ROWSPAN="2" colspan="3" valign="center"><br>Плательщик:</td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td ALIGN="left" WIDTH="240" VALIGN="middle">
+      &nbsp;&nbsp;<b>КВИТАНЦИЯ</b>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      &nbsp;&nbsp;Кассир<br>
+    </td>
+    <td ALIGN="right" WIDTH="400" VALIGN="middle">
+    <table CELLSPACING="0" BORDER="1" CELLPADDING="3" WIDTH="410" bordercolorlight="#000000" bordercolordark="#FFFFFF">
+      </tr>
+        <td colspan="3">Получатель платежа: <?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?>,<BR>
+        ИНН: <?=$row_cel['Credential']['inn']?><br>
+        Р/c: <?=$row_cel['Credential']['rasch_schet']?>, <?=$row_cel['Credential']['name_bank']?><br>
+        Корр.сч.: <?=$row_cel['Credential']['korr_schet']?>,<br>
+        БИК: <?=$row_cel['Credential']['bik']?></td>
+      <tr>
+      <tr>
+        <td COLSPAN="3"><br><br>
+        <hr size="1" color="#000000">
+        <div align="center" style="font-family: sans-serif; font-size: 8pt"><small><small>фамилия, и. о., адрес</small></small></div>
+        </td>
+      </tr>
+      <tr>
+        <td ALIGN="center">Вид платежа</td>
+        <td ALIGN="center">Дата</td>
+        <td ALIGN="center">Сумма</td>
+      </tr>
+      <tr>
+        <td ALIGN="left">Оплата заказа № <?php echo $data['Order']['order_number'] ? $data['Order']['pre_number'].$data['Order']['order_number'] : $data['Order']['id']; ?> от <?=date("d.m.Y",strtotime($data["Order"]["created"]))?>. Без НДС</td>
+        <td valign="bottom"><img src="/images/b.gif" width="75" height="1" border="0"></td>
+        <td valign="bottom"><?php echo number_format($sum,2,'.',','); ?></td>
+      </tr>
+      <tr>
+        <td ALIGN="left" ROWSPAN="2" colspan="3" valign="center"><br>Плательщик:</td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<? endforeach;?>
+</body>
+</html>
+

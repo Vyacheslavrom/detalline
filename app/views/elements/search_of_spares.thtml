@@ -1,0 +1,82 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<TR>
+          <TD WIDTH=193 HEIGHT=27 background="images/01_21.jpg" class="blockth"><span class="leftmenu"><a href="<?=$html->url('/e-shopping.html')?>" style="color:#ffffff"><b>&nbsp;КАТАЛОГ ЗАПЧАСТЕЙ</b></a></span>
+          </TD>
+       </TR>
+        <tr>
+          <td height="3"><img src="images/spacer.gif" width="1" height="1"></td>
+        </tr>        
+<TR>
+          <TD WIDTH=193 HEIGHT=27 background="images/01_21.jpg" class="blockth"><span class="leftmenu"><b>&nbsp;ПОИСК ЗАПЧАСТЕЙ</b></span>
+          </TD>
+       </TR>
+        <tr>
+          <td height="3"><img src="images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+          <td height="2"><IMG SRC="images/36_26.jpg" WIDTH=193 HEIGHT=2 ALT=""></td>
+        </tr>
+        <tr>
+          <td background="images/36_49.jpg"  style="padding:0px 10px 0 10px;">
+          <form method="get" action="/search.html" name="sparepartsform" id="sparepartsform">
+		<input type=hidden name=tp value=spareparts>
+		<table cellpadding=0 cellspacing=5 border=0>
+		<tr>
+		<td class="darkblocktxt" valign="bottom">
+		<b>Марка авто:</b><br /><select name=mark class=formfield onchange='javascript:choose_model(this.value)'>
+		<? foreach($marks as $mark) { ?>
+		<option value="<?=($mark["Mark"]["id"])?>" <?=($sess_search["mark"]==$mark["Mark"]["id"] ? "selected=selected":"")?>><?=$mark["Mark"]["name"]?></option>
+		<? } ?>
+		</select><br>
+		<b>Модель авто:</b><br />
+		<span id="models"><select name=model class=formfield>
+		<option value=0>---</option></select></span><br>
+		<script>
+    function choose_model(id)
+    {
+      var url = '/choose_models.html';
+      var pars = 'id='+id+'&sel=<?=$sess_search["model"]?>';
+      var myAjax = new Ajax.Updater('models', url, {method: 'get', parameters: pars});
+    }
+    choose_model(document.getElementById("sparepartsform").mark.value);
+    </script>		
+		<b>Год:</b><br /><select name=year class=formfield>
+		<option value=0>---</option>
+		<? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>"  <?=($sess_search["year"]==$i ? "selected=selected":"")?>><?=$i?></option>
+		<? endfor;?>
+		</select><br>
+		<b>Категория:</b><br />
+		<select name=cat class=formfield>
+		<? foreach($categories as $category) { ?>
+		<option value="<?=$category["Category"]["id"]?>" <?=($sess_search["cat"]==$category["Category"]["id"] ? "selected=selected":"")?> ><?=$category["Category"]["name"]?></option>
+		<? } ?>
+		
+		</select><br>
+		<b>Название запчпасти:</b><br /><input type=text name=name class=formfield style="width:155px;" value="<?=$sess_search["name"]?>"><br><small>не более 1го слова</small><br>
+      <b>Цена:</b><br />
+от <input type=text name=prc1 class=formfield style="width:50px;" value="<?=$sess_search["prc1"]?>"> до <input type=text name=prc2 class=formfield style="width:50px;" value="<?=$sess_search["prc2"]?>"> руб.<br>
+<b>Срок доставки:</b><br />
+от <input type=text name=tm1 class=formfield style="width:50px;" value="<?=$sess_search["tm1"]?>"> до <input type=text name=tm2 class=formfield style="width:50px;" value="<?=$sess_search["tm2"]?>"> дн.<br>
+<b>Сортировка:</b><br /><select name=sortBy class=formfield>
+  <option value=0>---</option>
+		<option value="price" <?=($sess_search["sortBy"]=="price" ? "selected=selected":"")?>>по цене</option>
+		<option value="days_shipping" <?=($sess_search["sortBy"]=="days_shipping" ? "selected=selected":"")?>>по сроку доставки</option>		
+		</select><br>
+		<input type=checkbox name=exists <?=(!empty($sess_search["exists"]) ? "checked=true":"")?>> <b>только в наличии</b>
+
+</td></tr>
+		<tr>
+		<td>	
+		<INPUT TYPE="submit" CLASS="formbutton" VALUE="ИСКАТЬ ЗАПЧАСТИ">			
+		</td>
+		</tr>
+				</form>
+		</table>
+          
+          </td>
+        </tr>
+        <tr>
+          <td><IMG SRC="images/36_51.jpg" WIDTH=193 HEIGHT=25 ALT=""></td>
+        </tr>
+</table>

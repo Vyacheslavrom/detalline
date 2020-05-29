@@ -1,0 +1,34 @@
+<div class="mainTitle">Избранное</div>
+<div class="liquidOvalPink"><div class='liquidOvalPinkAllBgPink'><div class='liquidOvalPinkTL'><div class='liquidOvalPinkTR'><div class='liquidOvalPinkBR'><div class='liquidOvalPinkBL'><div class='liquidOvalPinkI'>
+<?if($products):?>
+<table width="100%" cellspacing=1 cellpadding=2 align="center">
+<tr>
+	<th  width="1%">&nbsp;</th>
+	<th width="150" bgcolor=white>Товар</th>
+	<th>Каталог</th>
+	<th>Цена</th>	
+	<th>&nbsp;</th>
+</tr>
+<? foreach ($products as $row) :?>
+<tr>
+	<td ><a href="catalog.html?productID=<?=$row['Product']['id']?>"><img src="/files/products/photos/98/<?=$row['Product']['picture']?>" height=58></a></td>
+	<td ><a href="catalog.html?productID=<?=$row['Product']['id']?>"><?=$row['Product']['name']?></a><br><small>АРТИКУЛ: <?=$row['Product']['articul']?></small></td>
+	<td ><?=$row['Category']['name']?></td>
+	<td ><?=$row['Product']['price']?> РУБ.</td>	
+	<td>	
+<a href="/cart.html?add=<?=$row['Product']['id']?>">+ купить</a>
+<br><a href="/wishlist.html?del=<?=$row['Product']['id']?>" class="grey">x удалить</a>
+	</td>
+</tr>
+<? endforeach; ?>
+</table>
+
+<? if(!$this->controller->logged) : ?>
+<br>
+Чтобы сохранить избранное, пожалуйста, войдите в свой аккаунт
+<? endif; ?>
+
+	<? else: ?>
+СПИСОК ПУСТ
+<? endif; ?>
+  </div></div></div></div></div></div></div>

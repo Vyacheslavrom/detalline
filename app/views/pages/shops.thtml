@@ -1,0 +1,33 @@
+<h1>Адреса магазинов</h1>
+<!--<h1>Адреса магазинов в Ростове-на-Дону</h1>
+<div style="float:left;">
+<p><strong>Адрес:</strong><br>г. Ростов-на-Дону, ул.Некрасовская 75
+<p><strong>Телефоны.:</strong><br>8-904-503-07-07,<br>8-863-260-17-29
+
+<p><strong>График работы:</strong><br>ПН.-ПТ. 09:00-18:00, СБ. 10:00-14:00, ВС. - выходной</p></div>
+<div style="float:right">
+<p><strong>Схема проезда:</strong><br>
+<img src="/images/nekr.jpg" width="500" height="400"></div>
+<div style="clear:both;"></div>
+
+<!--
+<h1>Адреса магазинов в Азове</h1>
+<div style="float:left;">
+<p><strong>Адрес:</strong><br>г. Азов. проезд Объездной 8<br>
+<p><strong>Телефоны.:</strong><br>8-863-279-24-25,<br>8-928-279-24-25
+
+<p><strong>График работы:</strong><br>ПН.-ПТ. 09:00-18:00, СБ. 10:00-14:00, ВС. - выходной</p></div>
+<div style="float:right">
+<p><strong>Схема проезда:</strong><br>
+<img style="width:405px; height:450px;" src="/images/korpor.jpg" alt="Схема проезда"></div>
+<div style="clear:both;"></div>
+
+-->
+<table>
+<?php
+$res1 = mysql_query('SELECT * FROM contact');
+$row1 = mysql_fetch_assoc($res1);
+//    print_r($row1);
+	echo $row1['addr'];
+?>	
+</table>

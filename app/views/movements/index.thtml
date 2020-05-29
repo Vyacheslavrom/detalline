@@ -1,0 +1,54 @@
+<h1>Мои взаиморасчеты</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="0" cellspacing="0" border="0"  align="center">
+<tr>
+	<form method="get" action="/movements">
+	<td colspan="8" class="row2">
+    Добавлен в период: с <input name="created_from" type="text"  id="created_from" value="<?=$sel_created_from?>" style="width:80px;"><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('created_from', 'mm.y');" class="mainoption"> по <input name="created_to" type="text"   id="created_to" value="<?=$sel_created_to?>" style="width:80px;"><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('created_to', 'mm.y');" class="mainoption">	
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Поиск" class="mainoption" >		
+	</td>
+	</form>	
+</tr>
+	</table>
+<p align="center">
+<strong>
+<? $balance = $summery['money'] + $summery['parts'] + $summery['other_objects']; ?>
+Моя задолжность: <?=($balance < 0 ? number_format(-$balance,2,"."," ") : 0)?> руб.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Задолжность компании: <?=($balance > 0 ? number_format($balance,2,"."," ") : 0)?> руб.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</strong>	
+</p>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+	<p>
+	Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>
+	<?php endif;?>	
+	</p>
+<table class="main-list"><tbody>
+<tr> 
+	<th>Дата</th>
+	<th>Направление</th>	
+	<th>Объект</th>
+	<th>Сумма</th>
+	<th>Примечание</th>
+</tr>
+ 	<?php foreach ($data as $row): ?>
+ 	<tr> 
+ 	    <td><?php echo date('d.m.Y H:i', strtotime($row['Movement']['created'])); ?></td>
+		<td><span class="gen"><?php echo $row['MovementDirection']['name'] ?></td>	
+		<td><span class="gen"><?php echo $row['MovementObject']['name'] ?></td>	
+		<td><span class="gen"><?php echo number_format($row['Movement']['sum'], 2, '.', ' ') ?> руб.</td>	
+		<td><span class="gen"><?php echo $row['Movement']['note']; ?></td>			
+	</tr>
+	<?php endforeach; ?>
+	</tbody></table>
+	<p>Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>  
+	<?php endif;?>	
+	</p>
+<? else: ?>
+ <p align="center">по вашему запросу ничего не найдено</p>
+<? endif; ?>
+<? endif; ?>

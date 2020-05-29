@@ -1,0 +1,198 @@
+<?
+function showTable($header, $result, $avtoto, $searchID, $skidka, $check)
+{
+	if(($cnt = mysql_num_rows($result)) > 0 || count($avtoto) > 0) {
+			if(!empty($header))
+				echo '<h2>'.$header.'</h2>';
+			echo '<div>Найдено результатов: '.($cnt + count($avtoto)).'</div>
+			<table class="main-list">
+<tbody><tr>
+<th class="photo">Фото</th>
+<th style="padding-left:5px;">Описание</th>
+<th>Номер<br>производителя</th>
+<th>Фирма</th>
+<th>Наличие</th>
+<th title="Указан средний и гарантированный срок поставки запчасти">Доставка</th>
+<th class="cost">Цена</th>
+<th>&nbsp;</th>
+</tr>';
+while($row = mysql_fetch_array($result)) {
+$visible = true;
+	for($i=0; $i<count($check); $i++)
+		if($row['price_id'] == $check[$i]) $visible = false;
+if($visible == true){
+?>
+<tr class="">
+<td>
+<div>
+<?
+$dir = $row['price_id'] < 100 ? 'photos' : 'photos_'.$row['price_id'];
+if($row['price_id']>=100   && file_exists("files/products/".$dir."/".$row['manuf_number'].".jpg")) { ?>
+<a href="/files/products/<?=$dir?>/<?=$row['manuf_number']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/<?=$dir?>/<?=$row['manuf_number']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } elseif(file_exists("files/products/photos/".$row['manuf_number'].".jpg")) {?> 
+<a href="/files/products/photos/<?=$row['manuf_number']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/photos/<?=$row['manuf_number']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } ?>
+</div></td>
+<td><?=$row['name']?><br><span style="color:#cccccc">(SM<?=$row['price_id']?>)</span></td>
+<td><a href="/search.html?tp=numbers&nums=<?=$row['manuf_number']?>&sortBy=days_shipping&action=search"><?=$row['manuf_number']?></a></td>
+<td><?=$row['manufacturer']?></td>
+<td><img src="/images/<?=( (time() - strtotime($row['modified'])) / 60/60/24 > 5 ? "red_quarter_green_circle.png" : "green_circle.png")?>" align=right><span style="float:left"><?=$row['quantity']?></span>
+<br  style="clear:both;"><?=date('d.m.Y', strtotime($row['modified']))?></td>
+<!--<td title="Указан средний и гарантированный срок поставки запасти"><?=$row['shipping_info']?></td>-->
+<td title="Указан средний и гарантированный срок поставки запасти">
+<?php 
+$shippingf=explode('-',$row['shipping_info']);
+$shippinge=explode('(',$row['shipping_info']);
+$shippinge=explode(')',$shippinge[1]);
+$shipping = ($shippingf[0]+$_SESSION['range']).'- ('.($shippinge[0]+$_SESSION['range']).') дн.';
+?>
+<?=$shipping?>
+</td>
+<td class="cost"><?=$row['price']*(1+$skidka/100)?> руб.</td>
+<td class="date">
+<? if($row['quantity']):?>
+<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+<input name="<? if($row['nprod']):?>add_from_search_by_num<? else:?>add<? endif;?>" value="<?=$row['id']?>" type="hidden">
+<input name="skolko" maxlength="4" value="1" style="text-align: center; width: 38px" type="text"> 
+<a class="button grey" href="/cart.html" onclick="$(this).parent('.form-cart').submit(); return false;">в корзину</a>
+</FORM>
+<? else: ?>
+нет в наличии
+<? endif;?>
+</td>
+</tr>
+<?}
+}
+foreach($avtoto as $element) {
+$price = ceil($element['Price']*1.3);
+?>
+<tr class="">
+<td>
+<div>
+<?
+if(file_exists("files/products/photos/".$element['Code'].".jpg")) {?> 
+<a href="/files/products/photos/<?=$element['Code']?>.jpg" target=_blank title="Фото">
+	<img src="/files/products/photos/<?=$element['Code']?>.jpg" alt="Фото" width="80px">
+</a>
+<? } ?>
+</div></td>
+<td><?=iconv('UTF-8','WINDOWS-1251',$element['Name'])?><br><span style="color:#cccccc">(SM29)</span></td>
+<td><a href="/search.html?tp=numbers&nums=<?=$element['Code']?>&sortBy=days_shipping&action=search"><?=$element['Code']?></a></td>
+<td><?=iconv('UTF-8','WINDOWS-1251',$element['Manuf'])?></td>
+<td><img src="/images/green_circle.png"  align=right><span style="float:left"><?=abs($element['MaxCount'])?></span>
+<br style="clear:both;"><?=date('d.m.Y')?>
+</td>
+<td title="Указан средний и гарантированный срок поставки запасти"><?=$element['Delivery']?> дн.</td>
+<td class="cost"><?=$price*(1+$skidka/100)?> руб.</td>
+<td class="date">
+<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+<input name="add_from_avtoto" value="<?=(time()*1000 + $element['AvtotoData']['PartId'])?>" type="hidden">
+<input name="name" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Name'])?>" type="hidden">
+<input name="code" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Code'])?>" type="hidden">
+<input name="manuf" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Manuf'])?>" type="hidden">
+<input name="price" value="<?=$price?>" type="hidden">
+<input name="Price" value="<?=$element['Price']?>" type="hidden">
+<input name="Storage" value="<?=iconv('UTF-8','WINDOWS-1251',$element['Storage'])?>" type="hidden">
+<input name="Delivery" value="<?=$element['Delivery']?>" type="hidden">
+<input name="BaseCount" value="<?=$element['BaseCount']?>" type="hidden">
+<input name="SearchID" value="<?=$searchID?>" type="hidden">
+<input name="price_id" value="29" type="hidden">
+<input name="skolko" maxlength="4" value="<?=$element['BaseCount']?>" style="text-align: center; width: 38px" type="text"> 
+<a class="button grey" href="/cart.html" onclick="$(this).parent('.form-cart').submit(); return false;">в корзину</a>
+</FORM>
+</td>
+</tr>
+<?
+}
+echo '</tbody></table>';
+}
+}
+
+
+?>
+<h1><?=$h1?></h1>
+<? if($tp == 'numbers') {
+
+$who_check=2;
+$can_search=0;
+$statuses = mysql_query('SELECT * FROM visible_searches');
+while($status = mysql_fetch_array($statuses)){
+
+	if($status[0] == 1 && $status[1] == 0)
+		$who_check = 3;
+	
+	if($who_check == $status[0])
+		$can_search = $status[1];
+
+}
+
+	if($can_search==2 || $can_search==1){
+		$can_go=true;
+		if($can_search==1 && !$this->controller->logged)
+			$can_go=false;
+			
+		if($can_go==true){
+		try {
+			$client = new SoapClient("http://www.avtoto.ru/services/search/soap.wsdl", 
+			array('soap_version' => SOAP_1_1));
+			
+			
+			// Параметры запроса
+			$params = array(
+				'user_id' => 33593,
+				'user_login' => 'detalline',
+				'user_password' => 'cvbnmx1',	
+				'search_code' => $num,
+				'search_cross' => 'on'
+			);
+
+			// Поиск
+			$result = $client->SearchParts($params);
+		} catch(Exception $e) {
+		
+		}}}
+		
+		// Обработка результата
+		$avtoto = array();
+		$avtoto_crosses = array();
+		if (isset($result['Parts']) && count($result['Parts'])>0) {
+			foreach($result['Parts'] as $element) {
+				if($element['Code'] == $num)
+					$avtoto[] = $element;
+				else
+					$avtoto_crosses[] = $element;
+			}
+		}
+		
+		
+		$res = mysql_query("SELECT nproducts.id, nproducts.name, nproducts.manuf_number, nproducts.manufacturer, shipping_info, price, quantity, 1 as nprod, price_id, modified
+		FROM nproducts  WHERE nproducts.manuf_number = '".$num."' 
+		UNION SELECT products.id, products.name, products.manuf_number, products.manufacturer, shipping_info, price, quantity, 0 as nprod,price_id, modified 
+		FROM products WHERE products.manuf_number = '".$num."'");
+		echo '<h2>Запрошенный номер - '.$num.'</h2>';
+		showTable('', $res, $avtoto, $result['Info']['SearchId'],intval($this->controller->othAuth->user("skidka")),$price_check_true);
+		
+		$res = mysql_query("SELECT nproducts.id, nproducts.name, nproducts.manuf_number, nproducts.manufacturer, shipping_info, price, quantity, 1 as nprod,price_id, modified
+		FROM nproducts INNER JOIN crosses ON (crosses.manufacturer = nproducts.manufacturer
+AND crosses.manuf_number = nproducts.manuf_number AND crosses.part =0 AND crosses.number = '".$num."') OR  
+(crosses.number = nproducts.manuf_number AND crosses.part =0 AND crosses.manuf_number = '".$num."')
+UNION SELECT products.id, products.name, products.manuf_number, products.manufacturer, shipping_info, price, quantity, 0 as nprod,price_id, modified 
+FROM products INNER JOIN crosses ON (crosses.manufacturer = products.manufacturer
+AND crosses.manuf_number = products.manuf_number AND crosses.part =0 AND crosses.number = '".$num."') OR 
+(crosses.number = products.manuf_number AND crosses.part =0 AND crosses.manuf_number = '".$num."') ");
+		showTable('Аналоги (заменители) для запрошенного номера', $res, $avtoto_crosses, $result['Info']['SearchId'], intval($this->controller->othAuth->user("skidka")),$price_check_true);
+		
+		$result = mysql_query("SELECT nproducts.id, nproducts.name, nproducts.manuf_number, nproducts.manufacturer, shipping_info, price, quantity, 1 as nprod,price_id , modified
+		FROM nproducts INNER JOIN crosses ON crosses.manufacturer = nproducts.manufacturer
+AND crosses.manuf_number = nproducts.manuf_number AND crosses.part =1 WHERE crosses.number = '".$num."' 
+UNION SELECT products.id, products.name, products.manuf_number, products.manufacturer, shipping_info, price, quantity, 0 as nprod,price_id , modified
+FROM products INNER JOIN crosses ON crosses.manufacturer = products.manufacturer
+AND crosses.manuf_number = products.manuf_number AND crosses.part =1 WHERE crosses.number = '".$num."'");
+		showTable('Детали, содержащиеся в запрошенном номере', $result, array(), 0, intval($this->controller->othAuth->user("skidka")),$price_check_true);
+		
+		
+} ?>

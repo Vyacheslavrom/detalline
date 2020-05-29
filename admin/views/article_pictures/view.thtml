@@ -1,0 +1,106 @@
+<script>
+function confirmDelete(id, ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url+id;
+}
+}
+
+function hasSelectedRows(form) {
+var re= new RegExp("^chk_del_","gi");
+for(i=0;i<form.elements.length;i++) {
+if(form.elements[i].name.match(re) && form.elements[i].checked) {
+return true;
+}
+}
+return false;
+}
+
+function doAction(act) {
+if(hasSelectedRows(act.form)) {
+switch(act.value) {
+case '1' : 
+if(window.confirm("Вы уверены что хотите удалить объекты?")) {
+act.form.action = '/admin/article_pictures/delete';
+act.form.submit();
+}		
+else
+act.options[0].selected = true;
+break;
+}
+}
+else {
+alert('Не выбрано ни одной записи');
+act.options[0].selected = true;
+}
+return false;
+}
+
+function allDelClick(chkbx) {
+var re= new RegExp("^chk_del_","gi");
+if(chkbx.name.match(re)) {
+chkbx.form.chk_del1.checked = true;	 
+chkbx.form.chk_del2.checked = true;
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re) && !chkbx.form.elements[i].checked) {
+chkbx.form.chk_del1.checked = false;	 
+chkbx.form.chk_del2.checked = false;		 
+}
+}
+}
+else {
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re)) {
+chkbx.form.elements[i].checked = chkbx.checked ? true : false;	 
+}
+}
+chkbx.form.chk_del1.checked = chkbx.checked ? true : false;	 
+chkbx.form.chk_del2.checked = chkbx.checked ? true : false;	
+}
+}
+</script>
+<h1>Просмотр фото статьи <?=$article?></h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="4">Управление изображениями</th>
+</tr>
+<tr>
+	<td colspan="4" class="row2">	
+	<input type="button" value="Добавить фото к статье" onClick="window.location.href='/admin/article_pictures/add/<?=$article?>'" class="mainoption"> <input type="button" value="Перейти к редактированию статьи" onClick="window.location.href='/admin/articles/edit/<?=$article?>'" class="mainoption">		
+	</td>
+</tr>
+<? if(count($data)) :?>
+<form method="post" action="/admin/article_pictures">
+<tr><td colspan="4" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del1"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+<tr class="sectiontableheader"> 
+	<td class="catLeft" width="1%"><span class="cattitle">&nbsp;</span></td>
+	<td class="cat" width="1%"><span class="cattitle">Фото</span></td>
+	<td class="catRight" valign="middle"><span class="gen">&nbsp;</span></td>
+</tr>
+ 	<?php foreach ($data as $row): ?>
+ 	<tr class=""> 
+		<td class="row1"><span class="gen"><input type="checkbox" onClick="allDelClick(this);" name="chk_del_<?php echo $row['ArticlePicture']['id'] ?>"></span></td>
+		<td class="row2"><span class="gen"><a href="/files/articles/dop_photos/<?=$row['ArticlePicture']['picture']?>" target=_blank><img src='/files/articles/dop_photos/180/<?=$row['ArticlePicture']['picture']?>'></a></span></td>
+		<td class="row2" align="center">
+							<input type="button" value="Удалить" class="mainoption" onClick='confirmDelete("<?=$row['ArticlePicture']['id']?>","Вы уверены что хотите удалить изображение?","/admin/article_pictures/delete/");'/> 
+		</td>
+	</tr>
+	<?php endforeach; ?>
+<tr><td colspan="4" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del2"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+</form>
+<? else: ?>
+ <tr><td colspan="4" class="row1" align="center">нет изображений</td></tr>
+<? endif; ?>
+</table>

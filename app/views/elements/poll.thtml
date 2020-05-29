@@ -1,0 +1,53 @@
+<? if($poll) :?>
+<div class="b-promo b-promo_main" style="margin-top:0px">
+				<div class="b-promo__main-inner b-promo_height_80 b-promo_overflow_hidden" style="height:10px;">				
+					<span class="poll-title"><?=$poll['Poll']['name']?></span>
+					<div id="promo-minimize" class="b-promo__slide b-promo__slide_hide">
+							<a id="main_link_promo_tgl" class="b-promo__link b-promo__link_float_right" href="javascript:void(0)">
+							  свернуть
+							<span class="b-promo__slide-arrow b-promo__slide-arrow_top"></span></a>
+					</div>
+					<div id="promo-maximize" class="b-promo__slide">
+							<a class="b-promo__link b-promo__link_float_right"href="javascript:void(0)">
+							  проголосовать
+							<span class="b-promo__slide-arrow b-promo__slide-arrow_bot"></span></a>
+					</div>
+					<div id="mainPromo" class="b-layout b-layout_padtop_30 b-promo__main-block b-layout_hide">
+						<div class="poll-inner">
+						<form method="post" action="/index.html" id="form-poll">					
+						<?
+						if($has_voted) {
+							foreach($poll['PollVariant'] as $variant) {
+								$chs = mysql_num_rows(mysql_query('select * from poll_choices where poll_variant_id='.$variant['id']));
+								$pers = floor($chs/count($poll['PollChoice'])*100);
+								echo '<br>'.$variant['name'].'('.$pers.'%; '.$chs.' чел.)<br><img src="/images/blank.jpg" style="WIDTH:'.$pers.'%;HEIGHT:4px">';
+							}
+							$chs = mysql_num_rows(mysql_query('select * from poll_choices where poll_id='.$poll['Poll']['id'].' and other is not null and poll_variant_id is null'));
+							$pers = floor($chs/count($poll['PollChoice'])*100);
+							echo '<br>Другое('.$pers.'%; '.$chs.' чел.)<br><img src="/images/blank.jpg" style="WIDTH:'.$pers.'%;HEIGHT:4px">';
+							echo '<p align=center><br>Проголосовало: '.count($poll['PollChoice']).'
+							<br><b>Спасибо за голосование!</b>';
+						} else {
+							foreach($poll['PollVariant'] as $variant) {
+								if($poll['Poll']['multiple'])
+									echo '<br><input type=checkbox value=1 name=poll_var_'.$variant['id'].'>';
+								else
+									echo '<br><input type=radio name=poll_variant value=poll_var_'.$variant['id'].'>';
+								echo '&nbsp;&nbsp;&nbsp;'.$variant['name'];
+							}
+							if($poll['Poll']['multiple'])
+								echo '<br><input type=checkbox value=1 name=poll_var_other>';
+							else
+								echo '<br><input type=radio name=poll_variant value=poll_var_other>';
+							echo '&nbsp;&nbsp;&nbsp;Другое:<br><input type=text name=poll_other_txt style="width:100%">
+							<input type=hidden name=poll_id value="'.$poll['Poll']['id'].'">
+							<p align=center><br>Проголосовало: '.count($poll['PollChoice']).'<input type=hidden name=vote value=1>
+							<br><a class="button grey" href="/" onclick="$(\'#form-poll\').submit(); return false;">Голосовать</a>';
+						}
+					?>
+						</form>
+						</div>
+					</div>
+				</div>
+</div>
+<? endif;?>

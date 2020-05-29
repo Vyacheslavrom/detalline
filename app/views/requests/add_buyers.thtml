@@ -1,0 +1,196 @@
+<a href="/buyers.html">Перейти в журнал поставщеков / листов закупок</a><p>
+<h1>Обращение покупателя <?=@$this->params[data][Buyer][id]?> <?=@$this->params[data][Buyer][created]? '<br>Дата:'.@$this->params[data][Buyer][created] : ''?>
+<?php 
+switch(@$this->params[data][Buyer][buyer]){
+	case 0: {echo ' (Новый)';break;}
+	case 1:	{echo ' (Не работаем)';break;}
+	case 2: {echo ' (Средне)';break;}
+	case 3: {echo ' (Хорошо)';break;}
+	case 4: {echo ' (Надежный)';break;}
+	case 5: {echo ' (Постояный)';break;}
+	case 6: {echo ' (Кидалово)';break;}
+	default:{echo '';break;}
+}
+?>
+
+
+</h1>
+<FORM method="post" name="requestform" id="requestform">
+<?  $session->flash()?>
+<fieldset>
+<legend><strong>Клиент</strong></legend>
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0 WIDTH=100%>
+<tr>
+<td valign=top>Имя<sup style="color:red">*</sup>:<input type=text name="data[Buyer][customer_name]" style="width:150px;" value="<?=@$this->params[data][Buyer][customer_name]?>"><?php echo $html->tagErrorMsg('Buyer/customer_name', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Моб. телефон<sup style="color:red">*</sup>:<input type=text name="data[Buyer][customer_phone]" style="width:150px;" value="<?=@$this->params[data][Buyer][customer_phone]?>"><?php echo $html->tagErrorMsg('Buyer/customer_phone', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Email:<input type=text name="data[Buyer][customer_email]" style="width:150px;" value="<?=@$this->params[data][Buyer][customer_email]?>"></td>
+<?php if(!empty($_GET['id'])){?><td valign=top>Дата чека:<input name="data[Buyer][check_date]" type="text"  id="insert_date_from" value="<?=@$this->params[data][Buyer][check_date]?>" style="width:80px;"><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('insert_date_from', 'mm.y');" class="mainoption"></td><?}else{?>
+<td style="display:none"><input type=text name="data[Buyer][check_date]" style="width:150px;" value="<?=@date('Y-m-d H:i:s')?>"></td><?}?>
+<td valign=top style="display:none"><input type=text name="data[Buyer][buyer]" style="width:150px;" value="<?=@$this->params[data][Buyer][buyer]?>" id="besit"></td>
+</tr>
+<tr>
+<td valign=top align=right>Дополнительные мобильные</td>
+<td valign=top align=right>телефоны 2-й:<input type=text name="data[Buyer][customer_phone2]" style="width:150px;" value="<?=@$this->params[data][Buyer][customer_phone2]?>">&nbsp;&nbsp;</td>
+<td valign=top >&nbsp;&nbsp; 3-й:<input type=text name="data[Buyer][customer_phone3]" style="width:150px;" value="<?=@$this->params[data][Buyer][customer_phone3]?>"></td>
+<td valign=top > Скидка:<input type=text name="data[Buyer][discount]" style="width:35px;" value="<?=@$this->params[data][Buyer][discount]?>"></td>
+</tr>
+</TABLE>
+<input type=hidden id="en">
+</fieldset>
+<fieldset>
+Ответственный:
+<SELECT NAME="data[Buyer][responsible_id]" CLASS="formfield">
+<OPTION></OPTION>
+<? 
+foreach($responsibles as $row): ?>
+<OPTION VALUE="<?=$row['Responsible']['id']?>" <?=(@$this->params[data][Buyer][responsible_id]==$row['Responsible']['id'] ? "selected=selected":"")?>><?=$row['Responsible']['who']?></OPTION>
+<? endforeach; ?>
+</SELECT>
+<legend><strong>Автомобиль</strong></legend>
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0>
+<tr>
+<td valign=top>Марка<sup style="color:red">*</sup>:<br><select name="data[Buyer][mark_id]" id="request_mark"><? foreach($marks as $mark) { ?>
+		<option value="<?=($mark["Mark"]["id"])?>" <?=(@$this->params[data][Buyer][mark_id]==$mark["Mark"]["id"]?"selected":"")?>><?=$mark["Mark"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Buyer/mark_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Модель<sup style="color:red">*</sup>:<br><span id="request_models"><select name="model" id="request_model12"><option value="">---</option></select></span><?php echo $html->tagErrorMsg('Buyer/model_id', '<font color=red><small>обязательное поле</small></font>')?>
+											  <script>
+                                                                                           var markObj2 = $('#request_mark');
+                                                                                          markObj2.change( function() {choose_model(markObj2.val(), 0, $('#request_models'), document.getElementById('requestform').model);});
+											    choose_model(markObj2.val(), <?=(@$this->params['data']['Buyer']['model_id'] ? $this->params['data']['Buyer']['model_id'] : 0)?>, $('#request_models'),document.getElementById('requestform').model);  
+											   </script></td>
+<td valign=top>Год<sup style="color:red">*</sup>:<br><select name="data[Buyer][year]" style="width:70px;" id="request_year"><option value="">---</option><? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>" <?=(@$this->params[data][Buyer][year]==$i?"selected":"")?>><?=$i?></option>
+		<? endfor;?></select><?php echo $html->tagErrorMsg('Buyer/year', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Двигатель<sup style="color:red">*</sup>:<br><select name="data[Buyer][engine_volume_id]" style="width:70px;"><option value="">---</option><? foreach($engine_volumes as $row) { ?>
+		<option value="<?=($row["EngineVolume"]["id"])?>" <?=(@$this->params[data][Buyer][engine_volume_id]==$row["EngineVolume"]["id"]?"selected":"")?>><?=$row["EngineVolume"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Buyer/engine_volume_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Тип<sup style="color:red">&nbsp;</sup>:<br><select name="data[Buyer][engine_type_id]" ><option value="">---</option><? foreach($engine_types as $row) { ?>
+		<option value="<?=($row["EngineType"]["id"])?>" <?=(@$this->params[data][Buyer][engine_type_id]==$row["EngineType"]["id"]?"selected":"")?>><?=$row["EngineType"]["name"]?></option>
+		<? } ?></select></td>
+<td valign=top>Мощность (л.с.)<sup style="color:red">&nbsp;</sup>:<br><input type=text name="data[Buyer][engine_power]" style="width:90px;" value="<?=@$this->params[data][Buyer][engine_power]?>"></td>
+</tr>
+<tr>
+<td valign=top>Привод:<br><select name="data[Buyer][wheel_drive_id]" ><option value="">---</option><? foreach($wheel_drives as $row) { ?>
+		<option value="<?=($row["WheelDrive"]["id"])?>" <?=(@$this->params[data][Buyer][wheel_drive_id]==$row["WheelDrive"]["id"]?"selected":"")?>><?=$row["WheelDrive"]["name"]?></option>
+		<? } ?></select></td>
+<td valign=top>Тип кузова:<br><select name="data[Buyer][body_type_id]" ><option value="">---</option><? foreach($body_types as $row) { ?>
+		<option value="<?=($row["BodyType"]["id"])?>" <?=(@$this->params[data][Buyer][body_type_id]==$row["BodyType"]["id"]?"selected":"")?>><?=$row["BodyType"]["name"]?></option>
+		<? } ?></select></td>
+<td valign=top>КПП:<br><select name="data[Buyer][transmission_id]" ><option value="">---</option><? foreach($transmissions as $row) { ?>
+		<option value="<?=($row["Transmission"]["id"])?>" <?=(@$this->params[data][Buyer][transmission_id]==$row["Transmission"]["id"]?"selected":"")?>><?=$row["Transmission"]["name"]?></option>
+		<? } ?></select></td>
+<td valign=top>Код кузова:<br><input type=text name="data[Buyer][body_code]" style="width:90px;" value="<?=@$this->params[data][Buyer][body_code]?>"></td>
+<td valign=top>Код двигателя:<br><input type=text name="data[Buyer][engine_code]" style="width:90px;" value="<?=@$this->params[data][Buyer][engine_code]?>"></td>
+<td valign=top>Рынок:<br><select name="data[Buyer][market_id]" ><option value="">---</option><? foreach($markets as $row) { ?>
+		<option value="<?=($row["Market"]["id"])?>" <?=(@$this->params[data][Buyer][market_id]==$row["Market"]["id"]?"selected":"")?>><?=$row["Market"]["name"]?></option>
+		<? } ?></select></td>
+</tr>
+<tr><td valign=top>Доставка: </td><td colspan=5><input type=text name="data[Buyer][shipping]" style="width:60%;"  value="<?=@$this->params[data][Buyer][shipping]?>"></td></tr>
+<tr><td valign=top>Комплектация: </td><td colspan=5><input type=text name="data[Buyer][complete_set]" style="width:60%;"  value="<?=@$this->params[data][Buyer][complete_set]?>"></td></tr>
+<tr><td valign=top>VIN или FRAME: </td><td colspan=5><input type=text name="data[Buyer][vin_frame]" style="width:60%;"  value="<?=@$this->params[data][Buyer][vin_frame]?>"><br><small>Обязателен для подбора новых запчастей!<br>
+Использовать буквы I, O, Q в VIN запрещено, так как они сходны по начертанию с цифрами 1, 0, а также между собой.<br>
+FRAME записывается через дефис.</small></td></tr>
+</table>
+</fieldset>
+<fieldset>
+<legend><strong>Запчасти</strong></legend>
+При вводе запчастей не забывайте подробно указывать тип запчастей. Например, бампер передний под ПАРТРОНИКИ И ОМЫВАТЕЛИ, фара правая КСЕНОН (БИ КСЕНОН) АДАПТИВНАЯ.
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%" id="partstable">
+<? 
+$sroki_dostavki = array('в наличии','1 день','1-2 дня','2-3 дня','3-5 дней', '5-7 дней','7-10 дней','10-12 дней','12-15 дней','15-20 дней','20-30 дней','30-45 дней','более 45 суток');
+$sost_arr = array('новый(ая) неоригинал', 'Б/У оригинал', 'новый(ая) оригинал',  'Б/У идеал',  'Б/У с дефектом',  'Б/У неоригинал',  'восстановленный(ая)'); 
+ 
+$rows_cnt =  count(@$this->params[data]['BuyerPart']) ? count(@$this->params[data]['BuyerPart']) : 10;
+for($j=0;$j<$rows_cnt;$j++) :
+?>
+<tr><td valign=top><?=($j+1)?>.Наименование запчасти<sup style="color:red">*</sup>:<br><textarea style="font-weight:bold" name="data[BuyerPart][<?=$j?>][name]"><?=($this->params[data]['BuyerPart'][$j]['name'] ? $this->params[data]['BuyerPart'][$j]['name']  : '')?></textarea><br>
+Ориг номер:<br><input type=text name="data[BuyerPart][<?=$j?>][number]" value="<?=($this->params[data]['BuyerPart'][$j]['number'] ? $this->params[data]['BuyerPart'][$j]['number']  : '')?>"><br>
+Состояние<sup style="color:red">*</sup>:<br><select name="data[BuyerPart][<?=$j?>][part_state_id]" ><option value="">= выберите состояние =</option><? foreach($part_states as $row) { ?>
+		<option value="<?=($row["PartState"]["id"])?>" <?=(@$this->params[data]['BuyerPart'][$j]['part_state_id']==$row["PartState"]["id"]?"selected":"")?>><?=$row["PartState"]["name"]?></option>
+		<? } ?></select><br><?=$request_parts_errors[$j]['part_state_id']?></td><td>
+<b>Ответ:</b><br>
+<table width=100% >
+<? for($i=0;$i<3;$i++) {?>
+<tr <?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][buy]?"style='background-color:#00FFFF;'":""?>><td colspan=2><?=($i+1)?>. Наименование<sup style="color:red">*</sup><br>
+<input type=text style="width:90%;" id="dataBuyerAnswerName_<?=$j?>_<?=$i?>" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][name]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][name]?>">
+</td><td>Количество<br><input type=text style="width:90%;" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][count]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i]['count']?>"></td><td>Ориг. номер<br>
+<input type=text id="dataBuyerAnswerNumber_<?=$j?>_<?=$i?>" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][number]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][number]?>">
+</td>
+<td rowspan=2>
+Продано:<input type="checkbox" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][buy]" value="1" <?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][buy]?"checked='checked'":""?>>
+</td>
+</tr>
+<tr <?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][buy]?"style='background-color:#00FFFF;'":""?>><td>Цена, руб<sup style="color:red">*</sup><br>
+<input type=text style="width:80px;" id="dataBuyerAnswerPrice_<?=$j?>_<?=$i?>" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][start_price]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][start_price]?>">
+<?=@$errors[$j][$i][start_price]?>
+</td><td>Наличие/заказ<sup style="color:red">*</sup><br>
+<input type=text style="width:80px;"  id="dataBuyerAnswerDeliveryTerm_<?=$j?>_<?=$i?>" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][delivery_term]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][delivery_term]?>">
+<?=@$errors[$j][$i][delivery_term]?>
+</td><td>Состояние<sup style="color:red">*</sup><br>
+<select id="dataBuyerAnswerState_<?=$j?>_<?=$i?>" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][state]"><option value="">-</option>
+<? foreach($sost_arr as $sost) 
+	echo '<option value="'.$sost.'" '.($this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][state]==$sost ? 'selected=selected':'').'>'.$sost.'</option>';
+?>
+</select><?=@$errors[$j][$i][state]?></td><td>Примечание<br>
+<input type=text id="dataBuyerAnswerDescription_<?=$j?>_<?=$i?>"  name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][note]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][note]?>" maxlength=255>
+<input type=hidden id="dataBuyerPriceId_<?=$j?>_<?=$i?>" name="data[BuyerPart][<?=$j?>][BuyerAnswer][<?=$i?>][price_id]" value="<?=$this->params['data']['BuyerPart'][$j]['BuyerAnswer'][$i][price_id]?>"></td></tr>
+<? }?>
+
+</table>
+</TD></tr>
+<? endfor; ?>
+</table>
+<div style="padding:5px; text-align:right;"><input type=button value="Добавить строки" CLASS="button" onclick="addRows()"></div>
+<script>
+function addRows()
+{
+var cnt = $('#partstable tr').length / 7;
+var tmp;
+for(i=cnt; i< (cnt+5); i++) {
+
+	tmp = '<tr><td valign=top>'+(i+1)+'.Наименование запчасти<sup style="color:red">*</sup>:<br><textarea style="font-weight:bold" name="data[BuyerPart]['+i+'][name]"></textarea><br>'+
+'Ориг номер:<br><input type=text name="data[BuyerPart]['+i+'][number]"><br>'+
+'Состояние<sup style="color:red">*</sup>:<br><select name="data[BuyerPart]['+i+'][part_state_id]" ><option value="">= выберите состояние =</option><? foreach($part_states as $row) { ?><option value="<?=($row["PartState"]["id"])?>"><?=$row["PartState"]["name"]?></option><? } ?></select></td><td>'+
+'<b>Ответ:</b><br><table width=100%>';
+
+for(j=0; j<3; j++) {
+	tmp = tmp + '<tr><td colspan=3>'+(j+1)+'. Наименование<sup style="color:red">*</sup><br>'+
+'<input type=text style="width:90%;" id="dataBuyerAnswerName_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][name]">'+
+'</td><td>Ориг. номер<br>'+
+'<input type=text id="dataBuyerAnswerNumber_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][number]"></td>'+
+'<td rowspan=2><input type=button value="<...>" onclick="window.open(\'/select_prod.html?i='+j+'&j='+i+'\',\'winSelProd\',\'width=800, height=600, scrollbars=yes, resizable=yes\')"></td>'+
+'</tr><tr><td>Цена, руб<sup style="color:red">*</sup><br><input type=text style="width:80px;" id="dataBuyerAnswerPrice_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][start_price]">'+
+'</td><td>Наличие/заказ<sup style="color:red">*</sup><br><input type=text style="width:80px;"  id="dataBuyerAnswerDeliveryTerm_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][delivery_term]">'+
+'</td><td>Состояние<sup style="color:red">*</sup><br><select id="dataBuyerAnswerState_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][state]"><option value="">-</option><? foreach($sost_arr as $sost)  echo '<option value="'.$sost.'">'.$sost.'</option>';?></select>'+
+'</td><td>Примечание<br><input type=text id="dataBuyerAnswerDescription_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][note]" maxlength=255>'+
+'<input type=hidden id="dataBuyerPriceId_'+i+'_'+j+'" name="data[BuyerPart]['+i+'][BuyerAnswer]['+j+'][price_id]"></td></tr>';
+}
+
+tmp = tmp + '</table></td></tr>';
+$('#partstable').append(tmp);
+
+}
+}
+</script>
+</fieldset>
+Не забывайте в примечании указать, если авто выпущен в переходной год, рестайлинговый автомобиль или нет.
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0 width=100%>
+<tr><td valign=top width=10%>Примечание: </td><td colspan=5><textarea name="data[Buyer][comments]" style="width:95%;"><?=@$this->params[data][Buyer][comments]?></textarea></td></tr>
+</table>
+<?php
+			if(isset($this->params['data']['Buyer']['id'])):
+			echo $html->hidden('Buyer/id');
+			endif;
+			?>
+<div style="padding:5px;float:left">Поля, отмеченные <sup style="color:red">*</sup>, являются обязательными для заполнения</div>
+<div style="padding:5px; text-align:right;float:right;">
+	<input type=submit  class=button name=send_request value="Сохранить" style="background-color:#F8F8FF" onclick="getElementById('besit').value=0;">
+	<input type=submit  class=button name=send_request value="Кидалово" style="background-color:#FF0000" onclick="getElementById('besit').value=6;">
+	<input type=submit  class=button name=send_request value="Не работаем" style="background-color:#A9A9A9" onclick="getElementById('besit').value=1;">
+	<input type=submit  class=button name=send_request value="Средне" style="background-color:#FFFFA3" onclick="getElementById('besit').value=2;">
+	<input type=submit  class=button name=send_request value="Хорошо" style="background-color:#ADD8E6" onclick="getElementById('besit').value=3;">
+	<input type=submit  class=button name=send_request value="Надежный" style="background-color:#008000; color:white;" onclick="getElementById('besit').value=4;">
+	<input type=submit  class=button name=send_request value="Постоянный" style="background-color:#FFD700" onclick="getElementById('besit').value=5;">
+</div><div class=clear></div>
+<input type=text name="data[back_url]" style="display:none" value="<?=$_SERVER['HTTP_REFERER']?>">
+</FORM>

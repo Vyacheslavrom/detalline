@@ -1,0 +1,82 @@
+<TABLE width="100%" BORDER=0 CELLPADDING=0 CELLSPACING=0>	
+      <TR>
+        <TD WIDTH=109><IMG SRC="images/01_22.jpg" WIDTH=109 HEIGHT=27 ALT=""></TD>
+        <TD WIDTH=250 HEIGHT=27 background="images/01_23.jpg" class="blockth"><span class="leftmenu">&nbsp;<?=$product['Product']['name']?></span></TD>
+        <TD WIDTH=182><IMG SRC="images/01_24.jpg" WIDTH=182 HEIGHT=27 ALT=""></TD>
+        <TD WIDTH=41><IMG SRC="images/01_25.jpg" WIDTH=41 HEIGHT=27 ALT=""></TD>
+      </TR>
+    </TABLE>
+	
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="14" valign="top"><IMG SRC="images/36_27.jpg" WIDTH=14 HEIGHT=14 ALT=""></td>
+                <td valign="top" background="images/1_29.jpg"><img src="images/1_29.jpg" width="18" height="14"></td>
+                <td width="33" valign="top"><IMG SRC="images/36_30.jpg" WIDTH=33 HEIGHT=14 ALT=""></td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="14" valign="top" background="images/36_32.jpg">&nbsp;</td>
+                <td bgcolor="#D1D0D0"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">	
+<SPAN CLASS="txt">
+
+	<table width=100% cellpadding=0 cellspacing=0 border=0>
+		<tr><td width=100% >
+ 
+<? if(file_exists("files/products/photos/".$product['Product']['articul'].".jpg")) :?>
+<img src="/files/products/photos/<?=$product['Product']['articul']?>.jpg" border=0 alt="<?=$product['Product']['name']?>" title="<?=$product['Product']['name']?>">
+<? endif;?>
+<? foreach($product['ProductPicture'] as $pic):?>
+<br><a href="javascript:open_window('/files/products/dop_photos/<?=$pic['picture']?>',540,530);"><img width=98 border=0 src="/files/products/dop_photos/98/<?=$pic['picture']?>" alt="увеличить" title="увеличить"></a>
+			<? endforeach; ?>
+
+<table cellpadding=3 cellspacing=0 border=0>
+<tr bgcolor="#ffffff"><td class=txt style="background-color:#d0d0d0"><B>Цена:</B></td><td class=txt style="color: #A51820; font-weight: bold; background-color:#d0d0d0"><?=$product['Product']['price']?>&nbsp;руб.</tr>
+<tr bgcolor="#ffffff"><td class=txt><b>Категория:</b></td><td class=txt><?=$product['Category']['name']?></td></tr>
+<tr><td class=txt><b>Марка / модель авто:</b></td><td class=txt><?=$product['Product']['mark_and_model']?></td></tr>
+<tr bgcolor="#ffffff"><td class=txt><b>С какого года:</b></td><td class=txt><?=$product['Product']['year1']?></td></tr>
+<tr><td class=txt><b>По какой год:</b></td><td class=txt><?=$product['Product']['year2']?></td></tr>
+<tr bgcolor="#ffffff"><td class=txt><b>Оригинальный номер:</b></td><td class=txt><?=$product['Product']['number']?></td></tr>
+<tr><td class=txt><b>Артикул:</b></td><td class=txt><?=$product['Product']['articul']?></td></tr></table>
+
+<P CLASS="txt"><B>Примечание</B><BR><?=$product['Product']['description']?></P>	
+<P CLASS="txt"><B>Срок доставки</B><BR><?=$product['Product']['shipping_info']?></P>
+
+     </td></tr></table>
+
+<SPAN CLASS="txt">
+<? if($product['Product']['quantity']):?>
+<FORM METHOD="GET" METHOD="GET" ACTION="/cart.html">
+<INPUT TYPE="hidden" NAME="add" VALUE="<?=$product['Product']['id']?>">
+<table cellpadding=2 cellspacing=0 border=0>
+<tr><td class="txt">Количество:</td><td class="txt">
+<INPUT TYPE="text" CLASS="formfield" SIZE=4 MAXLENGTH=4 NAME="skolko" VALUE="1" STYLE="text-align: right">
+<INPUT TYPE="submit" VALUE="ДОБАВИТЬ В КОРЗИНУ" CLASS="formbutton"></td></tr></table>
+</FORM>
+<? else: ?>
+нет в наличии
+<? endif;?>
+</SPAN>
+ 
+		<div class="txt" style="padding: 10px"><a href="javascript:window.history.back();">Вернуться к результатам поиска</a></div>
+		
+				
+	</span></font></td>	
+<td width="33" background="images/36_33.jpg">&nbsp;</td>
+              </tr>
+            </table></td></tr>
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="14" valign="top"><img src="images/1_54.jpg" width="14" height="28"></td>
+                <td background="images/36_56.jpg">&nbsp;</td>
+                <td width="33"><IMG SRC="images/36_58.jpg" WIDTH=33 HEIGHT=28 ALT=""></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table>
+			

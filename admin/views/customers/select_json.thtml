@@ -1,0 +1,7 @@
+[
+<? 
+$first = true; 
+foreach($data as $row) : ?>
+<? if(!$first) echo ','; else $first=false; ?>{ "id": "<?=$row['Customer']['id']?>", "label": "<?=$row['Customer']['lname']?> <?=substr($row['Customer']['fname'],0,1)?>. <?=substr($row['Customer']['otch'],0,1)?>. (<?=$row['Customer']['mphone']?>)", "value": "<?=$row['Customer']['lname']?> <?=substr($row['Customer']['fname'],0,1)?>. <?=substr($row['Customer']['otch'],0,1)?>. (<?=$row['Customer']['mphone']?>)"}
+<? endforeach; ?>
+]

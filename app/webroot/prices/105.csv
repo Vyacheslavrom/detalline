@@ -1,0 +1,261 @@
+;        AUDI;;;;;;;
+;            AUDI A6 (9/94-8/97);;;;;;;
+;                Бампер задний б/у Audi A6  (96-04)  (D136SM);1,000;;00000000271;VAG;Audi A6 (97-04);2 000,00;шт
+;                Бампер задний б/у Audi A6  (96-04)  (D137SM);1,000;;00000000272;VAG;Audi A6 (97-04);2 000,00;шт
+;            AUDI A6 (9/97-3/04);;;;;;;
+;                Дверь задняя левая Audi A6  (97-04)  (D27SM);1,000;;00000000349;VAG;Audi A6 (97-04);4 000,00;шт
+;                Дверь задняя правая Audi  A6  (97-04)  (D114SM);1,000;;00000000347;VAG;Audi A6 (97-04);3 000,00;шт
+;                Дверь передняя правая Audi A6  (97-04)   (D599SM);1,000;;00000000360;VAG;Audi A6 (97-04);4 500,00;шт
+;            AUDI Q7 (06-);;;;;;;
+;                Механизм трапеции дворников Audi Q7 (06-);1,000;;00000001172;VAG;Audi Q7 (06-);4 465,00;шт
+;        BMW;;;;;;;
+;            BMW E36 (12/90-1/00);;;;;;;
+;                Дверь задняя правая BMW 3  (E36) (91-00)  (D31SM);1,000;;00000000317;BMW;BMW 3  E36  (91-00);4 500,00;шт
+;            BMW E46 (05/98-08/01) (9/01-03);;;;;;;
+;                Крышка багажника BMW3 E46 (98-03);1,000;;00000001410;BMW;BMW 3 E46 (98-03);2 200,00;шт
+;            BMW E60 (02-);;;;;;;
+;                Бампер передний б/у BMW 5 (E61) (03-)  ;1,000;;00000001424;BMW;BMW 5 (E61) (03-);7 000,00;шт
+;            BMW E65/E66 (02-3/05) (4/05-);;;;;;;
+;                Дверь задняя правая BMW 7  (E65) (02-08)  (D15SM);1,000;;00000000325;BMW;BMW 7  E65 (02-08);5 000,00;шт
+;            BMW E92 (06-);;;;;;;
+;                Фара левая б/у BMW E92 (06-)  (D434SM);1,000;;00000001456;BMW;BMW 3  E92 (06-);2 200,00;шт
+;            Бампер передний б/у BMW 6 (купе) (03-)  (D129SM);1,000;;00000000281;BMW;BMW 6  (03-);5 000,00;шт
+;            Дверь передняя правая BMW 3 (E46) (98-05)   (D627SM);1,000;;00000000352;BMW;BMW 3 E46 (98-05);5 000,00;шт
+;            Капот б/у BMW 1  (05- )  (D78SM)  ;1,000;;00000000399;BMW;BMW 1  (05- );4 000,00;шт
+;            Крыло переднее правое б/у BMW 3 (E46)  (03-)  (D169SM);1,000;;00000000436;BMW;BMW 3  E46  (03-);1 000,00;шт
+;        DAEWOO ;;;;;;;
+;            DAEWOO ESPERO (94-);;;;;;;
+;                Капот б/у Daewoo Espero (94-)  (D88SM)  ;1,000;;00000000397;GENERAL MOTORS;Daewoo Espero (94-);4 000,00;шт
+;                Капот б/у Daewoo Espero (94-)  (D89SM)  ;1,000;;00000000396;GENERAL MOTORS;Daewoo Espero (94-);4 000,00;шт
+;                Стекло заднее б/у Daewoo Espero  (94-)   (D632SM);1,000;;00000000443;GENERAL MOTORS;Daewoo Espero (94-);2 000,00;шт
+;                Стекло заднее левое б/у Daewoo Espero  (94-)   (D451SM);1,000;;00000000491;GENERAL MOTORS;Daewoo Espero (94-);1 000,00;шт
+;                Стекло заднее правое (глухое) б/у Daewoo Espero  (94-)   (D448SM);1,000;;00000000461;GENERAL MOTORS;Daewoo Espero (94-);1 000,00;шт
+;                Стекло заднее правое б/у Daewoo Espero  (94-)   (D450SM);1,000;;00000000492;GENERAL MOTORS;Daewoo Espero (94-);1 000,00;шт
+;                Стекло переднее левое б/у Daewoo Espero  (94-)  (D449SM);1,000;;00000000451;GENERAL MOTORS;Daewoo Espero (94-);1 000,00;шт
+;                Стекло переднее правое б/у Daewoo Espero  (94-)   (D452SM);1,000;;00000000457;GENERAL MOTORS;Daewoo Espero (94-);1 000,00;шт
+;                Треугольник задний правый б/у Daewoo Espero  (94-)   (D447SM);1,000;;00000000486;GENERAL MOTORS;Daewoo Espero (94-);500,00;шт
+;        FORD;;;;;;;
+;            FORD FIESTA (02-05);;;;;;;
+;                Крыло переднее левое б/у Ford Fiesta (02-05)  (D183SM);1,000;;00000000421;FORD;Ford Fiesta (02-05);1 000,00;шт
+;            FORD FOCUS (08-10);;;;;;;
+;                Крыло переднее правое б/у Ford Focus  (08-10)   (D207SM);1,000;;00000000434;FORD;Ford Focus (08-10);1 000,00;шт
+;            FORD FOCUS (11/98-10/01) (11/01-);;;;;;;
+;                Бампер задний б/у Ford Focus  (02-05) ;1,000;;00000000302;FORD;Ford Focus (02-05);2 200,00;шт
+;                Стекло переднее правое б/у Ford Focus  (98-05)   (D598SM);1,000;;00000000489;FORD;Ford Focus (98-05);1 500,00;шт
+;            FORD MONDEO (04/07-);;;;;;;
+;                Капот б/у Ford Mondeo (07- )  (D78SM)  ;1,000;;00000000395;FORD;Ford Mondeo (07-);3 000,00;шт
+;                Крыло переднее правое б/у  Ford Mondeo (07-)   (D63SM);1,000;;00000000419;FORD;Ford Mondeo (07-);1 000,00;шт
+;        HONDA ;;;;;;;
+;            HONDA ACCORD CF SEDAN (98-02);;;;;;;
+;                Дверь задняя правая Honda Accord  (98-01)   (D44SM);1,000;;00000000345;HONDA;Honda Accord  (98-01);4 000,00;шт
+;            HONDA ACCORD CL/CM (2/03-) ЕВРОПА;;;;;;;
+;                Стекло заднее левое б/у Honda Accord (03-07)  ;1,000;;00000000459;HONDA;Honda Accord (03-07);1 500,00;шт
+;                Треугольник задний левый (глухой)  б/у Honda Accord  (03-07)  ;1,000;;00000000470;HONDA;Honda Accord (03-07);1 000,00;шт
+;            HONDA CIVIC (06-11) ;;;;;;;
+;                Дверь задняя правая Honda Civic  5D (хэтчбек) (06-11)  (D54SM);1,000;;00000000336;HONDA;Honda Civic (06-11);3 000,00;шт
+;                Дверь задняя правая Honda Civic 5D (хэтчбек)  (06-11)  (D55SM);1,000;;00000000363;HONDA;Honda Civic (06-11);3 000,00;шт
+;                Стекло заднее левое б/у Honda Civic (хэтчбек)  (06-11)  (D614SM);1,000;;00000000488;HONDA;Honda Civic (06-11);1 500,00;шт
+;                Стекло переднее правое б/у Honda Civic  (06-11)   (D605SM);1,000;;00000000448;HONDA;Honda Civic (06-11);1 500,00;шт
+;                Ступица в сборе с тормозным диском б/у Honda Civic  (06-11)   (D979SM);1,000;;00000000558;HONDA;Honda Civic (06-11);500,00;шт
+;            HONDA CRV (02-05);;;;;;;
+;                Бампер задний б/у Honda CRV2  (02-05)  (D130SM);1,000;;00000000261;HONDA;Honda CRV (02-05);2 500,00;шт
+;                Бампер передний б/у Honda CRV  (02-05)  (D132SM);1,000;;00000000292;HONDA;Honda CRV (02-05);2 500,00;шт
+;                Дверь задняя правая Honda CRV2  (02-05)  (D56SM);1,000;;00000000326;HONDA;Honda CRV (02-05);4 000,00;шт
+;            HONDA CRV (06-11);;;;;;;
+;                Бампер задний (нижняя часть) б/у Honda CRV3  (06-11)   (D107SM);1,000;;00000000311;HONDA;Honda CRV (06-11);2 000,00;шт
+;                Дверь передняя правая Honda CRV3  (06-11)  (D3SM);1,000;;00000000355;HONDA;Honda CRV (06-11);5 000,00;шт
+;                Порог пластиковый левый б/у Honda CRV3  (06-11)   (D784SM);1,000;;00000000515;HONDA;Honda CRV (06-11);1 000,00;шт
+;                Порог пластиковый левый б/у Honda CRV3  (06-11)  (D454SM);1,000;;00000000509;HONDA;Honda CRV (06-11);1 000,00;шт
+;                Порог пластиковый левый б/у Honda CRV3  (06-11)  (D455SM);1,000;;00000000510;HONDA;Honda CRV (06-11);1 000,00;шт
+;                Порог пластиковый левый б/у Honda CRV3  (06-11)  (D456SM);1,000;;00000000511;HONDA;Honda CRV (06-11);1 000,00;шт
+;                Порог пластиковый правый б/у Honda CRV3  (06-11)   (D728SM);1,000;;00000000514;HONDA;Honda CRV (06-11);1 000,00;шт
+;                Порог пластиковый правый б/у Honda CRV3  (06-11)  (D457SM);1,000;;00000000512;HONDA;Honda CRV (06-11);1 000,00;шт
+;                Порог пластиковый правый б/у Honda CRV3  (06-11)  (D783SM);1,000;;00000000513;HONDA;Honda CRV (06-11);1 000,00;шт
+;            HONDA JAZZ/FIT (01-);;;;;;;
+;                Дверь задняя правая Honda Jazz/Fit (01-07)  (D16SM);1,000;;00000000319;HONDA;Honda Jazz/Fit (01-07);4 000,00;шт
+;                Капот б/у Honda Jazz  (01-07)  (D68SM);1,000;;00000000380;HONDA;Honda Jazz/Fit (01-07);1 500,00;шт
+;                Стекло заднее левое б/у Honda Jazz  (01-07)   (D1036SM);1,000;;00000000458;HONDA;Honda Jazz/Fit (01-07);1 500,00;шт
+;        HYUNDAI ;;;;;;;
+;            HYUNDAI GETZ (03-05);;;;;;;
+;                Треугольник задний правый б/у Hyundai Getz  (02-10)    (D438SM);1,000;;00000000484;HYUNDAI/KIA;Hyundai Getz  (02-10);500,00;шт
+;            HYUNDAI SOLARIS (11-);;;;;;;
+;                Фонарь задний левый б/у с дефектом Hyundai Solaris (11-)  ;1,000;;00000001457;HYUNDAI/KIA;Hyundai Solaris  (11-);800,00;шт
+;        KIA;;;;;;;
+;            KIA CEED (07-11);;;;;;;
+;                Крыло переднее левое б/у Kia Ceed  (07-11)   (D179SM);1,000;;00000000425;HYUNDAI/KIA;Kia Ceed (07-11);1 000,00;шт
+;                Крыло переднее правое б/у Kia Ceed  (07-11)   (D64SM);1,000;;00000000438;HYUNDAI/KIA;Kia Ceed (07-11);1 500,00;шт
+;        LEXUS ;;;;;;;
+;            LEXUS ES350 (06-12);;;;;;;
+;                Крыло переднее правое б/у Lexus ES350 (06-12);1,000;;00000001277;TOYOTA;Lexus ES350 (06-12);3 900,00;шт
+;            LEXUS GS300/430 (98-05);;;;;;;
+;                Дверь передняя правая Lexus GS 300  (98-05)  (D458SM);1,000;;00000000350;TOYOTA;Lexus GS300 (98-05);9 000,00;шт
+;            LEXUS LX470 (1/98-8/02) (8/02-);;;;;;;
+;                Крышка багажника б/у (нижняя часть) Lexus LX 470  (02-07)   (D1035SM);1,000;;00000000405;TOYOTA;Lexus LX470 (02-07);4 500,00;шт
+;            LEXUS LX570 (08-);;;;;;;
+;                Крышка багажника б/у (нижняя часть) Lexus LX 570  (08-)   (D80SM);1,000;;00000000406;TOYOTA;Lexus LX 570  (08-);4 500,00;шт
+;            LEXUS RX 270/350/450h (09-);;;;;;;
+;                Бампер задний б/у Lexus RX 350 (09-)  ;1,000;;00000000305;TOYOTA;Lexus RX 350 (09-);3 200,00;шт
+;            LEXUS RX 300 (99-02/02);;;;;;;
+;                Дверь задняя левая Lexus RX300/330 (99-02)   (D23SM);1,000;;00000000353;TOYOTA;Lexus RX300/330 (99-02);6 500,00;шт
+;        MAZDA;;;;;;;
+;            MAZDA 3 (04-);;;;;;;
+;                Балка поперечная нижняя б/у Mazda 3 (хэтчбек)  (04-08)  (D699SM);1,000;;00000000555;MAZDA;Mazda 3 (04-08);500,00;шт
+;                Дверь передняя правая Mazda 3  (04-08)   (D118SM);1,000;;00000001343;MAZDA;Mazda 3 (04-08);4 500,00;шт
+;                Крыло переднее левое б/у Mazda 3  (04-08)   (D204SM);1,000;;00000000428;MAZDA;Mazda 3 (04-08);1 000,00;шт
+;                Крыло переднее левое б/у Mazda 3 (хэтчбек) (04-08)   (D200SM);1,000;;00000000429;MAZDA;Mazda 3 (04-08);1 000,00;шт
+;                Крыло переднее правое б/у Mazda 3  (04-08)   (черное);1,000;;00000000414;MAZDA;Mazda 3 (04-08);1 500,00;шт
+;                Крыло переднее правое б/у Mazda 3 (хэтчбек) (04-08)   (D65SM);1,000;;00000000439;MAZDA;Mazda 3 (04-08);1 500,00;шт
+;                Крыло переднее правое б/у Mazda 3 хетчбек (04-08)   (D185SM);1,000;;00000000408;MAZDA;Mazda 3 (04-08);1 500,00;шт
+;                Треугольник задний левый  б/у Mazda 3 (хэтчбек)  (04-08)   (D437SM);1,000;;00000000483;MAZDA;Mazda 3 (04-08);1 000,00;шт
+;                Треугольник задний правый б/у Mazda 3  (хэтчбек)  (04-08)   (D440SM);1,000;;00000000485;MAZDA;Mazda 3 (04-08);500,00;шт
+;            MAZDA 3 (09-);;;;;;;
+;                Бампер задний Mazda 3 (седан) (09-)  (D157SM);1,000;;00000001256;MAZDA;Mazda 3 (09-);4 000,00;шт
+;                Дверь задняя правая Mazda 3  (09-)  (D2SM);1,000;;00000000338;MAZDA;Mazda 3 (09-);4 000,00;шт
+;                Стекло переднее правое б/у Mazda 3  (09-)  (D612SM);1,000;;00000000449;MAZDA;Mazda 3 (09-);1 500,00;шт
+;            MAZDA 6 (02-);;;;;;;
+;                Дверь задняя правая Mazda 6  (02-07)   (D52SM);1,000;;00000000346;MAZDA;Mazda 6 (02-07);5 000,00;шт
+;                Стекло заднее левое б/у Mazda 6  (02-07);1,000;;00000000460;MAZDA;Mazda 6 (02-07);1 500,00;шт
+;                Треугольник задний правый (глухой)  б/у Mazda 6  (02-07) ;1,000;;00000000471;MAZDA;Mazda 6 (02-07);1 000,00;шт
+;            MAZDA 6 (08-);;;;;;;
+;                Бампер задний б/у Mazda 6 (08-)  (D128SM);1,000;;00000000260;MAZDA;Mazda 6 (08-);3 200,00;шт
+;                Бампер задний б/у Mazda 6 (08-)  (D199SM);1,000;;00000000258;MAZDA;Mazda 6 (08-);3 200,00;шт
+;                Дверь задняя правая Mazda 6  (08-)  (D37SM);1,000;;00000000362;MAZDA;Mazda 6 (08-);4 000,00;шт
+;                Крыло переднее левое б/у Mazda 6 (08-)  (D186SM);1,000;;00000001360;MAZDA;Mazda 6 (08-);1 400,00;шт
+;            MAZDA CX7 (06-);;;;;;;
+;                Бампер задний б/у Mazda CX7 (10-)  (D1030SM);1,000;;00000000279;MAZDA;Mazda CX7 (10-);3 500,00;шт
+;                Дверь передняя правая б/у Mazda CX7  (06-09)   (D13SM);1,000;;00000000361;MAZDA;Mazda CX7  (06-09);7 000,00;шт
+;                Крыло переднее правое б/у Mazda CX7 (06-13)  (D201SM) ;1,000;;00000001188;MAZDA;Mazda CX7 (06-13);1 000,00;шт
+;            MAZDA CX9 (08-);;;;;;;
+;                Бампер задний (под парктроики) Mazda CX9 (08-)  (D197SM);1,000;;00000001255;MAZDA;Mazda CX9 (08-);4 000,00;шт
+;        MERCEDES;;;;;;;
+;            MERCEDES W212 (10-);;;;;;;
+;                Бампер передний б/у Mercedes-Benz W212 (10-);1,000;;00000001367;MERCEDES-BENZ;Mercedes W212 (09-);3 100,00;шт
+;            MERCEDES W220 (10/98-04);;;;;;;
+;                Фара левая б/у Mersedes Benz (W220) (98-02)  ;1,000;;00000001447;MERCEDES-BENZ;Mercedes-Benz (98-02);3 500,00;шт
+;                Фара правая б/у Mersedes Benz (W220) (98-02)  ;1,000;;00000001448;MERCEDES-BENZ;Mercedes-Benz (98-02);3 500,00;шт
+;                Фонарь задний левый б/у Mersedes Benz (W220) (98-02)  ;1,000;;00000001445;MERCEDES-BENZ;Mercedes-Benz (98-02);1 800,00;шт
+;                Фонарь задний правый б/у Mersedes Benz (W220) (98-02)  ;1,000;;00000001446;MERCEDES-BENZ;Mercedes-Benz (98-02);1 800,00;шт
+;            Капот б/у Mersedes GLK   (D205SM)  ;1,000;;00000000392;MERCEDES-BENZ;;5 000,00;шт
+;            Крышка багажника б/у Mercedes GLK   (D142SM);1,000;;00000000403;MERCEDES-BENZ;;7 000,00;шт
+;        MITSUBISHI;;;;;;;
+;            MITSUBISHI ASX (10-);;;;;;;
+;                Торпедо голая (парприз) Mitsubishi ASX (10-);1,000;;00000001169;MITSUBISHI;Mitsubishi  ASX (10-) ;9 000,00;шт
+;            MITSUBISHI COLT (04-);;;;;;;
+;                Крыло переднее правое б/у Mitsubishi Colt (04-);1,000;;00000001364;MITSUBISHI;Mitsubishi Colt (04-);3 700,00;шт
+;            MITSUBISHI DELICA;;;;;;;
+;                Бампер передний б/у Mitsubishi Delica  (D121SM);1,000;;00000000301;MITSUBISHI;;2 000,00;шт
+;            MITSUBISHI LANCER (04-2/07);;;;;;;
+;                Дверь задняя левая б/у Mitsubishi Lancer  (04-06)   (D43SM);1,000;;00000000320;MITSUBISHI;Mitsubishi Lancer (04-06);4 500,00;шт
+;                Дверь задняя правая б/у Mitsubishi Lancer (04-06)   (D48SM);1,000;;00000000337;MITSUBISHI;Mitsubishi Lancer (04-06);4 500,00;шт
+;                Потолок б/у Mitsubishi Lancer  (04-06)   (D800SM)  ;1,000;;00000000543;MITSUBISHI;Mitsubishi Lancer (04-06);7 000,00;шт
+;                Стекло заднее левое  б/у Mitsubishi Lancer  (04-06)  (D608SM);1,000;;00000000468;MITSUBISHI;Mitsubishi Lancer (04-06);1 500,00;шт
+;                Стекло заднее правое  б/у Mitsubishi Lancer  (04-06)   (D607SM);1,000;;00000000467;MITSUBISHI;Mitsubishi Lancer (04-06);1 500,00;шт
+;            MITSUBISHI LANCER (3/07-);;;;;;;
+;                Бампер задний б/у Mitsubishi Lancer (хэтчбек) (07-)  (D420SM);1,000;;00000000255;MITSUBISHI;Mitsubishi Lancer (07-);3 200,00;шт
+;                Стекло заднее правое  б/у Mitsubishi Lancer  (07-)   (D446SM);1,000;;00000000463;MITSUBISHI;Mitsubishi Lancer (07-);1 500,00;шт
+;                Треугольник задний левый  б/у Mitsubishi Lancer  (07-)   (D441SM);1,000;;00000000472;MITSUBISHI;Mitsubishi Lancer (07-);1 000,00;шт
+;            MITSUBISHI OUTLANDER XL (07-09);;;;;;;
+;                Порог пластиковый левый б/у Mitsubishi Outlander XL  (07-09)  (D926SM);1,000;;00000000508;MITSUBISHI;Mitsubishi Outlander XL  (07-09);1 000,00;шт
+;                Порог со стойкой левый б/у Mitsubishi Outlander XL  (07-13)  ;1,000;;00000001368;MITSUBISHI;Mitsubishi Outlander XL (07-13) ;2 000,00;шт
+;                Релинг левый б/у Mitsubishi Outlander XL  (07-09)   (D925SM);1,000;;00000000506;MITSUBISHI;Mitsubishi Outlander XL  (07-09);1 000,00;шт
+;                Релинг правый б/у Mitsubishi Outlander XL  (07-09)   (D925SM);1,000;;00000000505;MITSUBISHI;Mitsubishi Outlander XL  (07-09);1 000,00;шт
+;                Стекло заднее левое  б/у Mitsubishi Outlander XL  (07- 09)   (D602SM);1,000;;00000000464;MITSUBISHI;Mitsubishi Outlander XL  (07-09);1 500,00;шт
+;                Суппорт тормозной передний правый б/у Mitsubishi Outlander XL (07-09)   (D641SM);1,000;;00000000557;MITSUBISHI;Mitsubishi Outlander XL  (07-09);1 000,00;шт
+;                Треугольник  задний правый (трапеция) б/у Mitsubishi Outlander XL  (07-09)   (D443SM);1,000;;00000000487;MITSUBISHI;Mitsubishi Outlander XL  (07-09);1 500,00;шт
+;            MITSUBISHI OUTLANDER XL (10-);;;;;;;
+;                Дверь передняя правая Mitsubishi Outlander XL (10-);1,000;;00000001170;MITSUBISHI;Mitsubishi Outlander XL (10-) ;8 500,00;шт
+;            MITSUBISHI PAJERO / MONTERO (00-02) (03-);;;;;;;
+;                Дверь передняя левая Mitsubishi Pajero 3  (00-06)  (D47SM);1,000;;00000000327;MITSUBISHI;Mitsubishi Pajero (00-06);8 000,00;шт
+;        NISSAN/INFINITI;;;;;;;
+;            INFINITI QX 56 (08-);;;;;;;
+;                Бампер задний б/у Infinity QX56 (10-)  (D422SM);1,000;;00000000276;NISSAN;Infinity QX56 (10-);4 000,00;шт
+;            NISSAN ALMERA CLASSIC (01/06-);;;;;;;
+;                Фара правая б/у с дефектом Nissan Almera Classic (06-12)  (D933SM);1,000;;00000001451;NISSAN;Nissan Almera Classic  (06-12);800,00;шт
+;            NISSAN MICRA (03-);;;;;;;
+;                Дверь передняя правая Nissan Micra/March (03-09)  (D18SM);1,000;;00000000342;NISSAN;;4 500,00;шт
+;                Крыло переднее правое б/у Nissan Micra (03-10)   (D326SM);1,000;;00000000440;NISSAN;Nissan Micra (03-10);1 500,00;шт
+;            NISSAN NOTE (06-);;;;;;;
+;                Стекло заднее левое  б/у Nissan Note  (06-)   (D601SM);1,000;;00000000465;NISSAN;Nissan Note (06-);1 500,00;шт
+;            NISSAN PATFINDER R51 (05-);;;;;;;
+;                Крыло переднее правое б/у Nissan Pathfinder  (05-11)  (D177SM);1,000;;00000000410;NISSAN;Nissan Pathfinder  (05-11);3 000,00;шт
+;            NISSAN PRIMERA P12 (02-);;;;;;;
+;                Крыло переднее левое б/у Nissan Primera P12  (02-06)   (D176SM);1,000;;00000000430;NISSAN;Nissan Primera P12  (02-06);1 000,00;шт
+;            NISSAN QASHQAI (07-);;;;;;;
+;                Бампер задний б/у Nissan Qashqai  (07-)  (D149SM);1,000;;00000000262;NISSAN;Nissan Qashqai (07-);2 900,00;шт
+;                Бампер задний б/у Nissan Qashqai  (07-)  (D150SM);1,000;;00000000263;NISSAN;Nissan Qashqai (07-);2 900,00;шт
+;                Бампер задний б/у Nissan Qashqai  (07-)  (D151SM);1,000;;00000000264;NISSAN;Nissan Qashqai (07-);2 900,00;шт
+;                Бампер задний б/у Nissan Qashqai  (07-)  (D152SM);1,000;;00000000265;NISSAN;Nissan Qashqai (07-);2 900,00;шт
+;            NISSAN X-TRAIL (3/07-);;;;;;;
+;                Бампер передний б/у Nissan X-Trail  (07-11)   (D123SM);1,000;;00000000290;NISSAN;Nissan X-Trail (07-11);3 000,00;шт
+;        PORSCHE;;;;;;;
+;            CAYENNE (03-);;;;;;;
+;                Дверь передняя правая Porsche Cayenne (РЖД)  (03-)  (D410SM);1,000;;00000000316;PORSCHE;Porsche Cayenne (03-);6 000,00;шт
+;        RENAULT ;;;;;;;
+;            RENAULT SAFRANE (92-);;;;;;;
+;                Фонарь задний правый б/у Reno Safrane  (92-) ;1,000;;00000000372;RENAULT;Reno Safrane  (92-);500,00;шт
+;        SKODA ;;;;;;;
+;            SKODA FABIA / ROOMSTER (07-);;;;;;;
+;                Фара левая б/у Skoda Fabia RS (07-);1,000;;00000001179;VAG;Skoda Fabia RS (07-);2 234,00;шт
+;        SUBARU ;;;;;;;
+;            SUBARU FORESTER (99-08);;;;;;;
+;                Дверь передняя правая Subaru Forester (02-06)   (D20SM)  ;1,000;;00000000332;SUBARU;Subaru Forester (02-06);5 000,00;шт
+;        SUZUKI ;;;;;;;
+;            SUZUKI GRAND VITARA (06-);;;;;;;
+;                Бампер задний б/у Suzuki Grand Vitara (10-)   (D418SM);1,000;;00000000273;SUZUKI;Suzuki Grand Vitara (10-);2 000,00;шт
+;                Стекло заднее левое  б/у Suzuki Grand Vitara  (06-)   (D603SM);1,000;;00000000466;SUZUKI;Suzuki Grand Vitara (06-);1 500,00;шт
+;                Стекло заднее правое  б/у Suzuki Grand Vitara  (06-)   ;1,000;;00000001353;SUZUKI;Suzuki Grand Vitara (06-);1 250,00;шт
+;                Стекло переднее правое  б/у (с дефектом) Suzuki Grand Vitara  (06-)   ;1,000;;00000001354;SUZUKI;Suzuki Grand Vitara (06-);820,00;шт
+;                Треугольник задний левый (глухой)  б/у Suzuki Grand Vitara  (06-)   (D439SM);1,000;;00000000469;SUZUKI;Suzuki Grand Vitara (06-);1 000,00;шт
+;                Треугольник задний правый (глухой)  б/у Suzuki Grand Vitara  (06-)   ;1,000;;00000001352;SUZUKI;Suzuki Grand Vitara (06-);400,00;шт
+;            SUZUKI GRAND VITARA (98-);;;;;;;
+;                Дверь задняя правая Suzuki Grand Vitara (98-05)  (D6SM);1,000;;00000000344;SUZUKI;Suzuki Grand Vitara (98-05);4 500,00;шт
+;        TOYOTA;;;;;;;
+;            TOYOTA AVENSIS (03-07);;;;;;;
+;                Верхняя планка телевизора б/у Toyota Avensis  (03-07)    (D661SM);1,000;;00000000541;TOYOTA;Toyota Avensis (03-07);500,00;шт
+;                Верхняя планка телевизора б/у Toyota Avensis  (03-07)   (D663SM);1,000;;00000000540;TOYOTA;Toyota Avensis (03-07);500,00;шт
+;                Крыло переднее правое б/у Toyota Avensis  (03-05)  (D173SM);1,000;;00000000435;TOYOTA;Toyota Avensis (03-05);3 000,00;шт
+;            TOYOTA CAMRY V40 (1/06-);;;;;;;
+;                Фара правая б/у с дефектом Toyota Camry (06-)   ;1,000;;00000001454;TOYOTA;Toyota Camry (06-);800,00;шт
+;            TOYOTA COROLLA DE120/ZE120 (02-) СЕДАН/УНИВЕРСАЛ;;;;;;;
+;                Бампер задний б/у Toyota Corolla (02-05)  (D158SM);1,000;;00000000259;TOYOTA;Toyota Corolla (02-05);2 500,00;шт
+;                Крыло переднее левое б/у Toyota Corolla   (02-05)   (D175SM);1,000;;00000000422;TOYOTA;Toyota Corolla (02-05);1 000,00;шт
+;                Крыло переднее левое б/у Toyota Corolla  (02-05)   (D170SM);1,000;;00000000426;TOYOTA;Toyota Corolla (02-05);1 000,00;шт
+;            TOYOTA COROLLA E150 (06-) СЕДАН;;;;;;;
+;                Бампер задний б/у Toyota Corolla (10-)  (D161SM);1,000;;00000000257;TOYOTA;Toyota Corolla (10-);3 000,00;шт
+;                Радиатор охлаждения двиг. б/у Toyota Corolla/Auris  (06-)    ;1,000;;00000001348;TOYOTA;Toyota Corolla (06-11);2 000,00;шт
+;                Стекло заднее б/у Toyota Corolla  (06-11)   (D631SM);1,000;;00000000447;TOYOTA;Toyota Corolla (06-11);2 000,00;шт
+;                Стекло заднее правое б/у Toyota Corolla  (06-)    (D599SM);1,000;;00000000494;TOYOTA;Toyota Corolla (06-);1 500,00;шт
+;                Стекло переднее правое б/у Toyota Corolla  (06-)  (D606SM);1,000;;00000000453;TOYOTA;Toyota Corolla (06-);1 500,00;шт
+;                Фара правая б/у с дефектом Toyota Corolla (06-)  (D935SM);1,000;;00000001453;TOYOTA;Toyota Corolla (06-);800,00;шт
+;                Фара правая б/у с дефектом Toyota Corolla (06-)  (D936SM);1,000;;00000001452;TOYOTA;Toyota Corolla (06-);800,00;шт
+;            TOYOTA FUNCARGO;;;;;;;
+;                Дверь задняя левая Toyota Funcargo (99-05)   (D635SM);1,000;;00000000333;TOYOTA;Toyota Funcargo (99-05);5 000,00;шт
+;            TOYOTA HIGHLANDER (07-09);;;;;;;
+;                Бампер задний б/у Toyota Highlander (07-09)  (D425SM);1,000;;00000000275;TOYOTA;Toyota Highlander (07-09);3 000,00;шт
+;                Бампер передний б/у Toyota Highlander  (07-09)  (D109SM);1,000;;00000000296;TOYOTA;Toyota Highlander (07-09);3 000,00;шт
+;            TOYOTA LANDCRUISER 200 (08-);;;;;;;
+;                Бампер задний б/у Toyota Land Cruiser  (08-12)  (D423SM);1,000;;00000000278;TOYOTA;Toyota Land Cruiser 200 (08-11);3 000,00;шт
+;                Бампер задний б/у Toyota Land Cruiser 200 (08-12)  (D135SM);1,000;;00000000277;TOYOTA;Toyota Land Cruiser 200 (08-11);3 000,00;шт
+;                Бампер передний б/у Toyota Land Cruiser 200  (08-11)  (D81SM);1,000;;00000000298;TOYOTA;Toyota Land Cruiser 200 (08-11);3 000,00;шт
+;                Бампер передний б/у Toyota Land Cruiser 200 (08-11)  (D82SM);1,000;;00000000297;TOYOTA;Toyota Land Cruiser 200 (08-11);3 000,00;шт
+;            TOYOTA LANDCRUISER PRADO 120 (9/02-);;;;;;;
+;                Капот б/у Toyota LandCruiser Prado 120 (03-09)   (D79SM)  ;1,000;;00000000398;TOYOTA;Toyota Land Cruiser Prado (03-08);4 500,00;шт
+;                Крышка багажника б/у Toyota Land Cruiser Prado 120  (03-08)   (D634SM);1,000;;00000000402;TOYOTA;Toyota Land Cruiser Prado (03-08);7 000,00;шт
+;            TOYOTA RAV4 (11/05-);;;;;;;
+;                Бампер задний б/у Toyota RAV4  (09-12)  (D160SM);1,000;;00000000313;TOYOTA;Toyota Rav4 (09-12);3 000,00;шт
+;                Бампер задний б/у Toyota RAV4 (09-12)   (D119SM);1,000;;00000000312;TOYOTA;Toyota Rav4 (09-12);3 000,00;шт
+;                Крыло заднее правое б/у (с сапожком) Toyota RAV4  (05-08)   (D146SM);1,000;;00000000407;TOYOTA;Toyota Rav 4 (05-08);4 000,00;шт
+;            TOYOTA SPRINTER CARIB (89-);;;;;;;
+;                Дверь передняя правая Toyota Sprinter Carib (89-)  (D35SM);1,000;;00000000340;TOYOTA;Toyota Sprinter (89-);4 000,00;шт
+;            TOYOTA VERSO (09-);;;;;;;
+;                Фара левая б/у Toyota Verso (09-);1,000;811700F090;00000001459;TOYOTA;Toyota Verso (09-);2 200,00;шт
+;        VOLKSWAGEN;;;;;;;
+;            VW CADDY (04-);;;;;;;
+;                Крыло переднее левое б/у Volkswagen Caddy (04-09)   (D190SM);1,000;;00000000423;VAG;Volkswagen Caddy (04-09);1 000,00;шт
+;            VW PASSAT B6 (6/05-);;;;;;;
+;                Крыло переднее правое б/у Volkswagen Passat  (06-10)   (D182SM);1,000;;00000000416;VAG;Volkswagen Passat (06-10);1 000,00;шт
+;            VW POLO (8/01-09);;;;;;;
+;                Амортизационная стойка передняя левая б/у Volkswagen Polo  (02-09)  (D533SM);1,000;;00000000564;VAG;Volkswagen Polo (02-09);500,00;шт
+;                Амортизационная стойка передняя правая б/у Volkswagen Polo  (02-09)  (D532SM);1,000;;00000000563;VAG;Volkswagen Polo (02-09);500,00;шт
+;            VW TOUAREG (11/02-10);;;;;;;
+;                Крышка багажника б/у Volkswagen Touareg (03-10)   (D143SM);1,000;;00000000401;VAG;Volkswagen Touareg (03-10);7 000,00;шт

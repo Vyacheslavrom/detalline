@@ -1,0 +1,103 @@
+<h1>Авторизация</h1>
+<p>
+<TABLE WIDTH=100% CELLSPACING=0 BORDER=1>
+<TR><TD CLASS="txt" ALIGN="CENTER"><B>ЯВЛЯЕТЕСЬ ПОКУПАТЕЛЕМ</B></TD></TR>
+<TR><TD CLASS="txt" ALIGN="CENTER"><?=@$auth_msg?><FORM method="post" action="/check_out_signin.html" style="margin:0px;padding:0px;">
+<TABLE CELLSPACING=5 BORDER=0 WIDTH=100%>
+<TR class="specialth">
+<TD CLASS="txt" colspan="2" ALIGN="LEFT">Если у Вас уже есть аккаунт, войдите в него. Если вы забыли пароль, <a href="/check_out_fp.html">нажмите сюда</a></TD>
+</TR>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" width=40%>E-mail</TD>
+<TD CLASS="txt" ALIGN="LEFT"><INPUT TYPE="text" name="data[Customer][login]" value="Ваш email"  SIZE=30 CLASS="formfield" STYLE="width: 200px"></TD>
+</TR>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" VALIGN="TOP">Пароль</TD>
+<TD CLASS="txt" ALIGN="LEFT"><INPUT type="password" name="data[Customer][passw]" SIZE=30 CLASS="formfield" VALUE="" STYLE="width: 200px"></TD>
+</TR>
+<TR class="specialth">
+<TD ALIGN="CENTER" CLASS="txt" colspan=2><INPUT TYPE="submit" CLASS="button" value="След. шаг &gt;"></TD>
+</TR>
+</TABLE></form>
+</TD></TR>	
+<TR><TD CLASS="txt" ALIGN="CENTER"><B>НОВЫЙ ПОКУПАТЕЛЬ</B></TD></TR>
+<TR><TD CLASS="txt" ALIGN="CENTER"><? $session->flash()?>
+<form action="/registr.html" method="post" style="margin:0px;padding:0px;" id="checkoutform">
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0 WIDTH=100%>
+<TR class="specialth">
+	<TD CLASS="txt" colspan=2 ALIGN="LEFT">
+	Пожалуйста, введите Ваши персональные данные, чтобы создать новый on-line аккаунт.<br>Поля, обозначенные * являются обязательными для заполнения.
+	</TD>
+	</TR>
+	<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">ВАШИ ДАННЫЕ</TH></TR>
+	<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt" width=40%>Фамилия<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/lname',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/lname', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Имя<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/fname',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/fname', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Отчество<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/otch',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/otch', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">E-mail<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/email',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/email', '<font color=red><small>неверный email</small></font>')?>
+<?php echo $html->tagErrorMsg('Customer/email_exist', '<font color=red><small>этот email уже зарегистрирован</small></font>')?></TD></TR>
+<TR bgcolor=#999999><TH COLSPAN=2 class="txt">ВАШ ПАРОЛЬ <span style="font-size:11px;">(В качестве логина будет использоваться Ваш e-mail)</span></TH></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Пароль<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->password('Customer/password',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/password', '<font color=red><small>ообязательное поле, только латинские буквы и цифры</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Пароль ещё раз<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->password('Customer/password_again',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/password_again', '<font color=red><small>пароли не совпадают</small></font>')?></TD></TR>
+	<TR bgcolor=#999999><TH COLSPAN=2 class="txt">ВАШ АДРЕС</TH></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Область<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT">	
+	<select name="data[Customer][region_id]" style="width:200px;" class="formfield" id="reg2">
+<? foreach($regions as $row):?>
+	<option value="<?=$row['Region']['id']?>" <?=(@$this->data[Customer][region_id]==$row['Region']['id']?"selected":"")?>><?=$row['Region']['name']?></option>
+<? endforeach; ?>
+</select></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Город<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><span id="request_cities"><select name="city" id="request_city"><option value="">---</option></select></span>
+<span style="display:none" id="cities_new"><?php echo $html->input('Customer/city',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30', 'id'=>'cit', 'value'=>'1r6d1'))?>
+<?php echo $html->tagErrorMsg('Customer/city', '<font color=red><small>обязательное поле</small></font>')?></span>
+не нашли свой?<input type="checkbox" id="newcity"></TD></TR>
+<script>
+var markObj2 = $('#reg2'); 
+markObj2.change( function() {choose_cities(markObj2.val(), 0, $('#request_cities'), document.getElementById('checkoutform').city);});
+choose_cities(markObj2.val(), 1, $('#request_cities'),document.getElementById('checkoutform').city);
+$('#newcity').click(function(){$('#newcity').prop("checked")? ($('#request_cities').hide(),$('#cit').val(''),$('#cities_new').show()):($('#request_cities').show(),$('#cit').val('1r6d1'),$('#cities_new').hide());});
+$('.b-bar__banwhere').hide()
+</script></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Индекс<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/zipcode',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/zipcode', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес (улица, номер..)<sup><span class="error">*</span></sup>:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/address1',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?>
+<?php echo $html->tagErrorMsg('Customer/address1', '<font color=red><small>обязательное поле</small></font>')?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес (квартира, код..):</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/address2',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Дом. телефон:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/hphone',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Моб. телефон:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Customer/mphone',array('style'=>'width:200px;','class'=>'formfield', 'size'=>'30'))?></TD></TR>
+<TR><TD CLASS="txt" align=center colspan=2><input type="button" value="&lt; Назад" onClick="window.location.href='/cart.html';return false;" class=button> <input type="submit" value="След. шаг &gt;" name="nextStep" class=button></FORM></TD></TR>
+</TABLE>
+</TD></TR>
+</TABLE>
+

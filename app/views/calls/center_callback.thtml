@@ -1,0 +1,14 @@
+<table width="100%" cellpadding="4" cellspacing="1" border="1" class="forumline" align="center">
+<tr class="sectiontableheader"> 
+	<td class="cat"><span class="cattitle">Имя</span></td>
+	<td class="cat"><span class="cattitle">Телефон</span></td>
+	<td class="cat"><span class="cattitle">Сообщение</span></td>
+	<td class="cat"><span class="cattitle">Отправлено</span></td>
+</tr>
+<tr class=""> 
+		<td class="row1"><span class="gen"><?php echo $row['Call']['name'] ?></span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Call']['phone'] ?></span></td>
+		<td class="row1" width=50%><span class="gen"><?php echo $row['CallMessage'][0]['text'] ?></span></td>
+		<td class="row2"><span class="gen"><?php echo date("d.m.Y H:i",strtotime($row['Call']['created'])) ?></span></td>
+	</tr>
+	</table>

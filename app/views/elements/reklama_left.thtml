@@ -1,0 +1,5 @@
+<?$num=0;foreach($left_advert as $row):$num++;echo '<div class="leftblock">';
+if(!empty($row['Advert']['image']) && file_exists('files/rblocks/photos/'.$row['Advert']['image']))  :?>	
+<img src='http://sm-jm.ru/files/rblocks/photos/<?=$row['Advert']['image']?>' border=0 width=180><br>
+<? endif; ?>
+</div><?endforeach;?>

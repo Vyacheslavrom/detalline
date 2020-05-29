@@ -1,0 +1,39 @@
+<h1>Добавить/редактировать опрос</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+
+<form method="post" action="/admin/polls/add" enctype="multipart/form-data">
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры опроса</th>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Наименование:</td>
+			<td class="row2" width="50%">
+				<?=$html->input('Poll/name')?>
+				<?php echo $html->tagErrorMsg('Poll/name', '<small>обязательное поле</small>')?>
+			</td>
+		</tr>		
+		<tr> 
+			<td class="row1" width="50%">Варианты ответов:</td>
+			<td class="row2" width="50%">
+				<? for($i=0; $i<10; $i++)  
+					echo ($i+1).'. '.$html->input('PollVariant/name_'.$i).'<br>';
+				?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Многовариантный:</td>
+			<td class="row2" width="50%">
+				<?=$html->checkbox('Poll/multiple')?>
+			</td>
+		</tr>
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+		  <?=$html->hidden('Poll/id')?>
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+

@@ -1,0 +1,49 @@
+<h1>Покупатели</h1>
+<form method="post">
+<?php foreach($properties as $row):?>
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="2">Свойства покупателя <br><?=$row['Customer']['lname'].' '.$row['Customer']['fname'].' '.$row['Customer']['otch']?></th>
+</tr>
+<tr>
+	<th width="50px"><input type="radio" name="group_id" value="3" <?=$row['Customer']['group_id'] == 3? 'checked="checked"' : '';?>> Покупатель</th>
+	<td class="row2">Тот кто видит заказы</td>
+</tr>
+<tr>
+	<th width="50px"><input type="radio" name="group_id" value="4" <?=$row['Customer']['group_id'] == 4? 'checked="checked"' : '';?> id="supplier"> Поставщик</th>
+	<td class="row2">Тот кто может загружать прайсы</td>
+</tr>
+<tr>
+	<th width="50px"><input type="radio" name="group_id" value="5" <?=$row['Customer']['group_id'] == 5? 'checked="checked"' : '';?>> Продавец</th>
+	<td class="row2">Тот кто видит обращения по своим заказам</td>
+</tr>
+<tr>
+	<th width="50px"><input type="radio" name="group_id" value="7" <?=$row['Customer']['group_id'] == 7? 'checked="checked"' : '';?>> Закупщик</th>
+	<td class="row2">Тот кто видит журнал закупок</td>
+</tr>
+<tr>
+	<th width="50px"><input type="radio" name="group_id" value="6" <?=$row['Customer']['group_id'] == 6? 'checked="checked"' : '';?>> Старший продавец</th>
+	<td class="row2">Тот кто видит все обращения</td>
+</tr>
+<tr id="price" <?=$row['Customer']['group_id'] == 4? '' : 'style="display:none"';?>>
+	<th width="50px">Прайс № <input type="text" value="<?=$row['Customer']['price_id']?>" name="price_id" style="width:75px"></th>
+	<td class="row2">Присвоить номер прайса поставщеку</td>
+</tr>
+<tr>
+	<th width="50px"><input type="checkbox" name="wholesale" <?=$row['Customer']['wholesale'] == 1? 'checked="checked"' : '';?>> Оптовый</th>
+	<td class="row2">Оптовый!</td>
+</tr>
+<tr>
+	<?php foreach($responsible as $rows) $member = $rows['Responsible']['customer_id'];?>
+	<th width="50px"><input type="checkbox" name="member" <?=$member ==$row['Customer']['id']? 'checked="checked"' : '';?>> Сотрудник</th>
+	<td class="row2">Это сотрудник!</td>
+</tr>
+<tr>
+	<th colspan="2"><input type="submit" value="Сохранить" name="save"></th>
+</tr>
+</table>
+<? endforeach;?>
+</form>
+<script>
+$('.forumline').click(function(){ if($('#supplier').prop("checked") == true) $('#price').show(); else $('#price').hide();})
+</script>

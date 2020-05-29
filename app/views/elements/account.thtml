@@ -1,0 +1,37 @@
+
+
+
+
+
+	  <? if(!$this->controller->logged) :?>	
+
+
+<form method="post" action="/login.html" name="headloginform">
+	<input type="hidden" name="prev_mode" value="">
+	<input type="hidden" name="mode" value="login">
+		Логин:<br><input type="text" name="data[Customer][login]" size=10 maxlength=100 style="width: 110px" class="headerformfield"><br>
+Пароль:<br>
+<table cellpadding=1 cellspacing=0 border=0>
+<tr>
+<td><input type="password" name="data[Customer][passw]" size=10 maxlength=100 style="width: 110px" class="headerformfield"></td>
+<td><INPUT TYPE="submit" CLASS="formbutton" VALUE="войти">
+</td>
+</tr>
+</table>
+<a href="/registr.html" class="headformtext">Зарегистрироваться</a><br><a href="/fogotten_password.html" class="headformtext">Забыли пароль?</a>
+</form>
+
+<? else: ?>
+
+
+<b>Ваш email: <?=$this->controller->othAuth->user("email");?></b><br>
+<a href="personal_details.html" class="headformtext">Ваши данные</a><br>
+<a href="change_password.html" class="headformtext">Сменить пароль</a><br>
+<a href="orders.html" class="headformtext">Ваши заказы</a><br>
+<?if(count(@$_SESSION['cart'])) :?>
+<a href="cart.html" class="headformtext">Ваша корзина</a><br>
+<? endif;?>
+<a href="logout.html" class="headformtext">Выход</a>	
+
+
+	  <? endif; ?>

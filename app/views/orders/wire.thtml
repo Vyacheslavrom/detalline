@@ -1,0 +1,142 @@
+<html>
+
+<head>
+
+<style type="text/css">
+P, th, td	{font-family: Arial, Helvetica, sans-serif; font-size:  10pt}
+h2	{font-family: Arial, Helvetica, sans-serif; font-size:  14pt}
+A:hover   { color: #FF0000; }
+</style>
+<title>Счет для оплаты покупки</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#000080" vlink="#000080">
+<?php foreach($credentials as $row_cel):?>
+<p><b><?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?></b></p>
+<p><b>Адрес: <?=$row_cel['Credential']['jadress']?></b></p>
+
+<center>
+<p><b>Образец заполнения платежного поручения</b></p>
+<table width=100% cellpadding=2 cellspacing=0 border=1>
+<tr>
+<td width=30% >ИНН <?=$row_cel['Credential']['inn']?></td>
+<td width=30% >КПП <?=$row_cel['Credential']['kpp']?></td>
+<td width=10% rowspan=2 valign="bottom"><nobr>Сч. №</nobr></td>
+<td width=30% rowspan=2 valign="bottom"><?=$row_cel['Credential']['rasch_schet']?></td>
+</tr>
+<tr>
+<td colspan=2>Получатель:<br><?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?></td>
+</tr>
+<tr>
+<td colspan=2 rowspan=2>Банк получателя:<br> <?=$row_cel['Credential']['name_bank']?></td>
+<td>БИК</td>
+<td><?=$row_cel['Credential']['bik']?></td>
+</tr>
+<tr>
+<td><nobr>Кор. сч. №</nobr></td>
+<td><?=$row_cel['Credential']['korr_schet']?></td>
+</tr>
+</table>
+<h2>СЧЕТ № <?php echo $data['Order']['schet_number'] ? $data['Order']['pre_number'].$data['Order']['schet_number'] : $data['Order']['id']; ?> от <?=date("d.m.Y",strtotime($data["Order"]["created"]))?>г.</h2>
+</center>
+<p>Плательщик: <?php echo $data['Order']['organization'] ? $data['Order']['organization'].' ИНН '.$data['Order']['inn'].'/КПП'.$data['Order']['kpp'] : ''; ?><br>
+Адрес: <?php echo $data['Order']['jur_address']; ?><br>
+Грузополучатель и адрес:___________________________________________________________________________________________________________<br>
+Дополнения:_________________________________________________________________________________________________________________________</p>
+<center>
+<table width=100% cellpadding=2 cellspacing=0 border=1>
+<tr>
+<th>№</th>
+<th>Наименование товара / Производитель</th>
+<th>Марка/модель авто<br>(Годы выпуска)</th>
+<th>Номер / Артикул</th>
+<th>Единица изме-рения</th>
+<th>Коли-чество</th>
+<th>Цена</th>
+<th>Сумма</th>
+</tr>
+<?php 
+		$number = 0;
+		$sum = 0;
+
+ $main_col = 'count';
+                foreach ($data['OrderProduct'] as $prod) { 
+                      if($prod['status1']>0)
+                             $main_col = 'status1';
+                       
+                }
+
+		foreach ($data['OrderProduct'] as $prod) { 
+$main_count = $prod[$main_col];
+if($main_count == 0) continue;
+		?>
+<tr>
+<td align="right"><?php echo ++$number; ?></td>
+<td><?=$prod['name']?><?=($prod['manufacturer']? ' / '.$prod['manufacturer']:'')?></td>
+<td><?=($prod['mark_and_model'] ? $prod['mark_and_model'].'<br>('.$prod['year1'].'-'.$prod['year2'].')' : '')?>&nbsp;</td>
+<td><?=$prod['number']?> / <?=$prod['articul']?>&nbsp;</td>
+<td align="center">шт.</td>
+<td align="right">
+<? 		
+			$sum += $prod['price']*$main_count;
+			echo $main_count; ?>
+</td>
+<td align="right"><?php echo number_format($prod['price'],2,'.',',') ?></td>
+<td align="right"><?php echo number_format($prod['price']*$main_count,2,'.',',') ?></td>
+</tr>
+<?php
+}
+
+ ?>
+<tr>
+<td colspan=7 align="right"><b>Итого:</b></td>
+<td align="right"><?php echo number_format($sum,2,'.',',') ?></td>
+</tr>
+<tr>
+<td colspan=7 align="right"><b>Скидка:</b></td>
+<td align="right"><?php echo number_format($sum*($data['Order']['skidka']/100),2,'.',',') ?></td>
+</tr>
+<tr>
+<td colspan=7 align="right"><b>Итого НДС:</b></td>
+<td align="right">не облагается</td>
+</tr>
+<tr>
+<td colspan=7 align="right"><b>Всего к оплате:</b></td>
+<td align="right"><?php echo number_format($sum*(1+$data['Order']['skidka']/100),2,'.',',') ?></td>
+</tr>
+</table>
+</center>
+
+<p>Всего наименований <?php echo $number; ?>, на сумму <?php echo number_format($sum*(1+$data['Order']['skidka']/100),2,'.',',') ?></p>
+<p><b><?php echo ucfirst($this->controller->Semantic->num2str($sum*(1+$data['Order']['skidka']/100))); ?></b></p>
+
+<br><br>
+</TR>
+</table>
+<p><i> <b>Внимание! Счет действителен к оплате в течение 3 (трех) банковских дней.</b><br>
+ Отказ возможен на любой стадии заказа, организация не несет материальную отвественность за причиненные убытки.<br>
+Гарантия на новые запчасти составляет 14 календарных дней. При установке запчастей не авторизированным <br>
+сервисным центром гарантия на запчасти не распространяется. Б.У. Запчасти обмену и возврату не подлежат.<br>
+На БУ агрегаты дается 5дней на установку и проверку работоспособности агрегата(двигатель, КПП), по окончанию<br>
+5-ти дней претензии не принимаются. Срок поставки Б.У. запчастей до 21го рабочего деня.</i> <br>
+<b>Оплата данного счета означает согласие с условиями поставки товара. <br>
+Уведомление об оплате обязательно, в противном случае не гарантируется наличие товара на складе. <br>
+Движение товара начинается после поступления денег на Р/с.</b></p>
+
+</table>
+
+<table cellpadding=5 cellspacing=0 border=0>
+<tr>
+<td>Руководитель предприятия</td>
+<td rowspan=2>
+<? if(!isset($_GET['wnStamp'])) :?><img src="/images/stamp.gif" width=200 height=200 border=0><? else: ?><img src="/images/empty.gif" width=200 height=200 border=0><?endif;?></td>
+<td>(<?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?>)</td>
+</tr>
+<tr>
+<td>Главный бухгалтер</td>
+<td>(<?=$row_cel['Credential']['tip']?> <?=$row_cel['Credential']['jname']?>)</td>
+</tr>
+</table>
+<? endforeach;?>
+</body>
+</html>

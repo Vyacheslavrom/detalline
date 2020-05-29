@@ -1,0 +1,9 @@
+
+<? if(count($products)>0) :?>
+
+<? echo $this->renderElement("product_list"); ?>
+
+<? else: ?>
+<center>Не найдено ни одной записи</center>
+<? endif; ?>
+

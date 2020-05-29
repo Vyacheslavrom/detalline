@@ -1,0 +1,118 @@
+<div class="catalog" id="search-by-request">
+<h1>Запрос запчастей</h1>
+<p><strong>С помощью запроса запчастей можно получить ответ по запчастям, которые недоступны в on-line режиме.</strong>
+<br>* Просмотреть ваши запросы запчастей и ответы можно в кабинете после авторизации, кликнув на ссылку в верхней правой части экрана, кабинет, <a href="/my_requests.html">Ваши Запросы запчастей. </a>
+<br>* Далее, выбрав подходящие запчасти из ответа на Ваш запрос запчастей, можно добавить их в корзину и оформить заказ.
+<br><br><hr><br>
+<? if(!$this->controller->logged) :?>
+<span style="color:red;">Запросы запчастей могут оставлять только зарегистрированные пользователи. </span><br>
+Перед заполнением формы запроса запчастей, пожалуйста, <a href="/registr.html">зарегистрируйтесь</a> или авторизуйтесь.  <a href="/fogotten_password.html">Напомнить пароль?<a>
+<CENTER>
+<?=@$auth_msg;?>
+<FORM method="post">
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0>
+<TR >
+<TD ALIGN="RIGHT" >&nbsp;</TD>
+<TD ></TD>
+</TR>
+<TR>
+<TD ALIGN="RIGHT" >E-mail</TD>
+<TD ><INPUT TYPE="text" name="data[Customer][login]" SIZE=30 VALUE="" STYLE="width: 200px"></TD>
+</TR>
+<TR >
+<TD ALIGN="RIGHT"  VALIGN="TOP">Пароль</TD>
+<TD  VALIGN="TOP"><INPUT type="password" name="data[Customer][passw]" SIZE=30 VALUE="" STYLE="width: 200px"></TD>
+</TR>
+<TR >
+<TD ALIGN="RIGHT" ></TD>
+<TD ><INPUT TYPE="submit" CLASS="button" VALUE="Ввести"> <INPUT TYPE="reset" CLASS="button" VALUE="Очистить"></TD>
+</TR>
+</TABLE>
+
+</FORM>
+</CENTER>
+<p>
+<? endif; ?>
+<FORM method="post" name="requestform" id="requestform">
+<?  $session->flash()?>
+<fieldset>
+<legend><strong>Автомобиль</strong></legend>
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0>
+<tr>
+<td valign=top>Марка<sup style="color:red">*</sup>:<br><select name="data[Request][mark_id]" id="request_mark"><? foreach($marks as $mark) { ?>
+		<option value="<?=($mark["Mark"]["id"])?>" <?=(@$this->data[Request][mark_id]==$mark["Mark"]["id"]?"selected":"")?>><?=$mark["Mark"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/mark_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Модель<sup style="color:red">*</sup>:<br><span id="request_models"><select name="model"><option value="">---</option></select></span><?php echo $html->tagErrorMsg('Request/model_id', '<font color=red><small>обязательное поле</small></font>')?>
+											  <script>
+                                                                                           var markObj2 = $('#request_mark');
+                                                                                          markObj2.change( function() {choose_model(markObj2.val(), 0, $('#request_models'), document.getElementById('requestform').model);});
+											    choose_model(markObj2.val(), <?=($_POST['model'] ? $_POST['model'] : 0)?>, $('#request_models'),document.getElementById('requestform').model);  
+											   </script></td>
+<td valign=top>Год<sup style="color:red">*</sup>:<br><select name="data[Request][year]" style="width:70px;"><option value="">---</option><? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>" <?=(@$this->data[Request][year]==$i?"selected":"")?>><?=$i?></option>
+		<? endfor;?></select><?php echo $html->tagErrorMsg('Request/year', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Двигатель<sup style="color:red">*</sup>:<br><select name="data[Request][engine_volume_id]" style="width:70px;"><option value="">---</option><? foreach($engine_volumes as $row) { ?>
+		<option value="<?=($row["EngineVolume"]["id"])?>" <?=(@$this->data[Request][engine_volume_id]==$row["EngineVolume"]["id"]?"selected":"")?>><?=$row["EngineVolume"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/engine_volume_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Тип<sup style="color:red">*</sup>:<br><select name="data[Request][engine_type_id]" ><option value="">---</option><? foreach($engine_types as $row) { ?>
+		<option value="<?=($row["EngineType"]["id"])?>" <?=(@$this->data[Request][engine_type_id]==$row["EngineType"]["id"]?"selected":"")?>><?=$row["EngineType"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/engine_type_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Мощность (л.с.)<sup style="color:red">*</sup>:<br><input type=text name="data[Request][engine_power]" style="width:90px;" value="<?=@$this->data[Request][engine_power]?>"><?php echo $html->tagErrorMsg('Request/engine_power', '<font color=red><small>целое число</small></font>')?></td>
+</tr>
+<tr>
+<td valign=top>Привод<sup style="color:red">*</sup>:<br><select name="data[Request][wheel_drive_id]" ><option value="">---</option><? foreach($wheel_drives as $row) { ?>
+		<option value="<?=($row["WheelDrive"]["id"])?>" <?=(@$this->data[Request][wheel_drive_id]==$row["WheelDrive"]["id"]?"selected":"")?>><?=$row["WheelDrive"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/wheel_drive_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Тип кузова<sup style="color:red">*</sup>:<br><select name="data[Request][body_type_id]" ><option value="">---</option><? foreach($body_types as $row) { ?>
+		<option value="<?=($row["BodyType"]["id"])?>" <?=(@$this->data[Request][body_type_id]==$row["BodyType"]["id"]?"selected":"")?>><?=$row["BodyType"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/body_type_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>КПП<sup style="color:red">*</sup>:<br><select name="data[Request][transmission_id]" ><option value="">---</option><? foreach($transmissions as $row) { ?>
+		<option value="<?=($row["Transmission"]["id"])?>" <?=(@$this->data[Request][transmission_id]==$row["Transmission"]["id"]?"selected":"")?>><?=$row["Transmission"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/transmission_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+<td valign=top>Код кузова<sup style="color:red">&nbsp;</sup>:<br><input type=text name="data[Request][body_code]" style="width:90px;" value="<?=@$this->data[Request][body_code]?>"></td>
+<td valign=top>Код двигателя<sup style="color:red">&nbsp;</sup>:<br><input type=text name="data[Request][engine_code]" style="width:90px;" value="<?=@$this->data[Request][engine_code]?>"></td>
+<td valign=top>Рынок<sup style="color:red">*</sup>:<br><select name="data[Request][market_id]" ><option value="">---</option><? foreach($markets as $row) { ?>
+		<option value="<?=($row["Market"]["id"])?>" <?=(@$this->data[Request][market_id]==$row["Market"]["id"]?"selected":"")?>><?=$row["Market"]["name"]?></option>
+		<? } ?></select><?php echo $html->tagErrorMsg('Request/market_id', '<font color=red><small>обязательное поле</small></font>')?></td>
+</tr>
+<tr><td valign=top>Комплектация: </td><td colspan=5><input type=text name="data[Request][complete_set]" style="width:60%;"  value="<?=@$this->data[Request][complete_set]?>"></td></tr>
+<tr><td valign=top>VIN или FRAME: </td><td colspan=5><input type=text name="data[Request][vin_frame]" style="width:60%;"  value="<?=@$this->data[Request][vin_frame]?>"><br><small>Обязателен для подбора новых запчастей!<br>
+Использовать буквы I, O, Q в VIN запрещено, так как они сходны по начертанию с цифрами 1, 0, а также между собой.<br>
+FRAME записывается через дефис.</small></td></tr>
+</table>
+</fieldset>
+<fieldset>
+<legend><strong>Запчасти</strong></legend>
+При вводе запчастей не забывайте подробно указывать тип запчастей. Например, бампер передний под ПАРТРОНИКИ И ОМЫВАТЕЛИ, фара правая КСЕНОН (БИ КСЕНОН) АДАПТИВНАЯ.
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0 id="partstable" width=100%>
+<? 
+$rows_cnt =  count(@$this->data['RequestParts']) ? count(@$this->data['RequestParts']) : 10;
+for($i=1;$i<=$rows_cnt;$i++) :?>
+<tr>
+<td style="width:1%"><?=$i?>.</td><td><input type=text name="data[RequestParts][<?=$i?>][name]" value="<?=($this->data['RequestParts'][$i]['name'] ? $this->data['RequestParts'][$i]['name']  : 'Наименование')?>" style="width:300px;" onFocus="if(this.value=='Наименование') this.value='';" onBlur="if(this.value=='') this.value='Наименование';"  maxlength=80><sup style="color:red">*</sup></td><td><input type=text name="data[RequestParts][<?=$i?>][number]" value="<?=($this->data['RequestParts'][$i]['number'] ? $this->data['RequestParts'][$i]['number']  : 'Ориг. номер')?>" onFocus="if(this.value=='Ориг. номер') this.value='';" onBlur="if(this.value=='') this.value='Ориг. номер';"></td>
+<td><select name="data[RequestParts][<?=$i?>][part_state_id]" ><option value="">Состояние</option><? foreach($part_states as $row) { ?>
+		<option value="<?=($row["PartState"]["id"])?>" <?=(@$this->data['RequestParts'][$i]['part_state_id']==$row["PartState"]["id"]?"selected":"")?>><?=$row["PartState"]["name"]?></option>
+		<? } ?></select><sup style="color:red">*</sup><?=$request_parts_errors[$i]['part_state_id']?></td>
+</tr>
+<? endfor; ?>
+</table>
+<div style="padding:5px; text-align:right;"><input type=button value="Добавить строки" CLASS="button" onclick="addRows()"></div>
+<script>
+function addRows()
+{
+var cnt = $('#partstable tr').length;
+for(i=(cnt+1); i<= (cnt+5); i++) {
+$('#partstable').append('<tr><td style="width:1%">'+i+'.</td><td><input type=text name="data[RequestParts]['+i+'][name]" value="Наименование" style="width:300px;" onFocus="if(this.value==\'Наименование\') this.value=\'\';" onBlur="if(this.value==\'\') this.value=\'Наименование\';" maxlength=80><sup style="color:red">*</sup></td><td><input type=text name="data[RequestParts]['+i+'][number]" value="Ориг. номер" onFocus="if(this.value==\'Ориг. номер\') this.value=\'\';" onBlur="if(this.value==\'\') this.value=\'Ориг. номер\';"></td><td><select name="data[RequestParts]['+i+'][part_state_id]" ><option value="">Состояние</option><? foreach($part_states as $row) { ?><option value="<?=($row["PartState"]["id"])?>"><?=$row["PartState"]["name"]?></option><? } ?></select><sup style="color:red">*</sup></td></tr>');
+}
+}
+</script>
+</fieldset>
+Не забывайте в примечании указать, если авто выпущен в переходной год, рестайлинговый автомобиль или нет.
+<TABLE CELLPADDING=0 CELLSPACING=5 BORDER=0 width=100%>
+<tr><td valign=top width=10%>Примечание: </td><td colspan=5><textarea name="data[Request][comments]" style="width:95%;"><?=@$this->data[Request][comments]?></textarea></td></tr>
+</table>
+<p>Поля, отмеченные <sup style="color:red">*</sup>, являются обязательными для заполнения
+<p align=right><input type=submit  class=button name=send_request value="Отправить запрос" <? if(!$this->controller->logged) echo 'onclick="alert(\'Сначала авторизуйтесь!\'); return false;"';?>>
+
+</FORM>
+</div>

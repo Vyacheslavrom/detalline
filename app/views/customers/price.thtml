@@ -1,0 +1,43 @@
+<table width="100%" cellpadding="4" cellspacing="1" border="1" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="6">Управление прайсам</th>
+</tr>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+<tr class="sectiontableheader"> 
+	<td class="cat" width="10%"><span class="cattitle">ID</span></td>
+	<td class="cat"><span class="cattitle">Название</span></td>
+        <td class="cat" width="15%"><span class="cattitle">Cрок доставки (кол-во дней)</span></td>
+	<td class="cat" width="20%"><span class="cattitle">Дата и время<br>последней загрузки прайса</span></td>
+	<td class="catRight" align="center" valign="middle"><span class="gen">Загрузить прайс-лист:<br><small>Допустимый формат: CSV</small></span></td>
+</tr>
+ 	<?php foreach ($data as $row): ?>
+ 	<tr class=""> 
+		<td class="row1"><span class="gen"><?php echo $row['Price']['id'] ?></span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Price']['name'] ?></span></td>
+<td class="row1" align=center><span class="gen">
+<? if($row['Price']['id'] < 100) :?>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/days_shipping">
+		мин.:<input type=text name=data[Price][days_shipping_min] value="<?php echo $row['Price']['days_shipping_min'] ?>">,<br>гарант.: <input type=text name=data[Price][days_shipping_garant] value="<?php echo $row['Price']['days_shipping_garant'] ?>"><br>
+<input type=hidden name=data[Price][id] value="<?php echo $row['Price']['id'] ?>">
+<input type="submit" name="save" value="Сохранить" class="mainoption" />
+	</form><? else:?> в наличии <? endif; ?>
+		</span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Price']['uploaded'] ? date("d.m.Y H:i:s",strtotime($row['Price']['uploaded'])) : "не загружен"; ?></span></td>
+		<td class="row1" align="center" valign="middle" width="1%"><span class="gen">
+		
+		<?php echo $row['Price']['id'] ?>.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/<?php echo $row['Price']['id'] ?>">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		<input type="button" value="Редактировать" class="mainoption" onclick="window.location.href='edit_price.html'" />
+		</form>
+		
+		 </span></td>
+	</tr>
+	<?php endforeach; ?>
+
+<? else: ?>
+ <tr><td colspan="6" class="row1" align="center">по вашему запросу ничего не найдено</td></tr>
+<? endif; ?>
+<? endif; ?>
+</table>

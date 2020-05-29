@@ -1,0 +1,47 @@
+<script type="text/javascript">
+    
+        // kick off chat
+        var chat =  new Chat(<?=$_GET['id']?>,false);
+    	admin = 'admin';
+		function sendMsg()
+		{ 
+			var text = $('#sendie').val();
+			
+    				var maxLength = $('#sendie').attr("maxlength");  
+                    var length = text.length; 
+                     
+                    // send 
+                    if (length <= maxLength + 1) { 
+    			        chat.send(text);	
+    			        $('#sendie').val("");
+    			        
+                    } else {
+                    
+    					$('#sendie').val(text.substring(0, maxLength));
+    					
+    				}	
+		}
+    </script>
+<table>
+<tr>
+<td>
+<div id="chat-wrap"><div id="chat-area"></div></div>
+<form id="send-message-area">
+  <p>Ваше сообщение: </p><br>
+  <textarea id="sendie" maxlength = '1000' ></textarea><br />
+  <input type="button" value="Отправить (Ctrl+Enter)" onclick="sendMsg()"> 
+</form>
+</td>
+<td style="vertical-align:top;padding:10px;width:200px;">
+	<h4 style="padding-top:0px;margin-top:0px;">Информация об клиенте</h4>
+	<ul id="fields_requests" style="list-style:none;padding:0px;margin:0px;">
+	<li><label for="vin">Имя:</label> <input type="text" value="<?=$call['Call']['name']?>"></li>
+	<li><label for="model">Телефон:</label> <input type="text" value="<?=$call['Call']['phone']?>"></li>
+	<li><label for="model">Email:</label> <input type="text" value="<?=$call['Call']['email']?>"></li>
+	<li><label for="vin">VIN:</label> <input type="text" value="<?=$call['Call']['vin']?>"></li>
+	<li><label for="model">Модель:</label> <input type="text" value="<?=$call['Call']['model']?>"></li>
+	</ul>
+</td>
+</tr>
+</table>
+<script>setInterval('chat.update()', 200);</script>

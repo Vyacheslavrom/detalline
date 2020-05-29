@@ -1,0 +1,6 @@
+<select name="city" class="b-select" id="request_city">
+		<option value="">Выберите город</option>
+		<? foreach($data as $row) :?>
+		<option value="<?=$row["City"]["id"]?>" <?=($_GET["sel"]==$row["City"]["id"] ? "selected=selected":"")?>><?=$row["City"]["name"]?></option>
+		<? endforeach;?>	
+		</select>

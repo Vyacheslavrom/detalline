@@ -1,0 +1,119 @@
+<h1>Запросы покупателей</h1>
+ <? $session->flash()?>   
+<p><span style="background-color:#D2F7DC">Зеленым выделены запросы, на которые вы ответили!</span>
+<? if($this->controller->othAuth->group('id') == 5) { ?>
+<form>
+<table border=0 style="align:center";>
+<tr><th>Номер запроса:</th><td><input type=text name=number value="<?=@$_GET[number]?>"></td><th>Дата запроса:</th><td><input type=text name=date value="<?=@$_GET[date]?>"></td></tr>
+<tr><th>Фамилия заказчика:</th><td><input type=text name=lastname value="<?=@$_GET[lastname]?>"></td><th>Телефон заказчика:</th><td><input type=text name=phone value="<?=@$_GET[phone]?>"><input type=submit name=search value="Поиск" style="width:80px;"></td></tr>
+</table>
+</form>
+<? } ?>
+<div>Найдено результатов: <?=$paging['count']?></div>
+
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+<p>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+
+ 	<?php foreach ($data as $row):?>
+<? 
+$answer_exists = false;
+foreach($row['RequestPart'] as $part) { 
+if(count($part['RequestAnswer'])>0) {
+	$answer_exists = true;
+}
+}
+?>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%" <? if($answer_exists) echo 'style="background-color:#D2F7DC"'; ?>>
+			<TR>
+			<TD COLSPAN=2><b>Запрос №  <?php echo $row['Request']['id'] ?>.</b></td></tr>
+	<tr><td>Дата и время запроса: </td><td><b><?=date("d.m.Y H:i",strtotime($row['Request']['created']))?></b>
+			</TD></tr>
+<? if($this->controller->othAuth->group('id') == 5) :?>
+<tr><td>Покупатель: </td><td><b>ID:</b><?php echo $row['Customer']['id'] ?>:  <b>ФИО:</b> <?php echo $row['Customer']['lname'] ?> <?php echo $row['Customer']['fname'] ?> <?php echo $row['Customer']['otch'] ?>, <b>email:</b> <a href="mailto:<?php echo $row['Customer']['email'] ?>"><?php echo $row['Customer']['email'] ?></a> <br>
+		<b>адрес:</b> <?php echo $row['Customer']['zipcode'] ?>, <?php echo $row['Customer']['city'] ?>, <?php echo $row['Customer']['address1'] ?> <?php echo $row['Customer']['address2'] ?><br>
+		<b>моб.:</b> <?php echo $row['Customer']['mphone'] ?>, дом.: <?php echo $row['Customer']['hphone'] ?></TD></tr>
+<? endif; ?>
+<tr><td>Автомобиль: </td><td><b><?=$row['Mark']['name']?> <?=$row['Model']['name']?> <?=$row['Request']['year']?></b>, объем двигателя - <b><?=$row['EngineVolume']['name']?></b>, тип  - 
+
+<b><?=$row['EngineType']['name']?></b>, мощность - <b><?=$row['Request']['engine_power']?> л.с.</b>, привод - <b><?=$row['WheelDrive']['name']?></b>, тип кузова  - 
+
+<b><?=$row['BodyType']['name']?></b>, КПП  - <b><?=$row['Transmission']['name']?></b>, комплектация - <b><?=$row['Request']['complete_set']?></b>
+			</TD></tr>
+<tr><td>Двигатель: </td><td><b><?=$row['Request']['engine_code']?></b></TD></tr>
+<tr><td>Кузов: </td><td><b><?=$row['Request']['body_code']?></b></TD></tr>
+<tr><td>VIN/FRAME: </td><td><b><?=$row['Request']['vin_frame']?></b></TD></tr>
+<tr><td>Рынок: </td><td><b><?=$row['Market']['name']?></b>
+			</TD></tr>
+<tr><td>Примечание: </td><td><b><?=$row['Request']['comments']?></b>
+			</TD></tr>
+<tr><td valign=top>Запчасти: </td><td><a href="#" onclick="if(this.innerHTML=='Показать') {$('#partstable_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#partstable_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Показать</a>
+<table width=100% id=partstable_<?php echo $row['Request']['id'] ?> style="display:none">
+<tr><th>№</th><th>Наименование запчасти</th><th>Ориг. номер</th><th>Состояние</th></tr>
+<? 
+$i=0;
+foreach($row['RequestPart'] as $part) { 
+
+?>
+<tr><td><?=(++$i)?></td><td><?=$part['name']?></td><td><?=$part['number']?></td><td><?=$part['PartState']['name']?></td></tr>
+<? } ?>
+</table>
+			</TD>
+</tr>
+<? if($answer_exists) :?>
+<tr><td valign=top>Вы ответили: </td><td valign=top><a href="#" onclick="if(this.innerHTML=='Показать') {$('#answertable_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#answertable_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Показать</a>
+<table width=100% id=answertable_<?php echo $row['Request']['id'] ?> style="display:none">
+<? 
+foreach($row['RequestPart'] as $part) { 
+foreach($part['RequestAnswer'] as $answer) {
+?>
+<tr><td><b><?=$part['name']?> <?=$answer[start_price]?> руб. поставка <?=$answer[delivery_term]?> <?=$answer[state]?></b></td></tr>
+<? }}?>
+
+</table>		
+<? else: ?>
+	<tr><TD COLSPAN=2><a href="/answer_request.html?id=<?php echo $row['Request']['id'] ?>">Ответить на запрос</a></td></tr>
+<? endif;?>
+<? if($this->controller->othAuth->group('id') == 5 || $this->controller->othAuth->group('id') == 6)  {
+
+$other_suppliers_answers = array();
+foreach($row['RequestPart'] as $part) { 
+foreach($part['RequestAnotherAnswer'] as $answer)  {
+           $answer['part_name'] = $part['name'];
+           $other_suppliers_answers[$answer['supplier_id']][] = $answer;
+}}
+
+foreach($other_suppliers_answers as $supplier_id=>$answers) {
+?>
+<tr><td valign=top>Ответ поставщика: 
+
+<div onmouseover="document.getElementById('sklad_<?=$answers[0][id]?>').style.display='block';" onmouseout="document.getElementById('sklad_<?=$answers[0][id]?>').style.display='none';" style="cursor:default;"><u><?= ("DSM ".$answers[0]['Supplier']['id'])?></u>&nbsp;&nbsp;</div>
+<div id=sklad_<?=$answers[0]['id']?> style="padding: 9px; display: none; width: 200px; text-align:left; position: absolute; border:1px solid #000000; background-color:#fefefe; color:#000000; font: 8pt Verdana,Geneva,sans-serif;">
+			<?=$answers[0]['Supplier']['lname']." ".$answers[0]['Supplier']['fname']." ".$answers[0]['Supplier']['otch'].", <br>адрес:".$answers[0]['Supplier']['zipcode']." ".$answers[0]['Supplier']['city'].", ".$answers[0]['Supplier']['address1']." ".$answers[0]['Supplier']['address2'].", 
+<br>м.т.:".$answers[0]['Supplier']['mphone'].", с.т.:".$answers[0]['Supplier']['hphone'].", <br>email:".$answers[0]['Supplier']['email']?>
+			</div>
+
+</td><td valign=top><a href="#" onclick="if(this.innerHTML=='Показать') {$('#answertable_<?=$supplier_id?>_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#answertable_<?=$supplier_id?>_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Показать</a>
+<table width=100% id=answertable_<?=$supplier_id?>_<?php echo $row['Request']['id'] ?> style="display:none">
+<? 
+foreach($answers as $answer) {
+
+?>
+<tr><td><b><?=$answer['part_name']?> <?=$answer[start_price]?> руб. поставка <?=$answer[delivery_term]?> <?=$answer[state]?></b></td></tr>
+<? }?>
+
+</table>		
+
+<? }} ?>
+
+				</TABLE><br>
+
+	<?php endforeach; ?>	
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+	<? else: ?>
+НЕТ ЗАПРОСОВ
+<? endif; ?>
+<? endif; ?>

@@ -1,0 +1,23 @@
+<? if($top_advert): 
+?>
+<div id="reklama">
+<? if(!empty($top_advert['Advert']['text1'])) :?>
+<span style="display:block; text-align: center; font-size:12pt;" id="span_reklama_<?php echo $top_advert['Advert']['id'] ?>"><?php echo $top_advert['Advert']['text1'] ?></span>
+<? endif; ?>
+</div>
+<script>
+var cur = 0;
+var arr = new Array();
+<? if(!empty($top_advert['Advert']['text1'])) :?>
+arr[arr.length] = '<?=$top_advert['Advert']['text1']?>';
+<? endif; ?>
+<? if(!empty($top_advert['Advert']['text2'])) :?>
+arr[arr.length] = '<?=$top_advert['Advert']['text2']?>';
+<? endif; ?>
+<? if(!empty($top_advert['Advert']['text3'])) :?>
+arr[arr.length] = '<?=$top_advert['Advert']['text3']?>';
+<? endif; ?>
+window.setInterval(function() { cur = (cur == (arr.length-1)) ? 0 : cur+1; document.getElementById('span_reklama_<?php echo $top_advert['Advert']['id'] ?>').innerHTML = arr[cur];  }, 2000);
+
+</script>
+<? endif; ?>

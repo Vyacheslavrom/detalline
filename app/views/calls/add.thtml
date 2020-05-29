@@ -1,0 +1,39 @@
+<h1>On-line консультант</h1>
+<form action="call.html" method="post">
+<p><span class=txt>
+<? $session->flash()?>
+<CENTER>
+<TABLE CELLPADDING=3 CELLSPACING=5 BORDER=0 WIDTH=100%>
+<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">РАЗГОВОР С ОПЕРАТОРОМ</TH></TR>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Ваше имя<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Call/name',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('Call/name', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Ваш телефон<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Call/phone',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('Call/phone', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Ваш email<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Call/email',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('Call/email', '<font color=red><small>неверный email</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">Марка, модель<br>и год выпуска авто<sup><font color=red>*</font></sup>:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Call/model',array('style'=>'width:180px;','class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('Call/model', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt">VIN:</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->input('Call/vin',array('style'=>'width:180px;','class'=>'formfield'))?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" valign=top>Ваш вопрос<sup><font color=red>*</font></sup>:&nbsp;</td><TD CLASS="txt" ALIGN="LEFT"><?php echo $html->textarea('CallMessage/text',array('style'=>'width:180px;height:150px;', 'class'=>'formfield'))?>
+<?php echo $html->tagErrorMsg('CallMessage/text', '<font color=red><small>обязательное поле</small></font>')?></td></tr>
+
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt"></TD>
+<TD CLASS="txt" ALIGN="LEFT"><input type=submit value=отправить CLASS="formbutton"> <input type=reset value=очистить CLASS="formbutton"></td></tr>
+</table>
+</center>
+</form>
+

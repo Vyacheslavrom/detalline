@@ -1,0 +1,52 @@
+								<form method="get" action="/search.html" name="sparepartsform" id="sparepartsform">
+								<input type=hidden name=tp value=spareparts>
+								<div class="search">
+	                                 <div class="search-column">
+										<ul>
+	                                         <li>Марка авто: <select name=mark onchange='javascript:choose_model(this.value)'><? foreach($marks as $mark) { ?>
+		<option value="<?=($mark["Mark"]["id"])?>" <?=($sess_search["mark"]==$mark["Mark"]["id"] ? "selected=selected":"")?>><?=$mark["Mark"]["name"]?></option>
+		<? } ?></select></li>
+			                                 <li>Модель авто: <span id="models"><select name=model><option value=0>---</option></select></span>
+											 <script>
+											    function choose_model(id)
+											    {												  
+												  $.ajax({
+													   type: "GET",
+													   url: "choose_models.html",
+													   data: {id: id, sel: <?=$sess_search["model"]?$sess_search["model"]:0?>},
+													   success: function(data, status) {
+															$('#models').html(data);
+														}
+													  });
+											    }
+											    choose_model(document.getElementById("sparepartsform").mark.value);
+											   </script>
+											 </li>
+										     <li>Год: <select name=year><option value=0>---</option><? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>"  <?=($sess_search["year"]==$i ? "selected=selected":"")?>><?=$i?></option>
+		<? endfor;?></select></li>
+										    <li>Категория:<select name=cat>
+											<? foreach($categories as $category) { ?>
+		<option value="<?=$category["Category"]["id"]?>" <?=($sess_search["cat"]==$category["Category"]["id"] ? "selected=selected":"")?> ><?=$category["Category"]["name"]?></option>
+		<? } ?>
+											</select></li>
+										    <li>Название запчпасти: <input type=text name=name style="width:155px;" value="<?=$sess_search["name"]?>"><br><small>не более 1го слова</small></li>
+										    <li><input type="submit"  class="button" value="ИСКАТЬ ЗАПЧАСТИ"></li>
+	                                    <ul>
+	                                </div>
+	                                <div class="search-line"></div>
+	                                <div class="search-column">
+										<ul>
+	                                        <li >Цена:<br />
+от <input type=text name=prc1 style="width:50px;" value="<?=$sess_search["prc1"]?>"> до <input type=text name=prc2 style="width:50px;" value="<?=$sess_search["prc2"]?>"> руб.</li>
+			                                <li>Срок доставки:<br />
+от <input type=text name=tm1 style="width:50px;" value="<?=$sess_search["tm1"]?>"> до <input type=text name=tm2 style="width:50px;" value="<?=$sess_search["tm2"]?>"> дн.</li>
+										    <li>Сортировка:<br /><select name=sortBy> <option value=0>---</option>
+		<option value="price" <?=($sess_search["sortBy"]=="price" ? "selected=selected":"")?>>по цене</option>
+		<option value="days_shipping" <?=($sess_search["sortBy"]=="days_shipping" ? "selected=selected":"")?>>по сроку доставки</option></select></li>
+										    <li><input type=checkbox name=exists <?=(!empty($sess_search["exists"]) ? "checked=true":"")?>> только в наличии</li>
+										<ul>
+	                                </div>
+								</div>
+								</form>
+								

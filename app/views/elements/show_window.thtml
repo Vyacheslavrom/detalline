@@ -1,0 +1,31 @@
+<h1>Наша витрина</h1>
+<div class=leftblock>
+<table cellspacing=10>
+<? foreach($products_show_window as $row) :?>
+<tr>
+<td style="border:1px solid black; padding:3px; width: 160px; vertical-align:bottom;" >
+<? 
+$dir =   $row['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$row['Product']['price_id'];
+if($row['Product']['price_id']>=100   && file_exists("files/products/".$dir."/".$row['Product']['articul'].".jpg")) { ?>
+<img src="http://sm-jm.ru/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" width=160>
+<? } elseif(file_exists("files/products/photos/".$row['Product']['articul'].".jpg")) {?> 
+<img src="http://sm-jm.ru/files/products/photos/<?=$row['Product']['articul']?>.jpg" width=160>                                 
+				<? } else { ?>
+<img src="/images/noimage.jpg" width=160>   
+<? } ?>
+<br>
+<?=$row['Product']['mark_and_model']?> - <?=$row['Product']['name']?><br>
+<span class="t05">Цена: <?=$row['Product']['price']?> руб.</span><br><br>
+<? if($row['Product']['quantity']):?>
+<FORM METHOD="GET" ACTION="/cart.html">
+<INPUT TYPE="hidden" NAME="add" VALUE="<?=$row['Product']['id']?>">
+<INPUT TYPE="text" NAME="skolko" SIZE=4 MAXLENGTH=4 VALUE=1 style="text-align:right"> 
+<INPUT TYPE=submit VALUE="в корзину" style="width:100px;">
+</FORM>
+<? else: ?>
+нет в наличии
+<? endif;?>
+</td></tr>
+<? endforeach; ?>
+</table>
+</div>

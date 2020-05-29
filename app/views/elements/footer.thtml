@@ -1,0 +1,107 @@
+<div class="i-footer">
+				 <div class="b-footer">
+					<div class="b-footer__top" >
+						<div class="b-footer__col b-footer__col_copy">
+							<h4 class="b-footer__h4">© Detalline.ru, 2008–<?=date('Y')?></h4>
+								<div class="b-footer__rambler"> 
+									<!-- begin of Top100 code -->
+									<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?2876554"></script>
+									<noscript>
+									<a href="http://top100.rambler.ru/navi/2876554/">
+									<img src="http://counter.rambler.ru/top100.cnt?2876554" alt="Rambler's Top100" border="0" />
+									</a>
+									</noscript>
+									<img src="/images/mc_blue.jpg" style="width:60px;height:30px;">
+									<img src="/images/visa_blue.jpg" style="width:60px;height:30px;">
+									<br>
+									<a href="https://money.yandex.ru" target="_blank"> <img src="https://money.yandex.ru/img/yamoney_logo88x31.gif" alt="Я принимаю Яндекс.Деньги" title="Я принимаю Яндекс.Деньги" border="0" width="88" height="31"/></a>
+									<a href="http://www.webmoney.ru/"><img src="/images/88x31_wm_blue_on_white_ru.png" style="width:60px;height:30px;"></a>
+									<!-- end of Top100 code -->
+								</div>
+								
+								<!--LiveInternet counter--><script type="text/javascript"><!--
+document.write("<a href='http://www.liveinternet.ru/click' "+
+"target=_blank><img src='//counter.yadro.ru/hit?t58.6;r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random()+
+"' alt='' title='LiveInternet' "+
+"border='0' width='88' height='31'><\/a>")
+//--></script><!--/LiveInternet-->
+								
+								<!-- begin of Top100 code --> 
+								<!--<a class="b-footer__link" style="position:absolute; left:-9999px;" href="http://top100.rambler.ru/top100/"><img class="b-footer__counter" src="//counter.rambler.ru/top100.cnt?1367737" alt="Rambler's Top100"   /></a>--> 
+								<!-- end of Top100 code --> 
+
+						
+								<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter20736721 = new Ya.Metrika({
+                    id:20736721,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/20736721" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->						</div>
+						<div class="b-footer__col b-footer__col_project">
+							<h4 class="b-footer__h4">О компании</h4>				
+							<ul class="b-footer__list">
+								<li class="b-footer__item"><a class="b-footer__link" href="/shops.html">Адреса магазинов</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/contacts.html">Контактные данные</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/message.html">Обратная связь</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/vacancy.html">Наши вакансии</a></li>
+							</ul>
+						</div>
+						<div class="b-footer__col b-footer__col_project">
+                            <h4 class="b-footer__h4">Наши партнеры</h4>
+                            <ul class="b-footer__list">
+								<li class="b-footer__item"><a class="b-footer__link" href="/registr.html?postavshik">Регистрация поставщиков</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/sto.html">СТО</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/strahovanie.html">Автострахование (КАСКО, ОСАГО)</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/websites.html">Автомобильные сайты</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/reklama.html">Реклама на сайте</a></li>
+							</ul>
+						</div>
+						<div class="b-footer__col b-footer__col_help">
+							<h4 class="b-footer__h4"><a class="b-footer__link" href="/help.html">Помощь</a></h4>
+							<ul class="b-footer__list">
+								<li class="b-footer__item">
+									<div class="b-layout__tlf b-layout__tlf_margleft_-19">
+										<span class="b-layout__tlf-ic b-layout__tlf-ic_margright_3 b-layout__tlf-ic_margtop_5"></span>
+										<div class="b-layout__tlf-number">
+										Ростов-на-Дону<br />
+										8-904-503-07-07<br />
+										8-863-260-17-29<br /><br />
+										<h4 padding-right="40px">Служба поддержки</h4>
+										
+										</div>
+								
+									</div></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="javascript:void(null);" onclick="openWindow('/call.html',630,600);return false;">Задать вопрос онлайн-консультанту</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="/message.html">Написать нам в службу поддержки</a></li>
+								<li class="b-footer__item"><a class="b-footer__link" href="javascript:void(null);" onclick="openWindow('/callback.html',630,600);return false;">Заказать обратный звонок</a></li>
+							</ul>
+						</div>
+					</div>
+				 </div>
+				</div>

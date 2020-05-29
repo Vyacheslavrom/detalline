@@ -1,0 +1,85 @@
+<script>function confirmDelete(ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url;
+}
+}</script>
+<h1><?php
+			if(isset($this->params['data']['Advert']['id'])) 
+			echo 'Редактирование рекламного блока';
+			else
+			echo 'Новый рекламный блок';
+			?></h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+
+<form method="post" enctype="multipart/form-data">
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры рекламного блока</th>
+		</tr>
+               <tr> 
+			<td class="row1">Тип:</td>
+			<td class="row2">
+				<select name="data[Advert][advert_type_id]" size="1">
+				<option value="">= Выберите тип =</option>
+					  <?foreach($types as $row) {
+					  
+					  if($this->controller->Advert->findCount("advert_type_id=1")>0 && @$this->params['data']['Advert']['advert_type_id'] !=1
+						&& $row['AdvertType']['id'] == 1)
+						continue;
+					  
+					   if($row['AdvertType']['id']==@$this->params['data']['Advert']['advert_type_id'])
+						 echo "<option value='".$row['AdvertType']['id']."' selected>".$row['AdvertType']['name']."</option>";
+					   else
+					    echo "<option value='".$row['AdvertType']['id']."'>".$row['AdvertType']['name']."</option>";
+						}
+					 	?>
+					  </select>
+					  <?php echo $html->tagErrorMsg('Advert/advert_type_id', '<font color=blue><small>обязательное поле</small></font>')?>
+			</td>
+		</tr>
+        <tr> 
+			<td class="row1">Изображение:<br><small>Допустимый формат: JPG,PNG,GIF</small></td>
+			<td class="row2">
+				<?=$html->file('Advert/pic_file')?> 
+				<br><font color=blue><small><?=@$error?></small></font>
+			</td>			
+		</tr>
+		<?if(!empty($this->params['data']['Advert']['image']) && file_exists(ROOT.DS.'app'.DS.'webroot'.DS.'files'.DS.'rblocks'.DS.'photos'.DS.$this->params['data']['Advert']['image']))  :?>		
+		<tr> 
+			<td class="row1"><img src='/files/rblocks/photos/<?=$this->params['data']['Advert']['image']?>' width=180></td>
+			<td class="row2">
+				<input type="button" value="Удалить фото" class="mainoption" onClick='confirmDelete("Вы уверены что хотите удалить изображение?","/admin/adverts/delete_picture/<?=$this->params['data']['Advert']['id']?>");'/> 
+			</td>			
+		</tr>	
+		<? endif; ?>
+        <tr> 
+			<td class="row1" width=40%>Тексты<br><small>Для форматирования текста используйте html-разметку</small>:</td>
+			<td class="row2">
+				<?php echo $html->input('Advert/text1',array('style'=>'width:400px;', 'maxlength'=>'50'))?><br>
+				<?php echo $html->input('Advert/text2',array('style'=>'width:400px;', 'maxlength'=>'50'))?><br>
+				<?php echo $html->input('Advert/text3',array('style'=>'width:400px;', 'maxlength'=>'50'))?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Показывать на сайте:</td>
+			<td class="row2">
+				<?=$html->checkbox('Advert/active')?><br />
+			</td>
+		</tr>
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+		  <?php
+			if(isset($this->params['data']['Advert']['id'])):
+			echo $html->hidden('Advert/id');
+			echo $html->hidden('Advert/image');
+			endif;
+			?>
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+

@@ -1,0 +1,153 @@
+<script type="text/javascript">
+    
+        // kick off chat
+        var chat =  new Chat(<?=$_GET['id']?>,true);
+    	admin = 'admin';
+		function sendMsg()
+		{ 
+			var text = $('#sendie').val();
+			
+    				var maxLength = $('#sendie').attr("maxlength");  
+                    var length = text.length; 
+                     
+                    // send 
+                    if (length <= maxLength + 1) { 
+    			        chat.send(text);	
+    			        $('#sendie').val("");
+    			        
+                    } else {
+                    
+    					$('#sendie').val(text.substring(0, maxLength));
+    					
+    				}	
+		}
+    </script>
+<table>
+<tr>
+<td>
+<div id="chat-wrap"><div id="chat-area"></div></div>
+<form id="send-message-area">
+  <p>Ваше сообщение: </p><br>
+  <textarea id="sendie" maxlength = '1000' ></textarea><br />
+  <input type="button" value="Отправить (Ctrl+Enter)" onclick="sendMsg()"> 
+</form>
+</td>
+<td style="vertical-align:top;padding:10px;width:200px;">
+	<h4 style="padding-top:0px;margin-top:0px;">Информация об клиенте</h4>
+	<ul id="fields_requests" style="list-style:none;padding:0px;margin:0px;">
+	<li><label for="vin">Имя:</label> <input type="text" value="<?=$rows['Reverse']['name']?>"></li>
+	<li><label for="model">Телефон:</label> <input type="text" value="<?=$rows['Reverse']['phone']?>"></li>
+	<li><label for="model">Email:</label> <input type="text" value="<?=$rows['Reverse']['email']?>"></li>
+	
+	</ul>
+</td>
+</tr>
+</table>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%">
+<tr class="sectiontableheader"> 
+	<td class="cat" width="200"><span class="cattitle">Покупатель</span></td>
+	<td class="cat"><span class="cattitle">Способ оплаты</span></td>
+	<td class="cat"><span class="cattitle">Способ и адрес доставки</span></td>	
+	<td class="cat"><span class="cattitle">Комментарий</span></td>	
+</tr>
+<tr>
+	<td class="row2" colspan="4">
+<b>Заказ №  <?php echo $row['Order']['pre_number'] ?> <?php echo $row['Order']['order_number'] ?>.</b><br>
+	Дата и время заказа: <b><?=date("d.m.Y H:i",strtotime($row['Order']['created']))?></b><br>
+Заказ с сайта: <b><?=$row['Order']['site_url']?></b><br>
+	Состояние заказа: <b><?php echo $row['Status']['name'] ?><?=($row['Status']['id']==1 ? "" : " (".date("d.m.Y H:i",strtotime($row['Order']['stage_date'])).")")?></b>
+<form method=post>	
+		<span class="gen">
+		<table border=1>
+		<tr>
+				<th>#</td><th>Склад</th>
+				<th>Название</th><th>Марка / модель авто<br>(Годы выпуска)</th><th>Ориг. номер</th>
+				<th>Дополнительно</th><th>Зак.</th><th>Рез.</th><th>Вык.</th>
+				<th>В пути</th><th>Рст.</th><th>Выд.</th>
+				<th>Цена, руб.</th>
+				<th>Сумма, руб.</th>
+				</tr>
+
+		<?php 
+		$number = 0;
+		$sum = 0;
+                $main_col = 'count';
+                foreach ($row['OrderProduct'] as $prod) { 
+                      if($prod['status1']>0)
+                             $main_col = 'status1';             
+                }
+                $schet = $main_col != 'count' ? true : false;
+                $status_dates = array();
+                foreach ($row['PrevStatus'] as $prev_status) {
+                      $status_dates[$prev_status['id']] = date('d.m.Y H:i',strtotime($prev_status['orders_statuses']['stage_date']));
+                }
+                $status_dates[$row['Order']['status_id']] =  date('d.m.Y H:i',strtotime($row['Order']['stage_date']));
+
+		foreach ($row['OrderProduct'] as $prod) {		
+		?>
+		<tr>
+			<td><?=(++$number)?></td>
+			<td>
+			
+			<div onmouseover="document.getElementById('sklad_<?=$prod['id']?>').style.display='block';" onmouseout="document.getElementById('sklad_<?=$prod['id']?>').style.display='none';" style="cursor:default;"><u><?=$prod['RequestAnswer']['Supplier']['id']? "DSM ".$prod['RequestAnswer']['Supplier']['id']:""?>
+			<?=$prod['Price']['id']? "SM ".$prod['Price']['id']:""?></u>&nbsp;&nbsp;</div>		
+			<div id=sklad_<?=$prod['id']?> style="padding: 9px; display: none; width: 200px; text-align:left; position: absolute; border:1px solid #000000; background-color:#fefefe; color:#000000; font: 8pt Verdana,Geneva,sans-serif;">
+			<?=$prod['RequestAnswer']['Supplier']['id']? $prod['RequestAnswer']['Supplier']['lname']." ".$prod['RequestAnswer']['Supplier']['fname']." ".$prod['RequestAnswer']['Supplier']['otch'].", <br>адрес:".$prod['RequestAnswer']['Supplier']['zipcode']." ".$prod['RequestAnswer']['Supplier']['city'].", ".$prod['RequestAnswer']['Supplier']['address1']." ".$prod['RequestAnswer']['Supplier']['address2'].", 
+<br>м.т.:".$prod['RequestAnswer']['Supplier']['mphone'].", с.т.:".$prod['RequestAnswer']['Supplier']['hphone'].", <br>email:".$prod['RequestAnswer']['Supplier']['email']:""?>
+			<?=$prod['Price']['id']? $prod['Price']['name']:""?>
+			</div>
+			
+		
+			</td>
+			<td><?=$prod['name']?></td>
+			<td><?=$prod['mark_and_model']?><br>(<?=$prod['year1']?>-<?=$prod['year2']?>)&nbsp;</td>
+			<td><?=$prod['number']?>&nbsp;</td>
+			<td>Артикул - <?=$prod['articul']?>. <?=$prod['description']?>&nbsp;</td>
+			<td align=center><?=$prod['count']?></td>
+			<td align=center><input style="width:30px;" type=text name=status1_<?=$prod['id']?> value=<?=$prod['status1']?> <?=(!empty($status_dates[2]) ? 'disabled=true':'')?>></td>
+			<td align=center><input style="width:30px;" type=text name=status2_<?=$prod['id']?> value=<?=$prod['status2']?> <?=(!empty($status_dates[3]) ? 'disabled=true':'')?>></td>
+			<td align=center><input style="width:30px;" type=text name=status3_<?=$prod['id']?> value=<?=$prod['status3']?> <?=(!empty($status_dates[4]) ? 'disabled=true':'')?>></td>
+			<td align=center><input style="width:30px;" type=text name=status4_<?=$prod['id']?> value=<?=$prod['status4']?>  <?=(!empty($status_dates[5]) ? 'disabled=true':'')?>></td>
+			<td align=center><input style="width:30px;" type=text name=status5_<?=$prod['id']?> value=<?=$prod['status5']?> <?=(!empty($status_dates[6]) ? 'disabled=true':'')?>></td>
+			<td><?=number_format($prod['price'],2,'.',',')?></td>
+			<td align=right><? 		
+			$main_count = $prod[$main_col];
+			$sum += $prod['price']*$main_count;
+			echo number_format($prod['price']*$main_count,2,'.',',')?></td>
+			</tr><? } ?>
+			<tr><td colspan=12>&nbsp;</td>
+
+<td align=right><B>Всего:</B></td>
+				<td align=right><B><?php echo number_format($sum,2,'.',',') ?></B></td>
+				</tr>
+				<tr><td colspan=13 align=right><B>Скидка:</B></td>
+				<td align=right><B><?php echo number_format($sum*($row['Order']['skidka']/100),2,'.',',') ?></B></td>
+				</tr>
+				<tr><td colspan=13 align=right><B>Итого:</B></td>
+				<td align=right><B><?php echo number_format($sum*(1+$row['Order']['skidka']/100),2,'.',',') ?></B></td>
+				</tr>
+				<? if($schet):?>
+				<tr><td colspan=14 align=left><a href="/schet.html?id=<?php echo $row['Order']['id'] ?>" target=_blank>Распечатать счет/квитанцию на оплату</a></td>
+				</tr>
+				<? endif;?>
+		</table>
+		</span></td>
+	</tr>
+ 	<tr> 	    
+		<td class="row1"><span class="gen">
+		<b>ID:</b><?php echo $row['Customer']['id'] ?><br>
+		<a href="mailto:<?php echo $row['Customer']['email'] ?>"><?php echo $row['Customer']['email'] ?></a><br>
+		<?php echo $row['Customer']['lname'] ?> <?php echo $row['Customer']['fname'] ?> <?php echo $row['Customer']['otch'] ?><br>
+		<b>адрес:</b> <?php echo $row['Customer']['zipcode'] ?>, <?php echo $row['Customer']['city'] ?>, <?php echo $row['Customer']['address1'] ?> <?php echo $row['Customer']['address2'] ?><br>
+		<b>моб.:</b> <?php echo $row['Customer']['mphone'] ?>, дом.: <?php echo $row['Customer']['hphone'] ?>
+		</span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Payment']['name'] ?></span></td>	
+		<td class="row1"><span class="gen"><?php echo $row['Delivery']['name'] ?>
+		<p><?php echo $row['Region']['name'] ?>, <?php echo $row['Order']['zipcode'] ?> <?php echo $row['Order']['city'] ?>, <?php echo $row['Order']['address1'] ?> <?php echo $row['Order']['address2'] ?>
+		, тел.: <?php echo $row['Order']['mphone'] ?> <?php echo $row['Order']['hphone'] ?>, <?php echo $row['Order']['lname'] ?> 
+		<?php echo $row['Order']['fname'] ?> <?php echo $row['Order']['otch'] ?>
+		</span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Order']['comment'] ?></span></td>		
+		
+	</tr></table>
+<script>setInterval('chat.update()', 200);</script>

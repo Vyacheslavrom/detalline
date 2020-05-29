@@ -1,0 +1,92 @@
+<h1>Корзина покупок</h1>
+<p>
+<?if($products || $products_from_request || $products_from_search_by_num || $products_from_avtoto):?>
+
+<form action="/cart.html" method="post" style="margin:0px;padding:0px;">
+<TABLE WIDTH=100% CELLPADDING=3 CELLSPACING=0 BORDER=1>
+<TR><TD CLASS="txt" ALIGN="CENTER" COLSPAN=6><B>ТОВАРЫ</B></TD></TR>
+<TR class="specialth"><TH CLASS="txt">#</TH>
+			<TH CLASS="txt">Название</TH>
+			<TH CLASS="txt">Цена, руб.</TH>
+			<TH CLASS="txt">Кол-во товара</TH>
+			<TH CLASS="txt">Удалить</TH>
+			<TH CLASS="txt">Сумма, руб.</TH>
+			</TR>
+			
+<? foreach ($products as $row) {@$sum += $row['count']*$row['Product']['price']*(1+intval($this->controller->othAuth->user("skidka"))/100); ?>
+			
+			<TR><TD ALIGN="RIGHT" CLASS="txt"><?=(++$i)?></TD><TD CLASS="txt"><B><?=$row['Product']['name']?></B>,
+			<?=$row['Product']['mark_and_model']?> (<?=$row['Product']['year1']?> - <?=$row['Product']['year2']?>),
+			ориг. номер - <?=$row['Product']['number']?>, артикул - <?=$row['Product']['articul']?>
+			</td>
+			<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['Product']['price']*(1+intval($this->controller->othAuth->user("skidka"))/100),2,'.',' '))?></nobr></TD>
+			<TD ALIGN="CENTER" CLASS="txt"><INPUT TYPE="text" CLASS="formfield" 
+					NAME="edit_<?=$row['Product']['id']?>" SIZE=4 MAXLENGTH=4 VALUE="<?=$row['count']?>" STYLE="text-align: right">
+					</TD>
+			<td align="center" CLASS="txt">
+			<a href="/cart.html?del=<?=$row['Product']['id']?>"><img src="/images/delete.png" border=0></a></td>
+					<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['Product']['price']*$row['count']*(1+intval($this->controller->othAuth->user("skidka"))/100),2,'.',' '))?></nobr></TD></TR>
+	<?}?>
+<? foreach ($products_from_request as $row) {@$sum += $row['count']*$row['RequestAnswer']['itog_price']; ?>
+			
+			<TR><TD ALIGN="RIGHT" CLASS="txt"><?=(++$i)?></TD><TD CLASS="txt"><B><?=$row['name']?></B>,
+			<?=$row['mark_and_model']?> <?=$row['year']?>, ориг. номер - <?=$row['number']?>, <?=$row['RequestAnswer']['state']?></TD>
+			<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['RequestAnswer']['itog_price'],2,'.',' '))?></nobr></TD>
+			<TD ALIGN="CENTER" CLASS="txt"><INPUT TYPE="text" CLASS="formfield" 
+					NAME="editFR_<?=$row['RequestAnswer']['id']?>" SIZE=4 MAXLENGTH=4 VALUE="<?=$row['count']?>" STYLE="text-align: right">
+					</TD>
+			<td align="center" CLASS="txt">
+			<a href="/cart.html?delFR=<?=$row['RequestAnswer']['id']?>"><img src="/images/delete.png" border=0></a></td>
+					<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['RequestAnswer']['itog_price']*$row['count'],2,'.',' '))?></nobr></TD></TR>
+	<?}?>
+	<? foreach ($products_from_search_by_num as $row) {@$sum += $row['count']*$row['price']*(1+intval($this->controller->othAuth->user("skidka"))/100); ?>
+			
+			<TR><TD ALIGN="RIGHT" CLASS="txt"><?=(++$i)?></TD><TD CLASS="txt"><B><?=$row['name']?></B>, 
+			<?=$row['manufacturer']?>, номер производителя - <?=$row['manuf_number']?>
+			</td>
+			<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['price']*(1+intval($this->controller->othAuth->user("skidka"))/100),2,'.',' '))?></nobr></TD>
+			<TD ALIGN="CENTER" CLASS="txt"><INPUT TYPE="text" CLASS="formfield" 
+					NAME="editFSN_<?=$row['id']?>" SIZE=4 MAXLENGTH=4 VALUE="<?=$row['count']?>" STYLE="text-align: right">
+					</TD>
+			<td align="center" CLASS="txt">
+			<a href="/cart.html?delFSN=<?=$row['id']?>"><img src="/images/delete.png" border=0></a></td>
+					<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['price']*$row['count']*(1+intval($this->controller->othAuth->user("skidka"))/100),2,'.',' '))?></nobr></TD></TR>
+	<?}?>	
+    <? foreach ($products_from_avtoto as $id=>$row) {@$sum += $row['count']*$row['price']*(1+intval($this->controller->othAuth->user("skidka"))/100); ?>
+			
+			<TR><TD ALIGN="RIGHT" CLASS="txt"><?=(++$i)?></TD><TD CLASS="txt"><B><?=$row['name']?></B>, 
+			<?=$row['manuf']?>, номер производителя - <?=$row['code']?>
+			</td>
+			<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['price']*(1+intval($this->controller->othAuth->user("skidka"))/100),2,'.',' '))?></nobr></TD>
+			<TD ALIGN="CENTER" CLASS="txt"><INPUT TYPE="text" CLASS="formfield" 
+					NAME="editFA_<?=$id?>" SIZE=4 MAXLENGTH=4 VALUE="<?=$row['count']?>" STYLE="text-align: right">
+					</TD>
+			<td align="center" CLASS="txt">
+			<a href="/cart.html?delFA=<?=$id?>"><img src="/images/delete.png" border=0></a></td>
+					<TD ALIGN="RIGHT" CLASS="txt"><nobr><?=(number_format($row['price']*$row['count']*(1+intval($this->controller->othAuth->user("skidka"))/100),2,'.',' '))?></nobr></TD></TR>
+	<?}?>		
+					<TR><TH CLASS="txt" ALIGN="RIGHT" COLSPAN=4>&nbsp;</TH>
+					<TH CLASS="txt" ALIGN="RIGHT">Всего:</TH><TH CLASS="txt" ALIGN="RIGHT"><nobr><?=number_format($sum,2,'.',' ') ?></nobr></TH></TR>
+					
+					<TR><TH CLASS="txt" ALIGN="RIGHT" COLSPAN=4>&nbsp;</TH>
+					<TH CLASS="txt" ALIGN="RIGHT">Скидка:</TH><TH CLASS="txt" ALIGN="RIGHT"><nobr>0.00</nobr></TH></TR>
+					
+					<TR><TH CLASS="txt" ALIGN="RIGHT" COLSPAN=4>&nbsp;</TH>
+					<TH CLASS="txt" ALIGN="RIGHT">Итого:</TH><TH CLASS="txt" ALIGN="RIGHT"><nobr><?=number_format($sum,2,'.',' ');?></nobr></TH></TR>
+					
+					<TR>
+					<TH CLASS="txt" ALIGN="RIGHT" COLSPAN=6><INPUT TYPE="submit" CLASS="button" VALUE="ПЕРЕСЧИТАТЬ СУММУ ЗАКАЗА"></TH></TR>
+
+					<TR><TH CLASS="txt" ALIGN="RIGHT" COLSPAN=6>
+<input type="submit" CLASS="button"  style="width:200px;" value="Оформить заказ &gt;" name="checkout"><br>
+</TH></TR>
+					</FORM></TABLE>
+
+<? else: ?>
+<TABLE WIDTH=100% CELLPADDING=3 CELLSPACING=0 BORDER=0>
+<TR><TD CLASS="txt" ALIGN="CENTER" COLSPAN=12><B>КОРЗИНА ПУСТА</B></TD></TR>
+</TABLE>
+<? endif; ?>
+
+
+

@@ -1,0 +1,149 @@
+<? if(!$this->controller->logged) :?>
+<div class="b-bar b-bar_fixed b-bar_login b-layout">
+<div class="b-bar__banwhere" align="center" <?=$_SESSION['where']? 'style="display:none"': ''?>>
+<h2>Мы не можем определить откуда вы, пожалуйста укажите свое местоположение</h2>
+<a href="#" onclick="$('.b-bar__banwhere').hide()"><span style="position:absolute; left:5px;font-size:20px;">Скрыть</span></a><a href="/where.html"><span style="position:absolute; right:5px;font-size:20px;">Указать</span></a>
+</div>	
+	<div class="b-bar__wrapper">
+		<div class="b-bar__inner">
+			<table class="b-layout__table b-layout__table_width_full" border="0" cellpadding="0" cellspacing="0">
+				<tr class="b-layout__tr">
+					<td class="b-layout__left">
+						<ul class="b-bar__list b-bar__list_float_left">
+							<?=$this->renderElement('cart')?>
+						</ul>					
+					</td>
+					<td class="b-layout__middle b-layout__middle_align-center">&nbsp;</td>
+					<td class="b-layout__right">
+						<ul class="b-bar__list b-bar__list_float_right">
+							<li class="b-bar__item">
+							<?=$_SESSION['where']? '<span class="b-bar__where">Ваш город '.$where['City']['name'].' <a href="/where.html">Ошиблись?</a></span>':'<span class="b-bar__where">Пожалуйста, укажите свое место положение! <a href="/where.html">Указать.</a></span>'?>
+							</li>
+							<li class="b-bar__item">
+								<a class="b-bar__btn_help" href="/registr.html"><span class="b-bar__icon_help">Регистрация</span></a></li>
+							<li class="b-bar__item">								
+								<a class="b-bar__enterlink"  id="b-button-enter" href="/login.php" onclick="$('b-login__text').focus();return false;"><span class="b-bar__enter">Вход на сайт</span></a>
+								<div class="b-shadow b-shadow__login b-shadow_margleft_-162 b-shadow_zindex_2 b-shadow_hide b-shadow_inline-block login">
+									<div class="b-shadow__right">
+										<div class="b-shadow__left">
+											<div class="b-shadow__top">
+												<div class="b-shadow__bottom">
+													<div class="b-shadow__body b-shadow__body_bg_fff b-shadow__body_pad_20 b-shadow__body_align_left">
+													<form id="form-login" action="/login.html" method="post" class="loginform">
+														  <ul class="loginform">
+															<li class="formlong">
+															  <label>Электронная почта</label>
+															  <div class="form-box">
+																<input class="form-field-text" name="data[Customer][login]" type="text">
+															  </div>
+															</li>
+															<li class="formlong">
+															  <label><a href="/fogotten_password.html" class="loginforgot">Восстановить пароль</a>Пароль</label>
+															  <div class="form-box">
+																<input class="form-field-text" name="data[Customer][passw]" type="password">
+															  </div>
+															</li>
+															<li class="formlong">
+															  <div class="form-box">
+																<a class="button grey" href="/login.html" onclick="$('#form-login').submit(); return false;">Войти</a>
+															  </div>
+															  <div class="form-box registration"><a href="/registr.html">Регистрация</a></div>
+															</li>
+														  </ul>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<span class="b-shadow__icon b-shadow__icon_close"></span>
+									<span class="b-shadow__icon b-shadow__icon_nosik"></span>
+								</div>
+                                <div class="b-shadow__overlay b-shadow_hide" id="login_form_overlay"></div>
+							</li>
+							<li class="b-bar__item">
+								<a class="b-bar__btn_help" href="/help.html"><span class="b-bar__icon_help">Помощь</span></a></li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+<? else: ?>
+<div class="b-bar b-bar_fixed b-bar_login b-layout">
+	<div class="b-bar__wrapper">
+		<div class="b-bar__inner">
+			<table class="b-layout__table b-layout__table_width_full" border="0" cellpadding="0" cellspacing="0">
+				<tr class="b-layout__tr">
+					<td class="b-layout__left">					
+						<ul class="b-bar__list b-bar__list_float_left">
+							<li class="b-bar__item b-bar__item_padright_10">
+								<span class="b-bar__name"><?=$this->controller->othAuth->user('email')?></span>
+							</li>
+							<li class="b-bar__item">
+								<a class="b-bar__btn" href="/personal_details.html" title="Настройки"><span class="b-bar__icon b-bar__icon_tuning"></span></a>
+							</li>
+							<li class="b-bar__item b-bar__item_padright_10">
+								<a class="b-bar__btn" href="/change_password.html"  title="Сменить пароль"><span class="b-bar__icon b-bar__icon_draft"></span></a>
+							</li>
+							<?=$this->renderElement('cart')?>
+						</ul>					
+					</td>
+					<td class="b-layout__middle b-layout__middle_align-center">
+						<ul class="b-bar__list b-bar__list_inline-block">
+                			<li class="b-bar__item">
+								<a class="b-bar__btn" href="/orders.html" title="Мои заказы"><span class="b-bar__icon b-bar__icon_mess"></span> Мои заказы</a>
+							</li>
+							<li class="b-bar__item">
+								<a class="b-bar__btn" href="/my_requests.html"><span class="b-bar__icon b-bar__icon_lenta"></span> Мои запросы запчастей</a>
+							</li>
+							<li class="b-bar__item">
+								<a class="b-bar__btn" id="b-button-enter" href="/login.php" onclick="$('b-login__text').focus();return false;"><span class="b-bar__icon b-bar__icon_prj"></span> Ещё</a>
+								<div class="b-shadow b-shadow__other b-shadow_margleft_-132 b-shadow_zindex_2 b-shadow_hide b-shadow_inline-block login">
+									<div class="b-shadow__right">
+										<div class="b-shadow__left">
+											<div class="b-shadow__top">
+												<div class="b-shadow__bottom">
+													<div class="b-shadow__body b-shadow__body_bg_fff b-shadow__body_pad_20 b-shadow__body_align_left">
+														<ul class="b-filter__list">
+														    <li class="b-filter__item b-filter__item_padbot_10"><a class="b-filter__link"  href="/balance.html">Мои взаиморасчеты</a></li>
+															<?if($this->controller->othAuth->group('id') == 4 || $this->controller->othAuth->group('id') == 5 || $this->controller->othAuth->group('id') == 6) :?>
+																  <li class="b-filter__item b-filter__item_padbot_10"><a class="b-filter__link"  href="/customer_requests.html">Запросы покупателей</a></li>
+															<? endif;?>
+															<?if($this->controller->othAuth->group('id') == 5 || $this->controller->othAuth->group('id') == 6) :?>
+															<li class="b-filter__item b-filter__item_padbot_10"><a class="b-filter__link"   href="/all_requests.html">Журнал обращений</a></li>
+															  <li class="b-filter__item b-filter__item_padbot_10"><a class="b-filter__link"   href="#" onclick="window.open('/call_center.html', 'winCallCenter', 'width=800,height=600'); return false;">Call центр</a></li>
+															  <?php foreach($responsibles as $responsible) if($responsible['Responsible']['customer_id'] ==$this->controller->othAuth->user('id')){?><li class="b-filter__item b-filter__item_padbot_10"><a class="b-filter__link"   href="/orders_list.html">Заказы</a></li><?}?>
+														<? endif;?>
+														<?if($this->controller->othAuth->group('id') == 4 ) :?>
+															<li class="b-filter__item b-filter__item_padbot_10"><a class="b-filter__link"   href="/price.html">Управление прайсами</a></li>
+														<? endif;?>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<span class="b-shadow__icon b-shadow__icon_close"></span>
+									<span class="b-shadow__icon b-shadow__icon_nosik"></span>
+								</div>
+                                <div class="b-shadow__overlay b-shadow_hide" id="login_form_overlay"></div>
+							</li>
+						</ul>
+					</td>
+					<td class="b-layout__right">
+						<ul class="b-bar__list b-bar__list_float_right">
+							<li class="b-bar__item"><a class="b-bar__extlink" href="/logout.html" title="Выход"><span class="b-bar__ext">Выход</span></a></li>
+							<li class="b-bar__item"><a class="b-bar__btn_help" href="/help.html"><span class="b-bar__icon_help">Помощь</span></a></li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>     
+<? endif; ?>
+
+
+	 

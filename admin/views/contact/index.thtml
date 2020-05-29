@@ -1,0 +1,187 @@
+<script>
+function confirmDelete(id, ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url+id;
+}
+}
+
+function hasSelectedRows(form) {
+var re= new RegExp("^chk_del_","gi");
+for(i=0;i<form.elements.length;i++) {
+if(form.elements[i].name.match(re) && form.elements[i].checked) {
+return true;
+}
+}
+return false;
+}
+
+function doAction(act) {
+if(hasSelectedRows(act.form)) {
+switch(act.value) {
+case 'tel' : 
+//if(window.confirm("Вы уверены что хотите удалить объекты?")) {
+act.form.action = '/admin/contact?open=tel';
+act.form.submit();
+//}		
+else
+act.options[0].selected = true;
+break;
+}
+}
+else {
+alert('Не выбрано ни одной записи');
+act.options[0].selected = true;
+}
+return false;
+}
+
+function allDelClick(chkbx) {
+var re= new RegExp("^chk_del_","gi");
+if(chkbx.name.match(re)) {
+chkbx.form.chk_del1.checked = true;	 
+chkbx.form.chk_del2.checked = true;
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re) && !chkbx.form.elements[i].checked) {
+chkbx.form.chk_del1.checked = false;	 
+chkbx.form.chk_del2.checked = false;		 
+}
+}
+}
+else {
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re)) {
+chkbx.form.elements[i].checked = chkbx.checked ? true : false;	 
+}
+}
+chkbx.form.chk_del1.checked = chkbx.checked ? true : false;	 
+chkbx.form.chk_del2.checked = chkbx.checked ? true : false;	
+}
+}
+</script>
+
+
+	
+<h1>Редактор</h1>
+
+<?php
+
+	if ($_POST['personal'] == 'save'){ 
+		$q1 = "UPDATE `contact` SET `$_POST[select]`='$_POST[mytext]' WHERE `id`=1";
+	//	echo $q1;
+		if (!mysql_query($q1)) echo 'ERRor';
+	}
+	
+$res1 = mysql_query('SELECT * FROM contact');
+$row1 = mysql_fetch_assoc($res1);
+//    print_r($row1);
+	$memo1 = $row1['kont'];
+	$select = 'kont';
+	if ($_POST['select'] == 'kont') $memo1 = $row1['kont'];
+	if ($_POST['select'] == 'tel') $memo1 = $row1['tel'];
+	if ($_POST['select'] == 'dog') $memo1 = $row1['dog'];
+	if ($_POST['select'] == 'addr') $memo1 = $row1['addr'];
+	$select = $_POST['select'];
+?>
+
+
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+						
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="5">HTML редактор <?php echo $select; ?></th>
+</tr>
+
+<form method="post" action="/admin/contact">
+<tr><td colspan="15" class="row2">
+
+	<input type="hidden" name="personal" value="open"/><br />
+	<select name="select">
+		<option value='kont'>Контакты</option>
+		<option value='addr'>Адреса магазинов</option>
+		<option value='tel'>Телефоны</option>
+		<option value='dog'>Договор</option>
+	</select>	
+	<input type="submit" value="Выбрать" />
+</form>
+
+
+
+<form method="post" action="/admin/contact">	
+	<input type="hidden" name="personal" value="save"/><br />
+	<input type="hidden" name="select" value="<?php echo $select; ?>"/><br />
+	<textarea id="content_editor" name="mytext" class="tinymce"><?php echo $memo1 ?></textarea>
+	<input type="submit" value="Записать" />
+	</td></tr>
+
+
+	
+</form>
+<!--
+<form action="" method="post">
+<textarea name="mytext" class="tinymce">654544</textarea>
+</form>
+
+<!--<textarea id="myTextarea">ffjfgfhj</textarea>
+
+-->
+<? if(1>2) :?>
+<form method="post" action="/admin/polls">
+<tr><td colspan="5" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del1"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+<tr class="sectiontableheader"> 
+	<td class="catLeft" width="1%"><span class="cattitle">&nbsp;</span></td>
+	<td class="cat" width="50%"><span class="cattitle">Наименование</span></td>
+	<td class="cat"><span class="cattitle">Многовариантное</span></td>
+	<td class="cat"><span class="cattitle">Варианты ответов</span></td>
+	<td class="catRight" valign="middle" width="1%"><span class="gen">&nbsp;</span></td>
+</tr>
+ 	<?php foreach ($data as $row): ?>
+ 	<tr class=""> 
+		<td class="row1"><span class="gen"><input type="checkbox" onClick="allDelClick(this);" name="chk_del_<?php echo $row['Poll']['id'] ?>"></span></td>
+		<td class="row2"><span class="gen"><?=$row['Poll']['name']?></span></td>
+		<td class="row2"><span class="gen"><?=($row['Poll']['multiple'] ? 'да' : 'нет')?></span></td>
+		<td class="row2" width=50%><span class="gen"><?
+		foreach($row['PollVariant'] as $variant) {
+			$chs = mysql_num_rows(mysql_query('select * from poll_choices where poll_variant_id='.$variant['id']));
+			$pers = floor($chs/count($row['PollChoice'])*100);
+			echo '<br>'.$variant['name'].'('.$pers.'%; '.$chs.' чел.)<br><img src="/images/blank.jpg" style="WIDTH:'.$pers.'%;HEIGHT:4px">';
+		}
+		$others = mysql_query('select * from poll_choices where poll_id='.$row['Poll']['id'].' and other is not null and poll_variant_id is null');
+		$chs = mysql_num_rows($others);
+		$pers = floor($chs/count($row['PollChoice'])*100);
+		echo '<br>Другое('.$pers.'%; '.$chs.' чел.):<br><img src="/images/blank.jpg" style="WIDTH:'.$pers.'%;HEIGHT:4px"><fieldset><legend>варианты пользователей</legend>';
+		while($other = mysql_fetch_array($others))
+			echo $other['other'].'<hr>';
+		?></fieldset></span></td>
+		<td class="row2" align="center">
+		<? if($row['Poll']['status']==0) {?>
+			Опрос не активен<br>
+		    <input type="button" value="Редактировать" onClick="window.location.href='/admin/polls/add/<?=$row['Poll']['id']?>'" class="mainoption" style="width:120px;">
+			<input type="button" value="Активировать" onClick="window.location.href='/admin/polls/activate/<?=$row['Poll']['id']?>'" class="mainoption" style="width:120px;">			
+			<input type="button" value="Удалить" class="mainoption" onClick='confirmDelete("<?=$row['Poll']['id']?>","Вы уверены что хотите удалить опрос?","/admin/polls/delete/");' style="width:120px;" />
+		<? } elseif($row['Poll']['status']==1) { ?>
+			Опрос показывается посетителям сайта<br>
+			<input type="button" value="Завершить" onClick="window.location.href='/admin/polls/close/<?=$row['Poll']['id']?>'" class="mainoption" style="width:120px;">			
+		<? } else { ?>
+			Опрос находится в архиве
+		<? } ?>
+		</td>
+	</tr>
+	<?php endforeach; ?>
+<tr><td colspan="5" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del2"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+</form>
+<? else: ?>
+ <tr><td colspan="5" class="row1" align="center">нет опросов</td></tr>
+<? endif; ?>
+</table>

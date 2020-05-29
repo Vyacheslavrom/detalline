@@ -1,0 +1,21 @@
+<table width="100%" cellpadding="4" cellspacing="1" border="1" class="forumline" align="center">
+<tr class="sectiontableheader"> 
+	<td class="cat"><span class="cattitle">ФИО, email</span></td>
+	<td class="cat"><span class="cattitle">Тема</span></td>
+	<td class="cat"><span class="cattitle">Сообщение</span></td>
+	<td class="cat"><span class="cattitle">Отправлено</span></td>
+	<td class="cat"><span class="cattitle">С сайта</span></td>
+	<td class="cat"><span class="cattitle">Тип</span></td>
+</tr>
+<? foreach($other_messages as $row) :?>
+<tr class=""> 
+		<td class="row1"><span class="gen"><?php echo $row['Message']['fio'] ?><br>
+		<? if($row['Message']['fio'] != 'Оператор') :?><a href="mailto:<?php echo $row['Message']['email'] ?>"><?php echo $row['Message']['email'] ?></a><? endif;?></span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Message']['subject'] ?></span></td>
+		<td class="row1" width=50%><span class="gen"><?php echo $row['Message']['body'] ?></span></td>
+		<td class="row2"><span class="gen"><?php echo date("d.m.Y H:i",strtotime($row['Message']['created'])) ?></span></td>
+		<td class="row1" width=50%><span class="gen"><?php echo $row['Message']['site'] ?></span></td>
+		<td class="row2"><span class="gen"><?=($row['Message']['guestbook'] ? 'Книга отзывов' : 'Обратная связь')?></span></td>
+	</tr><? endforeach; ?>
+	</table>
+	<input type=button value="Ответить" onclick="window.location.href='/call_center_email.html?id=<?php echo $row['Message']['id'] ?>'">

@@ -1,0 +1,120 @@
+<h1>Настройки аккаунта</h1>
+<form action="/personal_details.html" method="post">
+<CENTER>
+<TABLE CELLSPACING=5 BORDER=0>
+	<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">ОБЩИЕ</TH></TR>
+	<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt" WIDTH=40%>Фамилия:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['lname']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Имя:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['fname']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Отчество:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['otch']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">E-mail:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['email']?></TD></TR>
+
+	
+<TR bgcolor=#999999><TH COLSPAN=2 class="txt">ВАШ АДРЕС</TH></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Область:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Region']['name']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Индекс:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['zipcode']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Город:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?=$city_name['City']['name']? $city_name['City']['name']:$this->params['data']['Customer']['city']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес (улица, номер..):</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['address1']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес (квартира, код..):</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['address2']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Дом. телефон:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['hphone']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Моб. телефон:</TD>
+	<TD CLASS="txt"  ALIGN="LEFT"><?php echo $this->params['data']['Customer']['mphone']?></TD></TR>
+<? if(!empty($this->params['data']['Customer']['organization'])) :?>
+<TR bgcolor=#999999>
+	<TH COLSPAN=2 class="txt">ЮРИДИЧЕСКОЕ ЛИЦО</TH></TR>
+	<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt" WIDTH=40%>Название организации:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['organization']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Юр. адрес:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['jur_address']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">ИНН:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['inn']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">КПП:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['kpp']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">ОГРН:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['ogrn']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Наименование банка:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['bank']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Адрес банка:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['bank_address']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">БИК:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['bik']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Корр. счет:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['corr_schet']?></TD></TR>
+<TR class="specialth">
+	<TD ALIGN="RIGHT" CLASS="txt">Расчетный счет:</TD>
+	<TD CLASS="txt" ALIGN="LEFT"><?php echo $this->params['data']['Customer']['raschet_shet']?></TD></TR>
+<? endif;?>
+<?if($this->controller->othAuth->group('id') == 4 || $this->controller->othAuth->group('id') == 5) :?>
+<TR bgcolor=#999999><TH COLSPAN=2 class="txt">МАРКИ АВТО, запчастями на которые вы занимаетесь</TH></TR>
+<TR class="specialth"><TD ALIGN="LEFT" CLASS="txt" colspan=2>
+<?
+$customer_marks = explode(",",$this->params['data']['Customer']['marks']);
+if(empty($customer_marks[0]))
+	echo 'Заполните данный раздел, чтобы мы могли направлять Вам запросы покупателей<br>';
+else {?>
+<table width=100%>
+<tr>
+<td valign=top width=30%>
+<? 
+for($i=0;$i<floor(count($marks)/3);$i++) {
+echo '<input type=checkbox name="chk_mark_'.$marks[$i]['Mark']['id'].'" '.(in_array($marks[$i]['Mark']['id'],$customer_marks) ? 'checked=checked':'').' disabled=true> '.$marks[$i]['Mark']['name'].'<br>';
+}
+?>
+</td>
+<td  valign=top width=30%>
+<? 
+for($i=floor(count($marks)/3);$i<floor(count($marks)/3*2);$i++) {
+echo '<input type=checkbox name="chk_mark_'.$marks[$i]['Mark']['id'].'" '.(in_array($marks[$i]['Mark']['id'],$customer_marks) ? 'checked=checked':'').' disabled=true> '.$marks[$i]['Mark']['name'].'<br>';
+}
+?>
+</td>
+<td  valign=top width=30%>
+<? 
+for($i=floor(count($marks)/3*2);$i<count($marks);$i++) {
+echo '<input type=checkbox name="chk_mark_'.$marks[$i]['Mark']['id'].'" '.(in_array($marks[$i]['Mark']['id'],$customer_marks) ? 'checked=checked':'').' disabled=true> '.$marks[$i]['Mark']['name'].'<br>';
+}
+?>
+</td>
+</table>
+<? 
+}
+?>
+</TD></TR>	
+<? endif;?>
+<TR class="specialth">
+<TD ALIGN="RIGHT" CLASS="txt" COLSPAN=1><INPUT TYPE="submit" CLASS="button" VALUE="Изменить" name="edit"></TD>
+<TD CLASS="txt" COLSPAN=1  ALIGN="LEFT"><INPUT TYPE="submit" CLASS="button" VALUE="Удалить" name="delete" onclick="return confirm('Аккаунт будет удален. Продолжить?')"></TD>
+</TR>
+</TABLE>
+</CENTER>
+</form>

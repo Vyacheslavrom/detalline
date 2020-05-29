@@ -1,0 +1,111 @@
+<script>
+function confirmDelete(id, ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url+id;
+}
+}
+
+function hasSelectedRows(form) {
+var re= new RegExp("^chk_del_","gi");
+for(i=0;i<form.elements.length;i++) {
+if(form.elements[i].name.match(re) && form.elements[i].checked) {
+return true;
+}
+}
+return false;
+}
+
+function doAction(act) {
+if(hasSelectedRows(act.form)) {
+switch(act.value) {
+case '1' : 
+if(window.confirm("Вы уверены что хотите удалить объекты?")) {
+act.form.action = '/admin/model_modifications/delete';
+act.form.submit();
+}		
+else
+act.options[0].selected = true;
+break;
+}
+}
+else {
+alert('Не выбрано ни одной записи');
+act.options[0].selected = true;
+}
+return false;
+}
+
+function allDelClick(chkbx) {
+var re= new RegExp("^chk_del_","gi");
+if(chkbx.name.match(re)) {
+chkbx.form.chk_del1.checked = true;	 
+chkbx.form.chk_del2.checked = true;
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re) && !chkbx.form.elements[i].checked) {
+chkbx.form.chk_del1.checked = false;	 
+chkbx.form.chk_del2.checked = false;		 
+}
+}
+}
+else {
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re)) {
+chkbx.form.elements[i].checked = chkbx.checked ? true : false;	 
+}
+}
+chkbx.form.chk_del1.checked = chkbx.checked ? true : false;	 
+chkbx.form.chk_del2.checked = chkbx.checked ? true : false;	
+}
+}
+</script>
+<h1>Просмотр модификаций модели "<?=$model['Model']['name']?>"</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="5">Управление модификациями</th>
+</tr>
+<tr>
+	<td colspan="5" class="row2">	
+	<input type="button" value="Добавить модификацию" onClick="window.location.href='/admin/model_modifications/add/?model=<?=$model['Model']['id']?>'" class="mainoption"> <input type="button" value="Перейти к моделям" onClick="window.location.href='/admin/models/'" class="mainoption">	
+	</td>
+</tr>
+<? if(count($data)) :?>
+<form method="post" action="/admin/model_modificatons">
+<tr><td colspan="5" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del1"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+<tr class="sectiontableheader"> 
+	<td class="catLeft" width="1%"><span class="cattitle">&nbsp;</span></td>
+	<td class="cat" width="50%"><span class="cattitle">Наименование</span></td>
+	<td class="cat"><span class="cattitle">Год начала (min)</span></td>
+	<td class="cat"><span class="cattitle">Год начала (max)</span></td>
+	<td class="catRight" valign="middle" width="1%"><span class="gen">&nbsp;</span></td>
+</tr>
+ 	<?php foreach ($data as $row): ?>
+ 	<tr class=""> 
+		<td class="row1"><span class="gen"><input type="checkbox" onClick="allDelClick(this);" name="chk_del_<?php echo $row['ModelModification']['id'] ?>"></span></td>
+		<td class="row2"><span class="gen"><?=$row['ModelModification']['name']?></span></td>
+		<td class="row2"><span class="gen"><?=$row['ModelModification']['year_min']?></span></td>
+		<td class="row2"><span class="gen"><?=$row['ModelModification']['year_max']?></span></td>
+		<td class="row2" align="center">
+		    <input type="button" value="Редактировать" onClick="window.location.href='/admin/model_modifications/add/<?=$row['ModelModification']['id']?>'" class="mainoption" style="width:120px;">
+			<input type="button" value="Удалить" class="mainoption" onClick='confirmDelete("<?=$row['ModelModification']['id']?>","Вы уверены что хотите удалить модификацию?","/admin/model_modifications/delete/");' style="width:120px;" /> 
+		</td>
+	</tr>
+	<?php endforeach; ?>
+<tr><td colspan="5" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del2"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+</form>
+<? else: ?>
+ <tr><td colspan="5" class="row1" align="center">нет модификаций</td></tr>
+<? endif; ?>
+</table>

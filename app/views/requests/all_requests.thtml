@@ -1,0 +1,284 @@
+<h1>Журнал обращений покупателей / продаж</h1>
+ <? $session->flash()?>   
+<form>
+<table border=0 style="align:center";>
+<tr><th>Номер обращения:</th><td><input type=text name=number value="<?=@$_GET[number]?>"></td><th>Дата обращения:</th><td><input type=text style="width:80px;" name=date id=date value="<?=@$_GET[date]?>"> <input type="reset" style="width:20px;" value="..." onClick="return showCalendar('date', 'mm.y');"></td></tr>
+<tr><th>Имя заказчика:</th><td><input type=text name=lastname value="<?=@$_GET[lastname]?>"></td><th>Телефон заказчика:</th><td><input type=text name=phone value="<?=@$_GET[phone]?>"></td></tr>
+<tr><th>Марка:</th><td><input type=text name=mark value="<?=@$_GET[mark]?>"></td><th>Модель:</th><td><input type=text name=model value="<?=@$_GET[model]?>"></td></tr>
+<tr><!--<th>Прогресс:</th><td>
+    <input type="radio" name="progress" value="1" /> Обработано
+    <input type="radio" name="progress" value="2" /> Отправленная карта<br>
+	<input type="radio" name="progress" value="3" /> Продано
+	<input type="radio" name="progress" value="4" /> Наш отказ
+	<input type="radio" name="progress" value="5" /> Отказ клиента
+	
+	</td>-->
+	<th>Прогресс:</th><td>
+	<select name="progress">
+		<option value="0">		</option>
+		<option value="6" <?php if($_GET[progress]==6) echo 'selected'; ?>>Частично обработано</option>
+		<option value="1" <?php if($_GET[progress]==1) echo 'selected'; ?>>Обработанные</option>
+		<option value="2" <?php if($_GET[progress]==2) echo 'selected'; ?>>Отправленная карта</option>
+		<option value="3" <?php if($_GET[progress]==3) echo 'selected'; ?>>Продано</option>
+		<option value="4" <?php if($_GET[progress]==4) echo 'selected'; ?>>Наш отказ</option>
+		<option value="5" <?php if($_GET[progress]==5) echo 'selected'; ?>>Отказ клиента</option>
+	</select>
+	</td>
+	<th>Архив</th>
+	<td>
+	<select name="arhive">
+		<option value="0">Новые</option>
+		<option value="1" <?php if($_GET[arhive]==1) echo 'selected'; ?>>Старые</option>
+		<option value="2" <?php if($_GET[arhive]==2) echo 'selected'; ?>>Все</option>
+	</select>
+	</td>
+	</tr>
+	
+	<tr>
+	<td colspan=4 align="right"><input type=submit name=search value="Поиск" style="width:80px;"></td></tr>
+
+
+
+<tr><td><input type="button" name="promt" value="Создать напоминалку" id="promt"></td><td><input type="button" name="search_promt" value="Просмотреть напоминалки" id="search_promt"></td><td colspan=2><div id="now_promt" style="color:red; display: none;">qwe!</div></td></tr>
+</table>
+</form>
+<form method="post" name="promtform" id="promtform">
+<div style="border: 5px solid #8B7765; background:#FFDAB9; width:400px; height:400px; position:absolute; top: 30px; display:none;" id="new_promt">
+		<input type="button" name="close" value="Закрыть" id="close_new_promt" style="position:absolute;right:1px;">
+		<center><h2>Добавить напоминалку!</h2></center>
+		<table border=0 style="align:center" width="100%">
+		<tr>
+			<th>Номер обращения:</th>
+			<td><input type=text name="data[Promt][id]" id="promt_id"></td>
+		</tr>
+		<tr>
+			<th>Тема:</th>
+			<td><input type=text name="data[Promt][title]"></td>
+		</tr>
+		<tr>
+			<th>Дата:</th>
+			<td><input type=text style="width:100px;" name="data[Promt][date]" id=date_promt> <input type="reset" style="width:20px;" value="..." onClick="return showCalendar('date_promt', 'mm.y');"></td>
+		</tr>
+		<tr>
+			<th>Время:</th>
+			<td>
+			<select name="data[Promt][hour]">
+				<?php for($i=0; $i<=24; $i++){
+					echo "<option value='".$i."'> ".($i<=9? '0'.$i : $i)."</option>";
+				}
+				?>
+			</select>
+			<select name="data[Promt][minute]">
+				<?php for($i=0; $i<=59; $i++){
+					echo "<option value='".$i."'> ".($i<=9? '0'.$i : $i)."</option>";
+				}
+				?>
+			</select>
+			
+			</td>
+		</tr>
+		<tr>
+			<th colspan=2 align="center">Содержание:<br><textarea name="data[Promt][content]" style="width:350px;height:175px;"></textarea></th>
+		</tr>
+		<tr><td colspan=2 align="right"><input type=submit name="create_promt" value="Создать" style="width:80px;"><input type="text" name="data[Promt][completed]" value="0" id="promt_completed" style="display:none";</td></tr>
+		</table>
+		
+</div>
+
+<script>
+var i=0; x=0;
+var not_now_promt=[];now_promt=[];
+</script>
+
+<div style="border: 5px solid #8B7765; background:#FFDAB9; width:400px; position:absolute; top: 30px;display:none;" id="all_promt">
+		Только невыполненные<input type="checkbox" id="check"><input type="button" name="close" value="Закрыть" id="close_all_promt" style="position:absolute;right:1px;"><br>
+		<?php 
+		foreach ($promts as $promt){
+			$time=str_split(($promt['Promt']['time']<1000? ($promt['Promt']['time']==0? "0000" : '0'.$promt['Promt']['time']) : $promt['Promt']['time']), 2);
+		?><div id="promt<?php echo $promt['Promt']['id']; ?>"> 
+		<table border=0 style="align:center" width="100%">
+		<tr>
+			<th><a href="add_request.html?id=<?php echo $promt['Promt']['id']; ?>">Обращение №<?php echo $promt['Promt']['id']; ?></a></th>
+			<td><input type="submit" value="Выполнено" name="create_promt" onclick="document.getElementById('promt_completed').value='1';document.getElementById('promt_id').value='<?php echo $promt['Promt']['id']; ?>';"></td>
+		</tr>
+		<tr>
+			<th>Тема:</th>
+			<td><?php echo $promt['Promt']['title']; ?></td>
+		</tr>
+		<tr>
+			<th>Время:</th>
+			<td><?php echo $promt['Promt']['date'].' '.$time[0].':'.$time[1]; ?></td>
+		</tr>
+		<tr>
+			<th valign="top">Содержание:</th>
+			<td><?php echo $promt['Promt']['content']; ?></td>
+		</tr>
+		</table>
+		</div>
+		<br>
+		<?php 
+		$date = explode('-',$promt['Promt']['date']);
+		$date[3]=$date[0].$date[1].$date[2];
+		if(($date[3]-date('Ymd'))>0)
+			echo "<script> not_now_promt[i]=".$promt['Promt']['id']."; i++; </script>";
+		else
+			if(($date[3]-date('Ymd'))==0)
+				if(($promt['Promt']['time']-date('Hm'))>0) echo "<script> not_now_promt[i]=".$promt['Promt']['id']."; i++;</script>";
+				else echo "<script> now_promt[x]=".$promt['Promt']['id'].";x++;</script>";
+			else echo "<script> now_promt[x]=".$promt['Promt']['id'].";x++;</script>";
+		}
+		
+		?>
+</div>
+
+</form>
+
+
+
+<script>
+$('#promt').click(function(){$('#new_promt').css('display','block');});
+$('#close_new_promt').click(function(){$('#new_promt').css('display','none');});
+$('#search_promt').click(function(){$('#all_promt').css('display','block');});
+$('#close_all_promt').click(function(){$('#all_promt').css('display','none');});
+$('#now_promt').click(function(){
+$('#all_promt').css('display','block');
+for(j=0; j!=i;j++){
+	$('#promt'+not_now_promt[j]).css('display','none');
+}
+$('#check').prop("checked", true);
+});
+
+$('#check').click(function(){
+if($('#check').attr('checked'))
+	for(j=0; j!=i;j++){
+		$('#promt'+not_now_promt[j]).css('display','none');
+	}
+else
+	for(j=0; j!=i;j++){
+		$('#promt'+not_now_promt[j]).css('display','block');
+	}
+});
+
+if(x>0){
+$('#now_promt').css('display','block');
+$('#now_promt').html('У вас '+x+' не выполненых напоминалок!');
+
+for(j=0; j!=x;j++){
+		$('#promt'+now_promt[j]).css('color','red');
+	}
+$('#now_promt').click();
+}
+</script>
+
+<div>Найдено результатов: <?=$paging['count']?></div>
+
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+<p>
+<input type="button" name="add_request" value="Добавить обращение" onclick="window.location.href='/add_request.html'"><p>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+
+ 	<?php foreach ($data as $row):?>
+<? 
+$answer_exists = false;$check_req='';
+foreach($row['RequestPart'] as $part) { 
+if(count($part['RequestAnswer'])>0) {
+	$answer_exists = true;
+}
+foreach($part['RequestAnswer'] as $answer) {
+ $check_req=$row['Request']['check_number'];
+}
+}
+switch($row['Request']['progress']){
+	case 1:case 6: {$color ='#FFDEAD';break;}
+	case 2: {$color ='#CDAD00';break;}
+	case 3: {$color ='#D2F7DC';break;}
+	case 4: {$color ='#473C8B';break;}
+	case 5: {$color ='#B5B5B5';break;}
+	default:{$color ='#F8F8FF';break;}
+}
+$check='';
+foreach($orders as $order){
+if($row['Request']['id']==$order['Order']['id_request'])
+$check = $order['Order']['order_number'];
+$order_id = $order['Order']['id'];
+}
+?>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%" <?  echo 'style="background-color:'.$color.'"'; ?>>
+			<TR>
+			<TD COLSPAN=2><b>Обращение №  <?php echo $row['Request']['id'] ?>. &nbsp; <?=$check? '№заказа: DL-'.$check: ''?> &nbsp; <?=$check_req? '№ чека: '.$check_req: ''?>&nbsp; &nbsp; <a href="?dubl=<?=$row['Request']['id']?>"> Дублировать</a></b></td></tr>
+			<tr><td>Ответственный: </td><td><b><?=$row['Responsible']['who']?></b></td></tr>
+	<tr><td>Дата и время обращения: </td><td><b><?=date("d.m.Y H:i",strtotime($row['Request']['created']))?></b>
+			</TD></tr>
+<tr><td>Покупатель: </td><td><b>Имя:</b> <?php echo $row['Request']['customer_name'] ?>, <b>email:</b> <a href="mailto:<?php echo $row['Request']['customer_email'] ?>"><?php echo $row['Request']['customer_email'] ?></a> <br>
+		<b>моб.:</b> <?php echo $row['Request']['customer_phone'] ?> <?=($row['Request']['customer_phone2']? '<b>моб.№2: </b>'.$row['Request']['customer_phone2']:'')?> <?=($row['Request']['customer_phone3']? '<b>моб.№3: </b>'.$row['Request']['customer_phone3']:'')?></TD></tr>
+		<tr><td>Скидка: </td><td>&nbsp; <?=$row['Request']['discount']?>%</TD></tr>
+<tr><td>Автомобиль: </td><td><b><?=$row['Mark']['name']?> <?=$row['Model']['name']?> <?=$row['Request']['year']?></b>, объем двигателя - <b><?=$row['EngineVolume']['name']?></b>, тип  - 
+
+<b><?=$row['EngineType']['name']?></b>, мощность - <b><?=$row['Request']['engine_power']?> л.с.</b>, привод - <b><?=$row['WheelDrive']['name']?></b>, тип кузова  - 
+
+<b><?=$row['BodyType']['name']?></b>, КПП  - <b><?=$row['Transmission']['name']?></b>, комплектация - <b><?=$row['Request']['complete_set']?></b>
+			</TD></tr>
+<tr><td>Двигатель: </td><td><b><?=$row['Request']['engine_code']?></b></TD></tr>
+<tr><td>Кузов: </td><td><b><?=$row['Request']['body_code']?></b></TD></tr>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><td>VIN/FRAME: </td><td><b><?=$row['Request']['vin_frame']?></b></TD></tr>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><td>Рынок: </td><td><b><?=$row['Market']['name']?></b>
+			</TD></tr>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><td>Примечание: </td><td><b><?=$row['Request']['comments']?></b>
+			</TD></tr>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><td>Доставка: </td><td><b><?=$row['Request']['shipping']?></b>
+			</TD></tr>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><td valign=top>Запчасти: </td><td><a href="#" onclick="if(this.innerHTML=='Показать') {$('#partstable_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#partstable_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Показать</a>
+<table width=100% id=partstable_<?php echo $row['Request']['id'] ?> style="display:none">
+<tr><th>№</th><th>Наименование запчасти</th><th>Ориг. номер</th><th>Состояние</th></tr>
+<? 
+$i=0;
+foreach($row['RequestPart'] as $part) { 
+
+?>
+<tr><td><?=(++$i)?></td><td><?=$part['name']?></td><td><?=$part['number']?></td><td><?=$part['PartState']['name']?></td></tr>
+<? } ?>
+</table>
+			</TD>
+</tr>
+<? if($answer_exists) :?>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><td valign=top>Вы ответили: </td><td valign=top><a href="#" onclick="if(this.innerHTML=='Показать') {$('#answertable_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#answertable_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Показать</a>
+<table width=100% id=answertable_<?php echo $row['Request']['id'] ?> style="display:none">
+<? 
+$i=0;
+$check_request=false;
+foreach($row['RequestPart'] as $part) { 
+echo '<tr><td><fieldset><legend><b>'.(++$i).'. '.$part['name'].'</b></legend>';
+$j=0;
+foreach($part['RequestAnswer'] as $answer) {
+if($answer['buy']==1) $check_request=true;
+?>
+<p <?=$answer['buy']?"style='background-color:#00FFFF;'":""?>><?=(++$j)?>. <?=$answer['name']?>, цена- <?=$answer[start_price]?> руб., поставка - <?=$answer[delivery_term]?>, состояние - <?=($answer[state]?$answer[state]:'не указано')?>, прайс - <?=($answer[price_id]?'SM'.$answer[price_id]:'не указан')?></p>
+<? }
+echo '</fieldset></td></tr>';
+}?>
+</table>		
+<? endif;?>
+<?php if($check_request==true){?>
+<tr><td colspan=2>
+<a href="/check.html?id=<?php echo $row['Request']['id'] ?>" target=_blank>Распечатать счет/квитанцию на оплату</a>&nbsp;&nbsp;
+				&nbsp;<a href="/check.html?id=<?php echo $row['Request']['id'] ?>&wnStamp" target=_blank>Распечатать счет/квитанцию на оплату без печати</a>
+</td></tr>
+<?}?>
+<?php if(!empty($check)){?>
+<tr><td colspan=2>
+<a href="/schet.html?id=<?php echo $order_id ?>" target=_blank>Распечатать счет/квитанцию на оплату ЗАКАЗА</a>&nbsp;&nbsp;
+				&nbsp;<a href="/schet.html?id=<?php echo $order_id ?>&wnStamp" target=_blank>Распечатать счет/квитанцию на оплату без печати ЗАКАЗА</a>
+</td></tr>
+<?}?>
+<tr <? if($row['Request']['progress']==6) echo 'style="background-color:#F8F8FF"'; ?>><TD COLSPAN=2><a href="/add_request.html?id=<?php echo $row['Request']['id'] ?>">Редактировать</a></td></tr>
+				</TABLE><br>
+
+	<?php endforeach; ?>	
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+	<? else: ?>
+НЕТ ОБРАЩЕНИЙ
+<? endif; ?>
+<? endif; ?>

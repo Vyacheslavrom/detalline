@@ -1,0 +1,157 @@
+<div class="b-menu b-menu_head b-menu_padtop_0 b-menu_relative b-menu_zindex_6">
+                <ul class="b-menu__list">
+							<li
+                     class="b-menu__item b-menu__item_first">
+                        <div class="b-filter b-filter_margtop_7">
+                            <div class="main_menu_more"><a href="javascript:void(null);" class="b-filter__link b-filter__link_float_left b-filter__link_lineheight_1 b-filter__link_dot_0f71c8 b-filter__link_bold">О компании</a>
+							<span class="b-filter__arrow b-filter__arrow_float_left b-filter__arrow_margtop_6 b-filter__arrow_0f71c8"></span></div>
+                                <div class="b-shadow b-shadow_marg_-32 b-shadow_margtop_-33 b-filter__toggle b-filter__toggle_hide">
+                                <div class="b-shadow__right">
+                                    <div class="b-shadow__left">
+                                        <div class="b-shadow__top">
+                                            <div class="b-shadow__bottom">
+                                                <div class="b-shadow__body b-shadow__body_pad_15 b-shadow__body_bg_fff">
+                                                    <ul class="b-filter__list">
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link b-filter__link_toggler b-filter__link_no b-filter__link_bold" href="javascript:void(null);">О компании</a></li>
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/shops.html">Адреса магзинов</a></li>                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/contacts.html">Контакты</a></li>                                                        <li class="b-filter__item"><a  class="b-filter__link" href="/message.html">Обратная связь</a></li>                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                            </li><li
+                     class="b-menu__item ">
+                                                <a class="b-menu__link" href="/vikup_razbitih_avto_posle_dtp.html">Выкуп авто</a>
+                                            </li><li
+                     class="b-menu__item ">
+                                                <a class="b-menu__link" href="/zapchasti_na_zakaz.html">Запчасти на заказ</a>
+                                            </li><li
+                     class="b-menu__item">
+                        <div class="b-filter b-filter_margtop_7">
+                            <div class="main_menu_more"><a href="javascript:void(null);" class="b-filter__link b-filter__link_float_left b-filter__link_lineheight_1 b-filter__link_dot_0f71c8 b-filter__link_bold">Статьи</a><span class="b-filter__arrow b-filter__arrow_float_left b-filter__arrow_margtop_6 b-filter__arrow_0f71c8"></span></div>
+                                <div class="b-shadow b-shadow_marg_-32 b-shadow_margtop_-33 b-filter__toggle b-filter__toggle_hide">
+                                <div class="b-shadow__right">
+                                    <div class="b-shadow__left">
+                                        <div class="b-shadow__top">
+                                            <div class="b-shadow__bottom">
+                                                <div class="b-shadow__body b-shadow__body_pad_15 b-shadow__body_bg_fff">
+                                                    <ul class="b-filter__list">
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link b-filter__link_toggler b-filter__link_no b-filter__link_bold" href="javascript:void(null);">Статьи</a></li>
+                                                        
+														<? foreach($articles as $article) :?>
+														<li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/articles/<?=$article['Article']['url']?>" title="<?=$article['Article']['header']?>"><?=$article['Article']['header']?></a></li>
+														<? endforeach; ?>
+														</ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li><li
+                     class="b-menu__item">
+                        <div class="b-filter b-filter_margtop_7">
+                            <div class="main_menu_more"><a href="javascript:void(null);" class="b-filter__link b-filter__link_float_left b-filter__link_lineheight_1 b-filter__link_dot_0f71c8 b-filter__link_bold">Акции</a><span class="b-filter__arrow b-filter__arrow_float_left b-filter__arrow_margtop_6 b-filter__arrow_0f71c8"></span></div>
+                                <div class="b-shadow b-shadow_marg_-32 b-shadow_margtop_-33 b-filter__toggle b-filter__toggle_hide">
+                                <div class="b-shadow__right">
+                                    <div class="b-shadow__left">
+                                        <div class="b-shadow__top">
+                                            <div class="b-shadow__bottom">
+                                                <div class="b-shadow__body b-shadow__body_pad_15 b-shadow__body_bg_fff">
+                                                    <ul class="b-filter__list">
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link b-filter__link_toggler b-filter__link_no b-filter__link_bold" href="javascript:void(null);">Акции</a></li>
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/rasprodaja.html">Распродажа</a></li>                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/skidki.html">Скидки</a></li></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+					<li
+                     class="b-menu__item">
+                        <div class="b-filter b-filter_margtop_7">
+                            <div class="main_menu_more"><a href="javascript:void(null);" class="b-filter__link b-filter__link_float_left b-filter__link_lineheight_1 b-filter__link_dot_0f71c8 b-filter__link_bold">Партнеры</a><span class="b-filter__arrow b-filter__arrow_float_left b-filter__arrow_margtop_6 b-filter__arrow_0f71c8"></span></div>
+                                <div class="b-shadow b-shadow_marg_-32 b-shadow_margtop_-33 b-filter__toggle b-filter__toggle_hide">
+                                <div class="b-shadow__right">
+                                    <div class="b-shadow__left">
+                                        <div class="b-shadow__top">
+                                            <div class="b-shadow__bottom">
+                                                <div class="b-shadow__body b-shadow__body_pad_15 b-shadow__body_bg_fff">
+                                                    <ul class="b-filter__list">
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link b-filter__link_toggler b-filter__link_no b-filter__link_bold" href="javascript:void(null);">Партнеры</a></li>
+                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/registr.html?postavshik">Поставщикам запчастей</a></li>                                                        <li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/sto.html">СТО</a></li>
+														<li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/strahovanie.html">Автострахование (КАСКО, ОСАГО)</a></li>
+														<li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/websites.html">Автомобильные сайты</a></li>
+														<li class="b-filter__item b-filter__item_padbot_10"><a  class="b-filter__link" href="/reklama.html">Реклама на сайте</a></li></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+					<li
+                     class="b-menu__item ">
+                                                <a class="b-menu__link" href="javascript:void(null);">Форум</a>
+                                            </li>
+					<li
+                     class="b-menu__item b-menu__item_last">
+                                                <a class="b-menu__link" href="/found_pay.html" style="color:#FF9966">Как найти и оплатить запчасти</a>
+                                            </li>
+                </ul>
+            </div>
+			
+			
+
+<!--<div class="nav"><ul><li><a href="#" title="О компании" onclick="return showHideBlock('menuItem1');">О компании</a>
+											<ul  <?=($this->controller->params['url']['url']=='contacts.html' || $this->controller->params['url']['url']=='message.html' || $this->controller->params['url']['url']=='shops.html' ? '':'style="display:none;"')?>  id="menuItem1">
+												<li><a href="/shops.html" title="Адреса магазинов" <?=($this->controller->params['url']['url']=='shops.html' ? 'class="active"':'')?>>Адреса магазинов</a></li>
+												<li><a href="/contacts.html" title="Контакты" <?=($this->controller->params['url']['url']=='contacts.html' ? 'class="active"':'')?>>Контакты</a></li>
+												<li><a href="/message.html" title="Обратная связь" <?=($this->controller->params['url']['url']=='message.html' ? 'class="active"':'')?>>Обратная связь</a></li>
+											</ul>
+										</li>
+										<li><a href="/" title="On-line магазин" <?=(empty($this->controller->params['url']['url']) || $this->controller->params['url']['url']=='index.html' ? 'class="active"':'')?>>On-line магазин</a></li>
+                                                                                 <li><a href="/zapchasti" title="Каталог запчастей" <?=($this->controller->params['action']=='zapchasti'  ? 'class="active"':'')?>>Каталог запчастей</a></li>
+                                                                                 <li><a href="/vikup_razbitih_avto_posle_dtp.html" title="Выкуп авто" <?=($this->controller->params['url']['url']=='vikup_razbitih_avto_posle_dtp.html' ? 'class="active"':'')?>>Выкуп АВТО</a></li>	
+                                                                                 <li><a href="/zapchasti_na_zakaz.html" title="Запчасти на заказ" <?=($this->controller->params['url']['url']=='zapchasti_na_zakaz.html' ? 'class="active"':'')?>>Запчасти на заказ</a></li>	
+										<li><a href="#" title="Статьи" onclick="return showHideBlock('menuItem2');">Статьи</a>
+											<ul <?=($this->controller->params['controller']=='articles' ? '':'style="display:none;"')?>  id="menuItem2">
+												<? foreach($articles as $article) :?>
+												<li><a href="/articles/<?=$article['Article']['url']?>" title="<?=$article['Article']['header']?>" <?=($this->controller->params['controller']=='articles' && $this->controller->params['link'] == $article['Article']['url'] ? 'class="active"':'')?>><?=$article['Article']['header']?></a></li>
+												<? endforeach; ?>
+											</ul>
+										</li>
+										<li><a href="#" title="Наши партнеры" onclick="return showHideBlock('menuItem3');">Наши партнеры</a>
+											<ul <?=(($this->controller->params['url']['url']=='registr.html' && isset($_GET['postavshik'])) || $this->controller->params['url']['url']=='sto.html'  || $this->controller->params['url']['url']=='websites.html'  || $this->controller->params['url']['url']=='strahovanie.html' || $this->controller->params['url']['url']=='reklama.html' ? '':'style="display:none;"')?>  id="menuItem3">
+												<li><a href="/sto.html" title="Станции тех. обслуживания" <?=($this->controller->params['url']['url']=='sto.html' ? 'class="active"':'')?>>Станции тех. обслуживания</a></li>
+												<li><a href="/strahovanie.html" title="Автострахование (КАСКО, ОСАГО)" <?=($this->controller->params['url']['url']=='strahovanie.html' ? 'class="active"':'')?>>Автострахование (КАСКО, ОСАГО)</a></li>
+												<li><a href="/registr.html?postavshik" title="Для поставщиков запчастей" <?=($this->controller->params['url']['url']=='registr.html' && isset($_GET['postavshik']) ? 'class="active"':'')?>>Для поставщиков запчастей</a></li>
+                                                                                                <li><a href="/websites.html" title="Автомобильные сайты" <?=($this->controller->params['url']['url']=='websites.html' ? 'class="active"':'')?>>Автомобильные сайты</a></li>
+												<li><a href="/reklama.html" title="Реклама на сайте" <?=($this->controller->params['url']['url']=='reklama.html' ? 'class="active"':'')?>>Реклама на сайте</a></li>
+											</ul>
+										</li>
+										<li><a href="#" title="Акции" onclick="return showHideBlock('menuItem4');">Акции</a>
+											<ul <?=($this->controller->params['url']['url']=='skidki.html' || $this->controller->params['url']['url']=='rasprodaja.html' ? '':'style="display:none;"')?>  id="menuItem4">
+												<li><a href="/rasprodaja.html" title="Распродажа" <?=($this->controller->params['url']['url']=='rasprodaja.html' ? 'class="active"':'')?>>Распродажа</a></li>
+												<li><a href="/skidki.html" title="Скидки"  <?=($this->controller->params['url']['url']=='skidki.html' ? 'class="active"':'')?>>Скидки</a></li>
+											</ul>
+										</li>
+										<li><a href="#" title="Помощь" onclick="return showHideBlock('menuItem5');">Помощь</a>
+											<ul <?=($this->controller->params['url']['url']=='kak_zagruzit_price.html' ||  $this->controller->params['url']['url']=='vozvrat.html' ||  $this->controller->params['url']['url']=='kak_oformit_zakaz.html' || $this->controller->params['url']['url']=='oplata.html' || $this->controller->params['url']['url']=='dostavka.html' ? '':'style="display:none;"')?>  id="menuItem5">
+												<li><a href="/kak_oformit_zakaz.html" title="Как оформить заказ?" <?=($this->controller->params['url']['url']=='kak_oformit_zakaz.html' ? 'class="active"':'')?>>Как оформить заказ?</a></li>
+												<li><a href="/oplata.html" title="Как оплатить заказ?" <?=($this->controller->params['url']['url']=='oplata.html' ? 'class="active"':'')?>>Как оплатить заказ?</a></li>
+												<li><a href="/dostavka.html" title="Доставка запчастей" <?=($this->controller->params['url']['url']=='dostavka.html' ? 'class="active"':'')?>>Доставка запчастей</a></li>
+												<li><a href="/vozvrat.html" title="Возврат запчастей" <?=($this->controller->params['url']['url']=='vozvrat.html' ? 'class="active"':'')?>>Возврат запчастей</a></li>
+												<li><a href="/kak_zagruzit_price.html" title="Как загрузить прайс-лист? (для поставщиков)" <?=($this->controller->params['url']['url']=='kak_zagruzit_price.html' ? 'class="active"':'')?>>Как загрузить прайс-лист? (для поставщиков)</a></li>
+											</ul>
+										</li>	
+										<li><a href="/vacancy.html" title="Вакансии" <?=($this->controller->params['url']['url']=='vacancy.html' ? 'class="active"':'')?>>Вакансии</a></li>
+										<li><a href="/forum.html" title="Форум" <?=($this->controller->params['url']['url']=='forum.html' ? 'class="active"':'')?>>Форум</a></li>	
+	</ul>
+</div>-->

@@ -1,0 +1,85 @@
+<h1>Ваши запросы</h1>
+ <? $session->flash()?>   
+<p><span style="background-color:#D2F7DC">Зеленым выделены запросы, на которые Вам ответили!</span>
+<div>Найдено результатов: <?=$paging['count']?></div>
+
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+<p>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+
+ 	<?php foreach ($data as $row):?>
+<? 
+$answer_exists = false;
+foreach($row['RequestPart'] as $part) { 
+if(count($part['RequestAnswer'])>0) {
+	$answer_exists = true;
+}
+}
+?>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%" <? if($answer_exists) echo 'style="background-color:#D2F7DC"'; ?>>
+			<TR>
+			<TD COLSPAN=2><b>Запрос №  <?php echo $row['Request']['id'] ?>.</b></td></tr>
+	<tr><td>Дата и время запроса: </td><td><b><?=date("d.m.Y H:i",strtotime($row['Request']['created']))?></b>
+			</TD></tr>
+<tr><td>Автомобиль: </td><td><b><?=$row['Mark']['name']?> <?=$row['Model']['name']?> <?=$row['Request']['year']?></b>, объем двигателя - <b><?=$row['EngineVolume']['name']?></b>, тип  - 
+
+<b><?=$row['EngineType']['name']?></b>, мощность - <b><?=$row['Request']['engine_power']?> л.с.</b>, привод - <b><?=$row['WheelDrive']['name']?></b>, тип кузова  - 
+
+<b><?=$row['BodyType']['name']?></b>, КПП  - <b><?=$row['Transmission']['name']?></b>, комплектация - <b><?=$row['Request']['complete_set']?></b>
+			</TD></tr>
+<tr><td>Двигатель: </td><td><b><?=$row['Request']['engine_code']?></b></TD></tr>
+<tr><td>Кузов: </td><td><b><?=$row['Request']['body_code']?></b></TD></tr>
+<tr><td>VIN/FRAME: </td><td><b><?=$row['Request']['vin_frame']?></b></TD></tr>
+<tr><td>Рынок: </td><td><b><?=$row['Market']['name']?></b>
+			</TD></tr>
+<tr><td>Примечание: </td><td><b><?=$row['Request']['comments']?></b>
+			</TD></tr>
+<tr><td valign=top>Запчасти: </td><td><a href="#" onclick="if(this.innerHTML=='Показать') {$('#partstable_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#partstable_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Показать</a>
+<table width=100% id=partstable_<?php echo $row['Request']['id'] ?> style="display:none">
+<tr><th>№</th><th>Наименование запчасти</th><th>Ориг. номер</th><th>Состояние</th></tr>
+<? 
+$i=0;
+foreach($row['RequestPart'] as $part) { 
+
+?>
+<tr><td><?=(++$i)?></td><td><?=$part['name']?></td><td><?=$part['number']?></td><td><?=$part['PartState']['name']?></td></tr>
+<? } ?>
+</table>
+			</TD>
+</tr>
+<? if($answer_exists) :?>
+<tr><td valign=top>Вам ответили: </td><td><a href="#" onclick="if(this.innerHTML=='Показать') {$('#answertable_<?php echo $row['Request']['id'] ?>').attr('style','display:table'); this.innerHTML='Скрыть'; } else {$('#answertable_<?php echo $row['Request']['id'] ?>').attr('style','display:none'); this.innerHTML='Показать';} return false; ">Скрыть</a>
+<table width=100% id=answertable_<?php echo $row['Request']['id'] ?>>
+<tr><th>Наименование</th><th>Цена</th><th>Наличие</th><th>Состояние</th><th>Примечание</th><th>Действие</th></tr>
+<? 
+foreach($row['RequestPart'] as $part) { 
+foreach($part['RequestAnswer'] as $answer) {
+?>
+<tr><td><?=$part['name']?></td><td><?=$answer[itog_price]?> руб.</td><td><?=$answer[delivery_term]!='в наличии' ? 'поставка '.$answer[delivery_term] : $answer[delivery_term]?></td><td><?=$answer[state]?></td><td><?=$answer[note]?></td>
+<td>
+<FORM METHOD="GET" ACTION="/cart.html">
+<INPUT TYPE="hidden" NAME="add_from_request" VALUE="<?=$answer['id']?>">
+<INPUT TYPE="hidden" NAME="mark_and_model" VALUE="<?=$row['Mark']['name']?> <?=$row['Model']['name']?>">
+<INPUT TYPE="hidden" NAME="year" VALUE="<?=$row['Request']['year']?>">
+<INPUT TYPE="hidden" NAME="name" VALUE="<?=$part['name']?>">
+<INPUT TYPE="hidden" NAME="number" VALUE="<?=$part['number']?>">
+<INPUT TYPE="hidden" NAME="skolko" VALUE=1> 
+<INPUT TYPE=submit VALUE="в корзину">
+</FORM>
+</td>
+</tr>
+<? }}?>
+
+</table>		
+<? endif;?>
+				</TABLE><br>
+
+	<?php endforeach; ?>	
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+	<? else: ?>
+НЕТ ЗАПРОСОВ
+<? endif; ?>
+<? endif; ?>

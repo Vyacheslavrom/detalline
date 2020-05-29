@@ -1,0 +1,289 @@
+<script>
+function confirmDelete(ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url;
+}
+}</script>
+<h1><?php
+			if(isset($this->params['data']['Product']['id'])) 
+			echo '"'.$this->params['data']['Product']['name'].'" (арт.-'.$this->params['data']['Product']['articul'].')';
+			else
+			echo 'Новая запчасть';
+			?></h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+<input type=button value="Выбрать запчасть из справочника" onclick="window.open('/select_prod.html?prod_edit&mark='+markObj.value+'&model='+document.getElementById('spareform').model.value,'winSelProd','width=800, height=600, scrollbars=yes, resizable=yes')"><br><br>
+<form method="post" enctype="multipart/form-data" id=spareform name=spareform>
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры запчасти</th>
+		</tr>
+		<tr> 
+			<td class="row1">Прайс:</td>
+			<td class="row2">
+				<input type="text" name="storage_price_id" value="<?=$this->params['data']['Product']['price_id']?>" style="display:none;">
+				<input type="text" name="storage_name" value="<?=$this->params['data']['Product']['name']?>" style="display:none;">
+				<input type="text" name="storage_articul" value="<?=$this->params['data']['Product']['articul']?>" style="display:none;">
+				<select name="data[Product][price_id]" size="1">
+				<option value="">= Выберите прайс =</option>
+					  <?foreach($prices as $row) {
+					   if($row['Price']['id']==@$this->params['data']['Product']['price_id'])
+						 echo "<option value='".$row['Price']['id']."' selected>".$row['Price']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Price']['id']."'>".$row['Price']['name']."</option>";
+						}
+					 	?>
+					  </select>
+					  <?php echo $html->tagErrorMsg('Product/price_id', '<font color=blue><small>обязательное поле</small></font>')?></td></tr>
+			</td>
+		</tr>
+		<!--<tr> 
+			<td class="row1">Категория:</td>
+			<td class="row2">
+				<select name="data[Product][category_id]" size="1">
+				<option value="">= Выберите категорию =</option>
+					  <?foreach($categories as $row) {
+					   if($row['Category']['id']==@$this->params['data']['Product']['category_id'])
+						 echo "<option value='".$row['Category']['id']."' selected>".$row['Category']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Category']['id']."'>".$row['Category']['name']."</option>";
+						}
+					 	?>
+					  </select>
+					  <?php echo $html->tagErrorMsg('Product/category_id', '<font color=blue><small>обязательное поле</small></font>')?>
+			</td>
+		</tr>-->
+		<tr> 
+			<td class="row1">Марка и модель авто:</td>
+			<td class="row2">
+			<input type=radio name=mm <?if(!empty($this->params['data']['Product']['mark_id']) || empty($this->params['data']['Product']['id']))  echo 'checked=checked';?> onclick=choose_mm(1) value=1> <b>Марка и модель выбираются из справочника</b><br>
+				<select name="data[Product][mark_id]" size="1" id="ProductMark" <?if(empty($this->params['data']['Product']['mark_id']) && !empty($this->params['data']['Product']['id']))  echo 'disabled=true';?>>
+				<option value="0">= Выберите марку авто =</option>
+					  <?foreach($marks as $row) {
+					   if($row['Mark']['id']==@$this->params['data']['Product']['mark_id'])
+						 echo "<option value='".$row['Mark']['id']."' selected>".$row['Mark']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Mark']['id']."'>".$row['Mark']['name']."</option>";
+						}
+					 	?>
+					  </select>
+					  <br>
+<span id="models"><select name=model size="1" <?if(empty($this->params['data']['Product']['mark_id']) && !empty($this->params['data']['Product']['id']))  echo 'disabled=true';?>><option value=0>= Выберите модель авто =</option></select></span>
+											 <script>
+
+                                                                                           var markObj = document.getElementById("ProductMark");
+markObj.onchange = function() {choose_model(markObj.value, <?=intval($this->params['data']['Product']['model_id'])?>, $('#models'), document.getElementById('spareform').model);};									  
+ choose_model(markObj.value, <?=intval($this->params['data']['Product']['model_id'])?>, $('#models'), document.getElementById('spareform').model);    
+
+											   </script>
+		<?php echo $html->tagErrorMsg('Product/mark_and_model2', '<font color=blue><small>выберите марку и модель из списка</small></font>')?>
+					  <br><br>					  
+					  <input type=radio name=mm <?if((empty($this->params['data']['Product']['mark_id']) && !empty($this->params['data']['Product']['id'])) || $_POST['mm']==2)  echo 'checked=checked';?> onclick=choose_mm(2) value=2> <b>Марка и модель пишутся вручную</b><br>
+					  <?php echo $html->textarea('Product/mark_and_model',array('style'=>'width:400px;height:50px;', 'disabled' => ((empty($this->params['data']['Product']['mark_id']) && !empty($this->params['data']['Product']['id'])) || $_POST['mm']==2 ? 'false':'true')))?>
+					  <?php echo $html->tagErrorMsg('Product/mark_and_model', '<font color=blue><small>введите марку и модель</small></font>')?>
+					  <script>
+	function choose_mm(type)
+	{
+		if(type==1) {
+			document.getElementById("ProductMark").disabled = false;
+                        document.getElementById("spareform").model.disabled = false;
+			document.getElementById("ProductMarkAndModel").disabled = true;
+		} 
+		if(type==2)  {
+			document.getElementById("ProductMark").disabled = true;
+                        document.getElementById("spareform").model.disabled = true;
+			document.getElementById("ProductMarkAndModel").disabled = false;
+		}
+	}
+    </script>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">С какого года:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/year1')?>
+				<?php echo $html->tagErrorMsg('Product/year1', '<font color=blue><small>обязательное поле, целое число</small></font>')?>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">По какой год:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/year2')?>
+				<?php echo $html->tagErrorMsg('Product/year2', '<font color=blue><small>обязательное поле, целое число</small></font>')?>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Название:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/name')?>
+				<?php echo $html->tagErrorMsg('Product/name', '<font color=blue><small>обязательное поле</small></font>')?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Описание:</td>
+			<td class="row2">
+				<?php echo $html->textarea('Product/description',array('style'=>'width:400px;height:50px;'))?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Производитель:</td>
+			<td class="row2">
+				<select name="data[Product][manufacturer]" size="1">
+				<option value="">= Выберите производителя =</option>
+					  <?foreach($manufacturers as $row) {
+					   if($row['Manufacturer']['name']==@$this->params['data']['Product']['manufacturer'])
+						 echo "<option value='".$row['Manufacturer']['name']."' selected>".$row['Manufacturer']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Manufacturer']['name']."'>".$row['Manufacturer']['name']."</option>";
+						}
+					 	?>
+					  </select>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Номер производителя:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/manuf_number')?>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Оригинальный номер:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/number')?>
+			</td>
+		</tr>		
+		<tr> 
+			<td class="row1">Артикул:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/articul')?>
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Себестоимость:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/cost_price',array('onkeyup'=>'calc_price(\'retail\',document.getElementById(\'ProductPricePers\').value);calc_price(\'wholesale\',document.getElementById(\'ProductWholesalePricePers\').value)'))?> РУБ
+				<?php echo $html->tagErrorMsg('Product/price', '<font color=blue><small>обязательное поле, целое число</small></font>')?>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Цена (розница):</td>
+			<td class="row2">
+				<?php echo $html->input('Product/price',array('readonly'=>'true'))?> РУБ&nbsp;&nbsp;&nbsp;<input type=text onkeyup="calc_price('retail',this.value)" name=data[Product][price_pers] id=ProductPricePers
+				value="<?=(isset($this->params['data']['Product']['id']) ? $this->params['data']['Product']['price_pers'] : '45')?>"
+				> % наценки
+				<?php echo $html->tagErrorMsg('Product/price', '<font color=blue><small>обязательное поле, целое число</small></font>')?>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Цена (опт):</td>
+			<td class="row2">
+				<?php echo $html->input('Product/wholesale_price',array('readonly'=>'true'))?> РУБ&nbsp;&nbsp;&nbsp;<input type=text onkeyup="calc_price('wholesale',this.value)" name=data[Product][wholesale_price_pers] id=ProductWholesalePricePers value="<?=(isset($this->params['data']['Product']['id']) ? $this->params['data']['Product']['wholesale_price_pers'] : '23')?>"> % наценки
+				<?php echo $html->tagErrorMsg('Product/price', '<font color=blue><small>обязательное поле, целое число</small></font>')?>
+				
+				<script>
+				function calc_price(type, pers)
+				{
+					var re = /[^0-9\.]/;
+					if(document.getElementById('ProductCostPrice').value == '' ||  pers=='' || re.exec(pers)!=null ||					     re.exec(document.getElementById('ProductCostPrice').value)!=null )
+						return;
+					var prc_field = type=='wholesale' ? document.getElementById('ProductWholesalePrice') : document.getElementById('ProductPrice');
+					prc_field.value = Math.ceil(parseFloat(document.getElementById('ProductCostPrice').value) * (100.0+parseFloat(pers)) / 100 / 100) * 100;
+				    
+				}
+				</script>
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Количество:</td>
+			<td class="row2">
+				<?php echo $html->input('Product/quantity')?> ШТ
+			</td>
+		</tr>	
+		<tr> 
+			<td class="row1">Доставка (количество дней):<br><small>Например: 1.4</small></td>
+			<td class="row2">
+				<?php echo $html->input('Product/days_shipping', array('value'=>0))?> ДН
+				<?php echo $html->tagErrorMsg('Product/days_shipping', '<font color=blue><small>обязательное поле, число с точкой</small></font>')?>
+			</td>
+		</tr>
+<tr> 
+			<td class="row1">Доставка (информация):<br><small>Например: 28 часов</small></td>
+			<td class="row2">
+				<?php echo $html->input('Product/shipping_info', array('value'=>'в наличии'))?>
+				<?php echo $html->tagErrorMsg('Product/shipping_info', '<font color=blue><small>обязательное поле</small></font>')?>
+			</td>
+		</tr>	
+                <tr> 
+			<td class="row1">Примечание:</td>
+			<td class="row2">
+				<?php echo $html->textarea('Product/note',array('style'=>'width:400px;height:50px;'))?>
+			</td>
+		</tr>	
+                <tr> 
+			<td class="row1">Б/у:</td>
+			<td class="row2">
+				<?=$html->checkbox('Product/bu')?><br />
+			</td>
+		</tr>
+               <tr> 
+			<td class="row1">Интересное предложение:</td>
+			<td class="row2">
+				<?=$html->checkbox('Product/interest')?><br />
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Показывать на сайте:</td>
+			<td class="row2">
+				<?=$html->checkbox('Product/active')?><br />
+			</td>
+		</tr>
+		<tr> 
+			<td class="row1">Загрузить основное изображение:<br><small>Допустимый формат: JPG</small></td>
+			<td class="row2">
+				<?=$html->file('Product/pic_file')?> 
+				<br><font color=blue><small><?=@$error?></small></font>
+			</td>			
+		</tr>
+		<?if(!empty($this->params['data']['Product']['articul']) )  {
+		
+$dir =   $this->params['data']['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$this->params['data']['Product']['price_id'];
+ if($this->params['data']['Product']['price_id']>=100   && file_exists(ROOT.DS.'app'.DS.'webroot'.DS.'files'.DS.'products'.DS.$dir.DS.$this->params['data']['Product']['articul'].".jpg")) { ?>
+					<tr> 
+			<td class="row1"><a href="/files/products/<?=$dir?>/<?=$this->params['data']['Product']['articul']?>.jpg" target=_blank title="Фото"><img src='/files/products/<?=$dir?>/<?=$this->params['data']['Product']['articul']?>.jpg' width=300></a></td>
+			<td class="row2">
+				<input type="button" value="Удалить основное фото" class="mainoption" onClick='confirmDelete("Вы уверены что хотите удалить изображение?","/admin/products/delete_picture/<?=$this->params['data']['Product']['id']?>");'/> 
+			</td>			
+		</tr>
+<? } elseif(file_exists(ROOT.DS.'app'.DS.'webroot'.DS.'files'.DS.'products'.DS.'photos'.DS.$this->params['data']['Product']['articul'].".jpg")) {?> 
+                <tr> 
+			<td class="row1"><a href="/files/products/photos/<?=$this->params['data']['Product']['articul']?>.jpg" target=_blank title="Фото"><img src='/files/products/photos/<?=$this->params['data']['Product']['articul']?>.jpg' width=300></a></td>
+			<td class="row2">
+				Фото из общей папки. Не подлежит удалению.
+			</td>			
+		</tr>
+				<? }} ?>
+		<?php if(isset($this->params['data']['Product']['id'])):?>
+		<tr> 
+			<td class="row1"  colspan="2">
+			<input type="button" value="Добавить фото объекта" onClick="window.location.href='/admin/product_pictures/add/<?=$this->params['data']['Product']['id']?>'" class="mainoption"> 
+			<? if(count($this->params['data']['ProductPicture'])) :?>
+			<input type="button" value="Просмотр других фото объекта" onClick="window.location.href='/admin/product_pictures/view/<?=$this->params['data']['Product']['id']?>'" class="mainoption"> 			
+			<? endif; ?>
+			</td>
+		</tr>
+		<?endif;?>	
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+		  <?php
+			if(isset($this->params['data']['Product']['id'])):
+			echo $html->hidden('Product/id');
+			endif;
+			?>
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+

@@ -1,0 +1,12 @@
+	
+	<h1><b>Галерея объектов</b></h1>
+	<p>
+		<table cellpadding=10 cellspacing=0 border=0 align=center>
+		<? for($i=0;$i<count($data);$i++) {
+	if($i%3==0) echo '<tr>';	
+		?>
+<td valign=top><a href="/files/objects/<?=$data[$i]['Photo']['picture']?>" target=_blank title='увеличить'><img src="/files/objects/180/<?=$data[$i]['Photo']['picture']?>" class=img width=147 height=110 alt='увеличить'></a></td>
+<?
+if($i%3==2) echo '</tr>';
+}?>
+</table>

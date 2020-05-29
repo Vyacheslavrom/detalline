@@ -1,0 +1,52 @@
+<h1>Избранное покупателя <br><?=$data['Customer']['lname']?> <?=$data['Customer']['fname']?> <?=$data['Customer']['otch']?></h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="21">Просмотр избранного</th>
+</tr>
+<tr>
+	<td colspan="13" class="row2">	
+	<input type="button" value="Назад" onClick="javascript:history.back(-1);return false;" class="mainoption">		
+	</td>
+</tr>
+<? if(isset($data)) :?>
+<? if(count($data['Product'])) :?>
+<tr><td colspan="13" class="row2">
+	<p>
+	Найдено записей: <?=count($data['Product'])?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</p>
+	</td></tr>
+<tr class="sectiontableheader"> 
+	<td class="cat"><span class="cattitle">Артикул</span></td>
+	<td class="cat"><span class="cattitle">Название (Категория)</span></td>
+	<td class="cat"><span class="cattitle">Цена</span></td>
+	<td class="cat"><span class="cattitle">Вес</span></td>
+	<td class="cat"><span class="cattitle">Размеры</span></td>
+	<td class="cat"><span class="cattitle">Наличие</span></td>
+	<td class="cat"><span class="cattitle">Лид. продаж</span></td>
+	<td class="cat"><span class="cattitle">Фото</span></td>
+</tr>
+ 	<?php foreach ($data['Product'] as $row): ?>
+ 	<tr class=""> 
+		<td class="row1"><span class="gen"><?php echo $row['articul'] ?></span></td>
+		<td class="row2"><span class="gen"><?php echo $row['name'] ?> (<?php echo $row['Category']['name'] ?>)</span></td>
+		<td class="row2"><span class="gen"><?php echo $row['price'] ?> руб.</span></td>
+		<td class="row2"><span class="gen"><?php echo $row['weight'] ?> кг</span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Size']['name'] ?>, <?php echo $row['height'].'x'.$row['length'].'x'.$row['width'] ?> mm</span></td>
+		<td class="row1"><span class="gen"><?php echo $row['count'] ?></span></td>
+		<td class="row2" align="center"><span class="gen"><?=($row['leader']?"да":"нет")?></span></td>
+		<td class="row1" align="center"><span class="gen"><img src='/files/products/photos/thumbs/<?=$row['picture']?>' border=0></span></td>
+	</tr>
+	<?php endforeach; ?>
+	<tr><td colspan="13" class="row2">
+	<p>
+	Найдено записей: <?=count($data['Product'])?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	</p>
+	</td></tr>
+<? else: ?>
+ <tr><td colspan="13" class="row1" align="center">по вашему запросу ничего не найдено</td></tr>
+<? endif; ?>
+<? endif; ?>
+</table>

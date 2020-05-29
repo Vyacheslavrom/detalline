@@ -1,0 +1,25 @@
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <TR>
+          <TD WIDTH=193 HEIGHT=27 background="images/01_21.jpg" class="blockth"><span class="leftmenu"><b>&nbsp;ПАРТНЕРЫ</b></span>
+          </TD>
+       </TR>
+        <tr>
+          <td height="3"><img src="images/spacer.gif" width="1" height="1"></td>
+        </tr>
+        <tr>
+          <td height="2"><IMG SRC="images/36_26.jpg" WIDTH=193 HEIGHT=2 ALT=""></td>
+        </tr>
+        <tr>
+          <td background="images/36_49.jpg" style="padding:5px 20px 10px 15px;">
+<span class=txt>
+<a href="/predstaviteli.html">Наши представители в других городах</a><br>
+<a href="/sto.html">Станции тех. обслуживания</a><br>
+<a href="/strahovanie.html">Автострахование (КАСКО, ОСАГО)</a><br>
+<input type="button" value="ЗАПИСЬ НА СТО ONLINE" onclick="open_window('sto_online.html',630,600)" CLASS="formbutton" style="width:150px;">
+</span>
+	</td>
+        </tr>
+        <tr>
+          <td><IMG SRC="images/36_51.jpg" WIDTH=193 HEIGHT=25 ALT=""></td>
+        </tr>
+</table>

@@ -1,0 +1,24 @@
+<h1>Добавление изображения в фотогалерею</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+
+<form method="post" action=/admin/photos/add enctype="multipart/form-data">
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+		<tr> 
+		  <th class="thHead" colspan="2">Параметры изображения</th>
+		</tr>
+		<tr> 
+			<td class="row1" width="50%">Файл:</td>
+			<td class="row2" width="50%">
+				<?=$html->file('picture')?> <small>Допустимые форматы: JPG,GIF,PNG</small>
+				<?php echo $html->tagErrorMsg('Photo/picture', '<small>'.@$error.'</small>')?>
+			</td>
+		</tr>
+		<tr> 
+		  <td class="catBottom" colspan="2" align="center">
+			<input type="submit" name="save" value="Сохранить" class="mainoption" />
+			</td>
+		</tr>
+</table>				
+</form>
+

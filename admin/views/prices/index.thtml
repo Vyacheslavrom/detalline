@@ -1,0 +1,230 @@
+<script>
+function updateStatistics(step, maxstep)
+{
+
+     $('#updateStatisticsField').html('<b>Обновление статистики: Шаг '+step+' из '+maxstep+'...<b>');
+     $.ajax({
+         type: "GET",
+         url: "/admin/prices/updateStatistics",
+         data: "step="+step,
+         success: function(msg) {
+           if(maxstep != step) 
+            updateStatistics(step+1,maxstep); 
+          else {
+               $('#updateStatisticsField').html('<b>Статистика удачно обновлена!<b><br><input type="button" name="upd" value="Обновить статистику" class="mainoption" onclick="updateStatistics(1,6)" />');
+           }
+        },
+        error: function(msg) {
+            $('#updateStatisticsField').html('При обновлении статистики произошла ошибка! ' +msg + '<br><input type="button" name="upd" value="Обновить статистику" class="mainoption" onclick="updateStatistics(1,6)" />');
+        }
+    });
+}
+</script>
+<h1>Прайсы</h1>
+<?php if(date('m')!=$this_month){?>
+<form method="post" name="updatedate">
+<input type="submit" name="update_stat" value="Обновить статистику">
+</form>
+<?}?>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="6">Управление прайсами</th>
+</tr>
+<tr>
+	<td colspan="6" class="row2"><form method="post">Срок превышения времени обновления прайсов <input type="text" name="days_update" value="<?=$update_price['TimeUpdatePrice']['days']?>">. Прайсы: <input type="text" name="prices_update" value="<?=$update_price['TimeUpdatePrice']['prices']?>"> <input type="submit" name="save_update_price" value="Сохранить"></form></td>
+</tr>
+<tr>
+	<td colspan="6" class="row2"><input type="button" value="Новый прайс" class="mainoption" onclick="window.location.href='/admin/prices/edit/'" /></td>
+</tr>
+<tr>
+	<td colspan="6" class="row2"><div id=updateStatisticsField><input type="button" name="upd" value="Обновить статистику" class="mainoption" onclick="updateStatistics(1,6)" /></div></td>
+</tr>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+
+<tr><td colspan="6" class="row2">
+	<p>
+	Найдено записей: <?=count($data)?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</p>
+	</td></tr>
+<tr class="sectiontableheader"> 
+	<td class="cat" width="10%"><span class="cattitle">ID</span></td>
+	<td class="cat"><span class="cattitle">Название</span></td>
+	<td class="cat" width="15%"><span class="cattitle">Скидка/<br>Наценка</span></td>
+        <td class="cat" width="15%"><span class="cattitle">Cрок доставки (кол-во дней)</span></td>
+	<td class="cat" width="20%"><span class="cattitle">Дата и время<br>последней загрузки прайса</span></td>
+	<td class="catRight" align="center" valign="middle"><span class="gen">Загрузить прайс-лист:<br><small>Допустимый формат: CSV</small></span></td>
+</tr>
+ 	<?php foreach ($data as $row):
+		$date = new DateTime();
+		$date->modify('-'.$update_price['TimeUpdatePrice']['days'].' day');
+		$thisdate=$date->format('Y-m-d H:i:s');
+		$datetime1 = new DateTime($row['Price']['uploaded']);
+		$datetime2 = new DateTime($thisdate);
+		$interval =	date_diff($datetime1,$datetime2);
+		$update_price_check = explode(',',$update_price['TimeUpdatePrice']['prices']);
+		$check_true_price = false;
+		for($i=0; $i<count($update_price_check); $i++)
+			if($update_price_check[$i] == $row['Price']['id'])
+				$check_true_price = true;
+	?>
+ 	<tr class=""> 
+		<td class="row1" <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?>><span class="gen"><?php echo $row['Price']['id'] ?></span></td>
+		<td class="row2" <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?>><span class="gen"><?php echo $row['Price']['name'] ?></span></td>
+		<td class="row1" <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?> align=center><span class="gen">
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/skidka/<?php echo $row['Price']['id'] ?>">
+		<?=$html->input('Price/skidka',array('style'=>'width:40px;'))?> % <input type="submit" name="do" value="Применить" class="mainoption" />
+	</form>
+		</span></td>
+<td class="row1" <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?> align=center><span class="gen">
+<? if($row['Price']['id'] < 100) :?>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/days_shipping">
+		мин.:<input type=text name=data[Price][days_shipping_min] value="<?php echo $row['Price']['days_shipping_min'] ?>">,<br>гарант.: <input type=text name=data[Price][days_shipping_garant] value="<?php echo $row['Price']['days_shipping_garant'] ?>"><br>
+<input type=hidden name=data[Price][id] value="<?php echo $row['Price']['id'] ?>">
+<input type="submit" name="save" value="Сохранить" class="mainoption" />
+	</form><? else:?> в наличии <? endif; ?>
+		</span></td>
+		<td class="row2" <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?> <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?>><span class="gen">		
+		<?php echo $row['Price']['uploaded'] ? date("d.m.Y H:i:s",strtotime($row['Price']['uploaded'])) : "не загружен"; ?></span></td>
+		<td class="row1" <?if((int)$interval->format('%R%a') > 0 && $check_true_price == true) echo "style='background:pink'";?> align="center" valign="middle" width="1%"><span class="gen">
+		<? if($row['Price']['id']==24) :?>
+		24_Toyota_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Toyota_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Toyota_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Toyota_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_VW_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_VW_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_VW_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_VW_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Subaru_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Subaru_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Subaru_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Subaru_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Suzuki.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Suzuki">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Nissan_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Nissan_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Nissan_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Nissan_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Mitsubishi_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Mitsubishi_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Mitsubishi_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Mitsubishi_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Mazda_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Mazda_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Mazda_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Mazda_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Isuzu_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Isuzu_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Isuzu_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Isuzu_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Chrysler_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Chrysler_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Chrysler_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Chrysler_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Ford_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Ford_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Ford_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Ford_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_KIA_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_KIA_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_KIA_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_KIA_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_GM_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_GM_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_GM_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_GM_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Hyundai_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Hyundai_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		24_Hyundai_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/24_Hyundai_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		<? elseif($row['Price']['id']==25) : ?>
+		25_1.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/25_1">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		25_2.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/25_2">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+		</form><br>
+		<? else: ?>
+		<?php echo $row['Price']['id'] ?>.csv<br>
+		<form method="post" enctype="multipart/form-data" action="/admin/prices/uploadPrice/<?php echo $row['Price']['id'] ?>">
+		<?=$html->file('Price/file')?> <input type="submit" name="upload" value="Загрузить" class="mainoption" />
+<input type="button" value="Выгрузить" class="mainoption" onclick="window.location.href='/admin/prices/downloadPrice/<?php echo $row['Price']['id'] ?>'"/>
+<input type="button" value="Редактировать" class="mainoption" onclick="window.location.href='/admin/prices/edit/<?php echo $row['Price']['id'] ?>'" /> <input type="button" value="Удалить" class="mainoption" onclick="if(window.confirm('Вы действительно хотите удалить данный прайс?')) window.location.href='/admin/prices/deletePrice/<?php echo $row['Price']['id'] ?>'"/>
+<?if($row['Price']['id']>=100 || $row['Price']['id']==26):?>
+<br>
+<input type="button" value="Выгрузить (опт)" class="mainoption" onclick="window.location.href='/admin/prices/downloadPrice/<?php echo $row['Price']['id'] ?>/?wholesale'"/>
+<br>
+<input type="button" value="Выгрузить (остатки)" class="mainoption" onclick="window.location.href='/admin/prices/downloadPrice/<?php echo $row['Price']['id'] ?>/?remains'"/>
+<? endif;?>
+	</form>
+		<? endif; ?>
+		 </span></td>
+	</tr>
+	<?php endforeach; ?>
+<tr><td colspan="6" class="row2">
+	<p>
+	Найдено записей: <?=count($data)?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	</p>
+	</td></tr>
+
+<? else: ?>
+ <tr><td colspan="6" class="row1" align="center">по вашему запросу ничего не найдено</td></tr>
+<? endif; ?>
+<? endif; ?>
+</table>

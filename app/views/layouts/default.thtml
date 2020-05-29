@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="windows-1251" />
+        <meta name="description" lang="ru" content="<?=$meta_description?>" />
+        <meta name="keywords" lang="ru" content="<?=$meta_keywords?>" />
+        <title><?php echo $title_for_layout?></title>
+		<link rel="stylesheet" type="text/css" href="/css/main.css" />
+
+<script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/component.css" />
+
+		<script src="js/modernizr.custom.js"></script>
+
+		
+<!--carousel-->
+<script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jcarousel.css" />
+<!--end carousel-->
+
+<!--calendar-->
+<script src="<?=$html->url('/js/calendar/javascript.js')?>" type='text/javascript'></script>
+<script src="<?=$html->url('/js/calendar/calendar.js')?>" type='text/javascript'></script>
+<script src="<?=$html->url('/js/calendar/lang/calendar-ru.js')?>" type='text/javascript'></script>
+<link rel="stylesheet" type="text/css" media="all" href="<?=$html->url('/js/calendar/calendar.css')?>">
+<!--end calendar-->
+
+<script type="text/javascript" src="/js/detalline.js"></script>
+</head>
+<body  class="b-page">
+<!--
+<div class="md-modal md-effect-1" id="modal-1">
+			<div class="md-content">
+				<h3>Адреса магазинов</h3>
+				<div>
+<table>
+
+
+//$res1 = mysql_query('SELECT * FROM contact');
+//$row1 = mysql_fetch_assoc($res1);
+//    print_r($row1);
+//	echo $row1['addr'];
+			
+					
+</table>
+
+					<button class="md-close">Закрыть</button>
+				</div>
+			</div>
+		</div>
+-->
+<!-- Online консультант-->
+<div class="b-oconsult">
+	<a href="javascript:void(null);" onclick="openWindow('/call.html',630,600);return false;" class="button orange">On-line консультант</a>
+</div>
+<!-- END Online консультант-->
+
+<!-- Top panel: login, help, кабинет -->
+<?=$this->renderElement('kabinet')?>
+<!-- END Top panel: login, help, кабинет --> 
+
+ <div class="b-page__wrapper">
+            <div class="b-page__inner">
+                <div class="b-page__page b-page__page_padtop_130 ">
+					<!--header-->
+                    <div class="b-header b-layout">
+
+		<div class="b-layout__right b-layout__right_float_right b-layout__right_width_72ps">
+			<!--b-menu-->
+			<?=$this->renderElement('navigation')?>			
+            <!--END b-menu-->			
+
+			<!--search-->	
+			<?=$this->renderElement('search')?>
+			<!--search END-->
+		</div>
+		
+		
+		
+		
+		
+		<!--logo and support-->
+		<div class="b-layout__left">
+            <a class="b-layout__link" href="/"><img class="b-header__logo" alt="Detalline.ru" title="Detalline.ru" src="/images/logo.png" width="220" height="45" /></a>
+            <div class="b-layout__tlf b-layout__tlf_padleft_14 b-layout__tlf_padtop_25">
+                <span class="b-layout__tlf-ic b-layout__tlf-ic_margtop_5"></span>
+                <div class="b-layout__tlf-number">
+				<table border="1" rules="cols" frame="void" bordercolor="blue">
+					<tr>
+						<td>
+						<!--<a style="cursor: pointer;" onclick="$('.shop_inf').show();$('.shop_inf_cls').show();"><u>Адреса магазинов</u></a>-->
+						<button class="md-trigger" data-modal="modal-1" onclick="location.href='/shops.html'">Адреса магазинов</button>
+						
+						</td>
+					</tr>
+					<tr>
+						<td>Телефоны службы поддержки:</td>
+					</tr>
+					<tr>
+						<td>8-904-503-07-07</td>
+					</tr>
+					<tr>
+						<td>8-863-260-17-29</td>
+					</tr>
+				</table>
+				<!--<table border="1" rules="cols" frame="void" bordercolor="blue">
+				<tr>
+					<td>Ростов-на-Дону&nbsp; </td><td> &nbsp;Москва</td>
+				<tr>
+					<td>8-904-503-07-07&nbsp; </td><td>&nbsp;+7-903-275-19-30</td>
+				</tr>
+				<tr>
+					<td>8-863-260-17-29&nbsp; </td><td>&nbsp; </td>
+				</tr>
+				</table>-->
+				</div>
+				 <!--<div class="b-layout__tlf-number">8-904-503-07-207<br>8-863-260-17-29</div>-->
+                <!--<div class="b-header__txt b-header__txt_fontsize_11">Служба поддержки</div>-->
+            </div>
+        </div>
+		<!--END logo and support-->
+				</div>
+				<div class="shop_inf_cls" onclick="$('.shop_inf').hide();$('.shop_inf_cls').hide();">
+				<h1>X</h1>
+				</div>
+				<div class="shop_inf" >
+					<h1>Адреса магазинов в Ростове-на-Дону</h1>
+					<div style="float:left;">
+					<p><strong>Адрес:</strong><br>г. Ростов-на-Дону, ул.Некрасовская 75,
+					<p><strong>Телефоны.:</strong><br>8-904-503-07-07,<br>8-863-260-17-29
+
+					<p><strong>График работы:</strong><br>ПН.-ПТ. 09:00-18:00, СБ. 10:00-14:00, ВС. - выходной</p></div>
+					<div style="float:right">
+					<p><strong>Схема проезда:</strong><br>
+					<img src="/images/nekr.jpg" alt="Схема проезда" width="500" height="400"></div>
+					<div style="clear:both;"></div>
+				</div>
+				<!--END header-->
+				
+				<div class="b-layout b-layout__page" style="<?=($this->controller->name == 'Pages' && $this->controller->params["pass"][0]=='home') ? 'margin-top:235px' : 'margin-top:0px'?>">
+					 <a name="top"></a>
+					 
+					 <!--content-->
+					 <div class="b-layout__right b-layout__right_relative b-layout__right_width_72ps b-layout__right_float_right content">	
+						<?php echo $content_for_layout;?>				    
+					</div>
+					<!--END content-->
+					
+					<!--left column-->
+					<div class="b-layout__left b-layout__left_width_25ps">					
+						<!-- catalog -->
+						<?=$this->renderElement('catalog')?>
+						<!-- END catalog -->
+						
+						
+						<!--left banner-->
+						<!--<div class="b-banner b-banner_layout_vert b-banner_padtop_25" >
+							<div id="banner240" class="b-banner b-banner_padbot_20 b-banner_layout_vert b-banner_center">
+							<script type="text/javascript">
+								document.write('<iframe width="180" height="250" src="/left-banner.html" frameborder="0" scrolling="no"></iframe>');
+							</script>
+							</div>
+						</div>-->	
+						<!--END left banner-->
+					</div>
+					<!--END left column-->					
+				</div>	
+
+				<!--footer-->
+				<?=$this->renderElement('footer')?>			
+				<!--END footer-->
+				
+			</div>
+			
+			<? if($this->controller->name == 'Pages' && $this->controller->params["pass"][0]=='home'):?>
+			<!--poll-->
+			<?=$this->renderElement('poll')?>			
+			<!--END poll-->
+			
+			<!--specials-->
+			<?=$this->renderElement('interest_suggestions')?>	
+			<!--END specials-->
+			<? endif;?>
+		</div>
+</div>
+
+<!-- top banner -->
+ <script type="text/javascript">
+document.write('<div class="b-banner b-banner_top_0 b-banner_margtop_38 b-banner_layout_horiz"><iframe src="/top-banner.html" scrolling="no" frameborder="0" width="100%" height="90"></iframe></div>');
+</script>
+<!-- END top banner -->
+
+
+
+
+		<div class="md-overlay"></div><!-- the overlay element -->
+
+		<!-- classie.js by @desandro: https://github.com/desandro/classie -->
+		<script src="js/classie.js"></script>
+		<script src="js/modalEffects.js"></script>
+
+		<!-- for the blur effect -->
+		<!-- by @derSchepp https://github.com/Schepp/CSS-Filters-Polyfill -->
+		<script>
+			// this is important for IEs
+			var polyfilter_scriptpath = '/js/';
+		</script>
+		<script src="js/cssParser.js"></script>
+		<script src="js/css-filters-polyfill.js"></script>
+		
+		
+		
+</body>
+</html>
+

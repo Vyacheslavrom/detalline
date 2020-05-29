@@ -1,0 +1,19 @@
+<h1> Указания своего региона</h1>
+<p>
+Выберете данные из списка более подходящие для вас, и подтвердите их.
+<form method="post" id="formw">
+
+<table>
+<td>Регион:</td><td> <select name="region_id" id="reg2"><?php foreach($regions as $region){?><option value="<?=$region['Region']['id']?>"><?=$region['Region']['name']?></option><?}?></select> </td>
+<td> Город:</td><td><span id="request_cities"><select name="city" id="request_city"><option value="">---</option></select></span></td></tr>
+</table>
+<small id="wrong" style="color:red;display:none;" >Вы не указали город!</small>
+<br><input type="submit" name="save" value="Сохранить" onclick="$('#request_city').val()? $('#wrong').hide():$('#wrong').show();">
+<script>
+$('.b-bar__banwhere').hide()
+var markObj2 = $('#reg2');
+markObj2.change( function() {choose_cities(markObj2.val(), 0, $('#request_cities'), document.getElementById('formw').city);});
+choose_cities(markObj2.val(), 0, $('#request_cities'),document.getElementById('formw').city);
+$('#formw').submit(function(){if($('#wrong').css('display')!='none') return false;});
+</script>
+</form>

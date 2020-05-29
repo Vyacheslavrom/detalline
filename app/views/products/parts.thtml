@@ -1,0 +1,10 @@
+<h1><?=$h1?></h1>
+<p><?=$intro?>
+<? if(isset($products) && $show_list) :?>
+<? if(count($products)>0 || count($products_bu)>0) :?>
+<? echo $this->renderElement("product_list"); ?>
+<? else:?>
+<center>По Вашему запросу ничего не найдено</center>
+<? endif; ?>
+<? endif; ?>
+

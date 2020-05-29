@@ -1,0 +1,191 @@
+<script>	
+function confirmDelete(ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url;
+}
+}
+
+function allDelClick(chkbx) {
+var re= new RegExp("^chk_del_","gi");
+if(chkbx.name.match(re)) {
+chkbx.form.chk_del1.checked = true;	 
+chkbx.form.chk_del2.checked = true;
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re) && !chkbx.form.elements[i].checked) {
+chkbx.form.chk_del1.checked = false;	 
+chkbx.form.chk_del2.checked = false;		 
+}
+}
+}
+else {
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re)) {
+chkbx.form.elements[i].checked = chkbx.checked ? true : false;	 
+}
+}
+chkbx.form.chk_del1.checked = chkbx.checked ? true : false;	 
+chkbx.form.chk_del2.checked = chkbx.checked ? true : false;	
+}
+}
+
+function hasSelectedRows(form) {
+var re= new RegExp("^chk_del_","gi");
+for(i=0;i<form.elements.length;i++) {
+if(form.elements[i].name.match(re) && form.elements[i].checked) {
+return true;
+}
+}
+return false;
+}
+
+function doAction(act) {
+if(hasSelectedRows(act.form)) {
+switch(act.value) {
+case '1' : 
+if(window.confirm("Вы уверены что хотите удалить объекты?")) {
+act.form.action = '/admin/products/delete';
+act.form.submit();
+}		
+else
+act.options[0].selected = true;
+break;
+case '2' : 
+act.form.action = '/admin/products/active/all/1';
+act.form.submit();
+break;
+case '3' : 
+act.form.action = '/admin/products/active/all/0';
+act.form.submit();
+break;
+}
+}
+else {
+alert('Не выбрано ни одной записи');
+act.options[0].selected = true;
+}
+return false;
+}
+</script>
+<h1>Запчасти</h1>
+
+<p>&nbsp;<?php $session->flash(); ?></p>
+	
+<form method="get" action="/admin/products"  name="spareform" id="spareform">		 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="21">Управление запчастями</th>
+</tr>
+<tr>
+	<td colspan="13" class="row2">	
+	<input type="button" value="Новая запчасть" onClick="window.location.href='/admin/products/edit'" class="mainoption">		
+	</td>
+</tr>
+<tr>
+	<td colspan="13" class="row2">	
+	Прайс: <select name="price" size="1">
+				<option value="">= Все запчасти =</option>
+					  <?foreach($prices as $row) {
+					   if($row['Price']['id']==$sel_price)
+						 echo "<option value='".$row['Price']['id']."' selected>".$row['Price']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Price']['id']."'>".$row['Price']['name']."</option>";
+						}
+					 	?>
+					  </select><br>
+		Марка: <select name="mark" size="1">
+				<option value="0">= Выберите марку авто =</option>
+					  <?foreach($marks as $row) {
+					   if($row['Mark']['id']==$sel_mark)
+						 echo "<option value='".$row['Mark']['id']."' selected>".$row['Mark']['name']."</option>";
+					   else
+					    echo "<option value='".$row['Mark']['id']."'>".$row['Mark']['name']."</option>";
+						}
+					 	?>
+					  </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Модель: <span id="models"><select name=model size="1"><option value=0>= Выберите модель авто =</option></select></span>
+											 <script>
+                                                                                           var markObj = document.getElementById("spareform").mark;
+markObj.onchange = function() {choose_model(markObj.value, <?=intval($sel_model)?>, $('#models'), document.getElementById('spareform').model);};									  
+ choose_model(markObj.value, <?=intval($sel_model)?>, $('#models'), document.getElementById('spareform').model);    
+											   </script>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Год: <select name=yr>
+		<option value=0>= Выберите год =</option>
+		<? for($i=date("Y");$i>=1975;$i--) :?>
+		<option value="<?=$i?>"  <?=($sel_year==$i ? "selected=selected":"")?>><?=$i?></option>
+		<? endfor;?>
+		</select>
+		<br>
+		Название: <input type="text" name="nm" style="width:250px;" value="<?=$sel_nm?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Ориг.номер: <input type="text" name="num" style="width:100px;" value="<?=$sel_num?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Артикул: <input type="text" name="art" style="width:100px;" value="<?=$sel_art?>"><br>
+		Статус: <select name="status"><option value="">= Выберите статус =</option><option value=1 <?=($sel_status==1?'selected':'')?>>Активные</option><option value=0 <?=($sel_status==='0'?'selected':'')?>>Неактивные</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+               Интересные предложения: <select name="interest"><option value="">= Выберите значение =</option><option value=1 <?=($sel_interest==1?'selected':'')?>>Да</option><option value=0 <?=($sel_interest==='0'?'selected':'')?>>Нет</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Добавлен в период: с <input name="insert_date_from" type="text"  id="insert_date_from" value="<?=$insert_date_from?>" style="width:80px;"><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('insert_date_from', 'mm.y');" class="mainoption"> по <input name="insert_date_to" type="text"   id="insert_date_to" value="<?=$insert_date_to?>" style="width:80px;"><input type="reset" style="width:20px;" value="..." onClick="return showCalendar('insert_date_to', 'mm.y');" class="mainoption">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="submit" value="Поиск" class="mainoption" >		
+	</td>
+	</form>	
+</tr>
+
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+<form method="post" action="/admin/lots">
+<tr><td colspan="13" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del1"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option><option value='2'>Показывать на сайте</option><option value='3'>Не показывать на сайте</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>
+	<?php endif;?>
+	
+	</p>
+	</td></tr>
+<tr class="sectiontableheader"> 
+    <td class="catLeft"><span class="cattitle">&nbsp;</span></td>
+    <td class="cat"><span class="cattitle">Название</span></td>
+	<td class="cat"><span class="cattitle">Марка/модель<br>Годы выпуска</span></td>
+	<td class="cat"><span class="cattitle">Ориг. номер</span></td>
+	<td class="cat"><span class="cattitle">Дополнительно</span></td>
+	<td class="cat"><span class="cattitle">Цена</span></td>
+	<td class="cat"><span class="cattitle">Колич.</span></td>
+	<td class="cat"><span class="cattitle">Фото</span></td>
+	<td class="cat"><span class="cattitle">Показывать?</span></td>
+	<td class="catRight" align="center" valign="middle"><span class="gen">&nbsp;</span></td>
+</tr>
+ 	<?php foreach ($data as $row): ?>
+ 	<tr class=""> 
+ 	    <td class="row2"><span class="gen"><input type="checkbox" onClick="allDelClick(this);" name="chk_del_<?php echo $row['Product']['id'] ?>"></span></td>
+		<td class="row2"><span class="gen"><?php echo $row['Product']['name'] ?></span></td>
+		<td class="row1"><span class="gen"><?php echo $row['Product']['mark_and_model'].'<br>('.$row['Product']['year1'].'-'.$row['Product']['year2'].')'; ?></span></td>		
+		<td class="row2"><span class="gen"><?php echo $row['Product']['number'] ?></span></td>
+		<td class="row1"><span class="gen">Артикул - <?=$row['Product']['articul'].'. '.$row['Product']['description']?><br><?=($row['Product']['bu'] ? 'Б/У' : 'Новая')?><?=($row['Product']['note'] ? '<br>Прим.: '.$row['Product']['note'] : '')?></span></td>
+		<td class="row1"><span class="gen"><?php echo $row['Product']['price'] ?> руб.</span></td>
+		<td class="row1"><span class="gen"><?php echo $row['Product']['quantity'] ?></span></td>
+		<td class="row2" align="center"><span class="gen">
+				<?
+$dir =   $row['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$row['Product']['price_id'];
+ if($row['Product']['price_id']>=100   && file_exists(ROOT.DS.'app'.DS.'webroot'.DS.'files'.DS.'products'.DS.$dir.DS.$row['Product']['articul'].".jpg")) { ?>
+					<a href="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото"><img src='/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg' width=100></a>
+<? } elseif(file_exists(ROOT.DS.'app'.DS.'webroot'.DS.'files'.DS.'products'.DS.'photos'.DS.$row['Product']['articul'].".jpg")) {?> 
+                                       <a href="/files/products/photos/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото"><img src='/files/products/photos/<?=$row['Product']['articul']?>.jpg' width=100></a>
+				<? } ?>&nbsp;
+		<?=(count($row['ProductPicture'])?"<br><a href='/admin/product_pictures/view/".$row['Product']['id']."'>другие фото (".count($row['ProductPicture'])." шт.)</a>":"")?>	
+		</span></td>
+		<td class="row1" align="center"><span class="gen"><?=($row['Product']['active']?"да":"нет")?></span></td>
+		<td class="row2" align="center" valign="middle" width="1%"><span class="gen"><input type="button" value="Редактировать" onClick="window.location.href='/admin/products/edit/<?php echo $row['Product']['id'];?>'" style="width:100px;"> <input type="button" value="<?=($row['Product']['active']?"Не показывать":"Показывать")?>" onClick="window.location.href='/admin/products/active/<?php echo $row['Product']['id'];?>/<?=($row['Product']['active']?"0":"1")?>'" style="width:100px;"> <input type="button" value="Удалить"  style="width:100px;" onClick='confirmDelete("Вы уверены что хотите удалить объект?","/admin/products/delete/<?php echo $row['Product']['id'];?>");'/></span></td>
+	</tr>
+	<?php endforeach; ?>
+	<tr><td colspan="13" class="row2">
+	<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del2"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option><option value='2'>Показывать на сайте</option><option value='3'>Не показывать на сайте</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>  
+	<?php endif;?>	
+	</p>
+	</td></tr>
+	</form>
+<? else: ?>
+ <tr><td colspan="13" class="row1" align="center">по вашему запросу ничего не найдено</td></tr>
+<? endif; ?>
+<? endif; ?>
+</table>

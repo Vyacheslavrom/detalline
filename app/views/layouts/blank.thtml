@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+
+<title><?php echo $title_for_layout?></title>
+<meta name="description" content="<?=($meta_description ? $meta_description : 'Если Вам нужен бампер, фары, авто стекла, радиатор, глушители или другие запчасти новые или Б/У., Вы можете связаться с нашими квалифицированными менеджерами в городе Ростов- на- Дону, любым удобным для Вас способом:
+по тел: 8 (863) 2-48-08-43, +7-905-485-62-22, icq: 476-011-238, e- mail: sm-jmotors@mail.ru. или заказать в нашем интернет магазине.')?>">
+<meta name="keywords" content="<?=($meta_keywords ? $meta_keywords : 'Запчасти на toyota, запчасти на mitsubishi, запчасти на subaru, запчасти на mazda, запчасти на honda, запчасти на японские авто,
+запчасти на volvo, запчасти на audi, запчасти на bmw, запчасти на hyundai, запчасти на ford, запчасти на daewoo, запчасти на mersedes, запчасти на nissan, запчасти на
+opel, запчасти на skoda, запчасти на suzuki, запчасти на saab, запчасти на volkswagen, запчасти на lexus, запчасти на peugeot, запчасти на renault, запчасти 
+на chevrolet, запчасти на land rover, запчасти на kia, запчасти на chery, запчасти на alfa romeo, ')?>">
+<meta name='yandex-verification' content='536fa33fd16581ea' />
+
+<?=$html->css('main')?>
+
+
+<link rel="stylesheet" href="/js/themes/base/jquery.ui.all.css">
+<script src="/js/jquery-1.6.2.js"></script>
+<script src="/js/external/jquery.bgiframe-2.1.2.js"></script>
+<script src="/js/ui/jquery.ui.core.js"></script>
+<script src="/js/ui/jquery.ui.widget.js"></script>
+<script src="/js/ui/jquery.ui.mouse.js"></script>
+<script src="/js/ui/jquery.ui.draggable.js"></script>
+<script src="/js/ui/jquery.ui.position.js"></script>
+<script src="/js/ui/jquery.ui.resizable.js"></script>
+<script src="/js/ui/jquery.ui.dialog.js"></script>
+
+<script src='<?=$html->url('/admin/js/calendar/javascript.js')?>' type='text/javascript'></script>
+<script src='<?=$html->url('/admin/js/calendar/calendar.js')?>' type='text/javascript'></script>
+<script src='<?=$html->url('/admin/js/calendar/lang/calendar-ru.js')?>' type='text/javascript'></script>
+<link rel="stylesheet" type="text/css" media="all" href="<?=$html->url('/admin/js/calendar/calendar.css')?>">
+
+
+<script src='<?=$html->url('/js/smjm.js')?>' type='text/javascript'></script>
+
+</head><body>
+<div class="content">
+<?php echo $content_for_layout;?>
+</div>
+</body></html>

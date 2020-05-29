@@ -1,0 +1,298 @@
+<script>
+function payment_way_selected(pay_id, table_id)
+{
+	if(pay_id == 2)
+		$('#'+table_id).css({"display":"table"});
+	else
+		$('#'+table_id).css({"display":"none"});
+}
+	
+function confirmDelete(ask, url) {
+temp = window.confirm(ask);
+if (temp) //delete
+{
+window.location=url;
+}
+}
+
+function allDelClick(chkbx) {
+var re= new RegExp("^chk_del_","gi");
+if(chkbx.name.match(re)) {
+chkbx.form.chk_del1.checked = true;	 
+chkbx.form.chk_del2.checked = true;
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re) && !chkbx.form.elements[i].checked) {
+chkbx.form.chk_del1.checked = false;	 
+chkbx.form.chk_del2.checked = false;		 
+}
+}
+}
+else {
+for(i=0;i<chkbx.form.elements.length;i++) {
+if(chkbx.form.elements[i].name.match(re)) {
+chkbx.form.elements[i].checked = chkbx.checked ? true : false;	 
+}
+}
+chkbx.form.chk_del1.checked = chkbx.checked ? true : false;	 
+chkbx.form.chk_del2.checked = chkbx.checked ? true : false;	
+}
+}
+
+function hasSelectedRows(form) {
+var re= new RegExp("^chk_del_","gi");
+for(i=0;i<form.elements.length;i++) {
+if(form.elements[i].name.match(re) && form.elements[i].checked) {
+return true;
+}
+}
+return false;
+}
+
+function doAction(act) {
+if(hasSelectedRows(act.form)) {
+switch(act.value) {
+case '1' : 
+if(window.confirm("Вы уверены что хотите удалить выбранные объекты?")) {
+act.form.action = '/admin/orders/delete';
+act.form.submit();
+}		
+else
+act.options[0].selected = true;
+break;
+case '2' : 
+if(window.confirm("Вы уверены что хотите отказать по выбранным объектам?")) {
+act.form.action = '/admin/orders/decline';
+act.form.submit();
+}		
+else
+act.options[0].selected = true;
+break;
+}
+}
+else {
+alert('Не выбрано ни одной записи');
+act.options[0].selected = true;
+}
+return false;
+}
+</script>
+<h1>Склады</h1>
+<?=$tess['decline']?>
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="21">Управление складами</th>
+</tr>
+<tr>
+	<th class="thHead" colspan="21">
+	<form method="get" name="storage">
+	<select name="storage" onchange="document.forms['storage'].submit()">
+		
+		<?php foreach($storage_numbers as $storage_number): ?>
+			<option value="<?=$storage_number['StorageNumber']['storage']?>" <?=$_GET['storage']==$storage_number['StorageNumber']['storage']? 'selected="selected"':''?>> <?=$storage_number['StorageNumber']['name']?> (№ склада<?=$storage_number['StorageNumber']['price_id']?>, статус<?=$storage_number['StorageNumber']['status']?>) </option>
+		<? endforeach; ?>
+	</select>
+	</form>
+	</th>
+</tr>
+<tr>
+	<form method="get" action="/admin/storages/index">
+	<td colspan="13" class="row2">		
+	    Номер заказа: <input name="number" type="text"  value="<?=$_GET['number']?>" style="width:80px;">
+		Номер склада: <input name="price_id" type="text"  value="<?=$_GET['price_id']?>" style="width:80px;">
+		Поиск по номерам<input name="other_number" type="text"  value="<?=$_GET['other_number']?>" style="width:180px;">
+		<input type="submit" value="Поиск" class="mainoption"><br>
+		<select name="storage" onchange="document.forms['storage'].submit()" style="display:none;">
+		
+		<?php foreach($storage_numbers as $storage_number): ?>
+			<option value="<?=$storage_number['StorageNumber']['storage']?>" <?=$_GET['storage']==$storage_number['StorageNumber']['storage']? 'selected="selected"':''?>> <?=$storage_number['StorageNumber']['name']?> </option>
+		<? endforeach; ?>
+	</select>
+		Оплаченные счета за <select name="year"><? for($i=date('Y');$i>=2010; $i--) echo '<option value="'.$i.'">'.$i.'</option>'; ?></select>
+		
+		<input type="submit" name="oplach_scheta" value="Показать" class="mainoption">
+		<br>
+		<a onclick="$('#create-delete').show();" style="cursor:pointer">Добавить/удалить склад</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="$('#color_setting').show();" style="cursor:pointer">Настройка цветов</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="history?all=1">Перемещение </a>
+	</td>
+	</form>	
+</tr>
+<tr id="create-delete" style="display:none">
+<td colspan=5 class="row2">
+<form method=post name=create_storage>
+Название склада:<input type=text name="storage_name"> <input type=submit name="save_storage" value="Сохранить"><br>
+Статус:<br>
+Рез.<input type=radio name="storage_status" value="1">
+Вык.<input type=radio name="storage_status" value="2">
+В пути<input type=radio name="storage_status" value="3">
+Рст.<input type=radio name="storage_status" value="4">
+Выд.<input type=radio name="storage_status" value="5">
+Прин.<input type=radio name="storage_status" value="6">
+<br>Укажите номер склада <input type="text" name="storage_price_id">
+</form>
+</td>
+<td colspan=3 class="row2">
+<form method=post name=delete_storage>
+<select name="storage_id">
+<?php foreach($storage_numbers as $storage_number): ?>
+			<option value="<?=$storage_number['StorageNumber']['id']?>"> <?=$storage_number['StorageNumber']['name']?> </option>
+<? endforeach; ?>
+</select>
+<input type=submit value="Удалить" name="storage_delete">
+</form>
+</td>
+<td colspan=5 class="row2">
+<form method=post name=redact_storage>
+<select name="storage_red_id">
+<option value=''>Выберите склад</option>
+<?php foreach($storage_numbers as $storage_number): ?>
+			<option value="<?=$storage_number['StorageNumber']['id']?>"> <?=$storage_number['StorageNumber']['name']?> </option>
+<? endforeach; ?>
+</select>
+ <input type=submit name="save_red_storage" value="Сохранить"><br>
+Статус:<br>
+Рез.<input type=radio name="storage_status_red" value="1">
+Вык.<input type=radio name="storage_status_red" value="2">
+В пути<input type=radio name="storage_status_red" value="3">
+Рст.<input type=radio name="storage_status_red" value="4">
+Выд.<input type=radio name="storage_status_red" value="5">
+Прин.<input type=radio name="storage_status_red" value="6">
+<br>Укажите номер склада <input type="text" name="storage_price_id_red">
+</form>
+</td>
+</tr>
+<tr id="color_setting" style="display:none">
+<td colspan=13 class="row2">
+<form name="color_price" method="post">
+№ прайса <input type="text" name="color_price_id" id="color_price_id"> и цвет <input type="text" name="storage_color" id="storage_color"> <small>(нужно указать код цвета)</small> <input type="submit" value="Сохранить" name="save_color_storage">
+</form><br>
+<?php foreach($colors as $color){ ?>
+<div style="width:90px;height:35px;background-color:<?=$color['StorageColor']['color']?>;display:inline-block;border: 2px solid black;"> <a onclick="$('#color_price_id').val(<?=$color['StorageColor']['price_id']?>);$('#storage_color').val('<?=$color['StorageColor']['color']?>');" style="cursor:pointer">Прайс№<?=$color['StorageColor']['price_id']?> </a></div>
+<? }?>
+
+</td>
+</tr>
+
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+<form method="post" action="/admin/orders">
+<tr><td colspan="13" class="row2">
+	<!--<p><input type="checkbox" onClick="allDelClick(this);" name="chk_del1"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option><option value='2'>Отказать</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	-->Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>
+	<?php endif;?>
+</form>	
+	</p>
+	</td></tr>
+	<?php $i=0; foreach ($data as $row): ?>
+	<?php 
+		$i++;
+		if($check_this!=0) echo $table1.$table2."<input type='text' name='order_complect_id_".$this_id."' style='display:none;' value='".$storage_product."'></td>".$table3;
+		$check_this=0;
+		$table2='';
+		foreach($storages as $storage){ 
+		foreach ($row['OrderProduct'] as $prod) {
+		if($storage['Storage']['order_product_id']==$prod['id']){
+		if($check_this==$storage['Storage']['complect_number']){
+			$table2.="Запчасть№".$storage['Storage']['id']."<input type='checkbox' checked='checked' name='product_id_".$storage['Storage']['id']."' value='".$storage['Storage']['id']."'><br>";
+			$storage_product.=$storage['Storage']['id'].',';
+		}
+		else{
+		
+		if($check_this!=0) {
+			echo $table1.$table2."<input type='text' name='order_complect_id_".$this_id."' style='display:none;' value='".$storage_product."'></td>".$table3;
+			$table2='';
+		}
+		
+		$storage_color = '';
+		
+		foreach($colors as $color){
+			if($color['StorageColor']['price_id'] == $prod['Price']['id'])
+				$storage_color = $color['StorageColor']['color'];				
+		}
+		
+		
+		$check_this=$storage['Storage']['complect_number'];
+		$this_id=$prod['id'];
+$storage_product=$storage['Storage']['id'].',';	
+$table1="	<form method=\"post\" id=\"formp".$row['Order']['id']."\">
+<table border=1>
+		<tr>
+				<th>№заказа</td>
+				<th>Склад</th>
+				<th>Название<br>Производитель</th>
+				<th>Ориг. номер</th>
+				<th>Марка / модель авто<br>(Годы выпуска)</th>
+				<th>Дополнительно</th>
+				<th>Комплект/Товары</th>
+				<th>Куда</th>
+				<th></th>
+				</tr>
+			<tr style=\"background-color:".$storage_color.";\">
+			<td><input type=text name=id_product_".$prod['id']." id=id_product_".$prod['id']." style=\"display:none\"><input type=text name=id_storage_".$prod['id']." value=\"".$storage['Storage']['id']."\" style=\"display:none\"><input type=text name=id_order_".$prod['id']." value=\"".$row['Order']['id']."\" style=\"display:none\"><input type=text name=id_customer_".$prod['id']." value=\"".$row['Order']['customer_id']."\" style=\"display:none\">".$row['Order']['pre_number']." ".$row['Order']['order_number']."<br><input title=\"Удалить запчасть\" type=button name=del_prod value=\"-\" onclick=\"if(window.confirm('Вы действительно хотите удалить запчасть из заказа?')) window.location.href=window.location.href+'&del_prod=".$prod['id']."'\"></td>
+			<td>
+			
+			<div onmouseover=\"document.getElementById('sklad_".$prod['id']."').style.display='block';\" onmouseout=\"document.getElementById('sklad_".$prod['id']."').style.display='none';\" style=\"cursor:default;\"><u>".($prod['RequestAnswer']['Supplier']['id']? "DSM ".$prod['RequestAnswer']['Supplier']['id']:"")."
+			".($prod['Price']['id']? "SM ".$prod['Price']['id']:"")."</u>&nbsp;&nbsp;</div>		
+			<div id=sklad_".$prod['id']." style=\"padding: 9px; display: none; width: 200px; text-align:left; position: absolute; border:1px solid #000000; background-color:#fefefe; color:#000000; font: 8pt Verdana,Geneva,sans-serif;\">
+			".($prod['RequestAnswer']['Supplier']['id']? $prod['RequestAnswer']['Supplier']['lname']." ".$prod['RequestAnswer']['Supplier']['fname']." ".$prod['RequestAnswer']['Supplier']['otch'].", <br>адрес:".$prod['RequestAnswer']['Supplier']['zipcode']." ".$prod['RequestAnswer']['Supplier']['city'].", ".$prod['RequestAnswer']['Supplier']['address1']." ".$prod['RequestAnswer']['Supplier']['address2'].", 
+<br>м.т.:".$prod['RequestAnswer']['Supplier']['mphone'].", с.т.:".$prod['RequestAnswer']['Supplier']['hphone'].", <br>email:".$prod['RequestAnswer']['Supplier']['email']:"")."
+			".($prod['Price']['id']? $prod['Price']['name']:"")."
+			</div>
+			<br>
+			Номер склада: <input style=\"width:30px;\" type=text name=price_id_".$prod['id']." value=\"".$prod['Price']['id']."\">
+			".($prod['storage'] ? '<br>Склад: '.$prod['storage'] : '' )."
+			".($prod['delivery'] ? '<br>Сроки доставки: '.$prod['delivery'] : '' )."
+			</td>
+			<td>Название:<br><textarea name=name_".$prod['id'].">".$prod['name']."</textarea><br>
+			Производитель:<br><input type=text name=manufacturer_".$prod['id']." value=\"".$prod['manufacturer']."\">
+			</td>
+			<td>
+			Номер:<br><input type=text name=number_".$prod['id']." value=\"".$prod['number']."\"><br>
+			Артикул:<br><input type=text name=articul_".$prod['id']." value=\"".$prod['articul']."\">
+			</td>
+			<td><textarea name=mark_and_model_".$prod['id'].">".$prod['mark_and_model']."</textarea>
+			<br> (<input style=\"width:50px;\" type=text name=year1_".$prod['id']." value=\"".$prod['year1']."\" maxlength=4> -
+			<input style=\"width:50px;\" type=text name=year2_".$prod['id']." value=\"".$prod['year2']."\" maxlength=4>)&nbsp;
+			</td>
+			<td>
+			Описание:<br>
+			<textarea name=description_".$prod['id'].">".$prod['description']."</textarea>
+			<br>Комментарий:<br>
+			<textarea name=comment_".$prod['id'].">".$prod['comment']."</textarea>
+			</td>
+			<td align=\"center\"  width=\"400px\">
+			<input type=\"text\" name=\"complect_number_".$prod['id']."\" style=\"display:none\" value=\"".$storage['Storage']['complect_number']."\">
+			Комплект №".$storage['Storage']['complect_number']."<br>
+			Запчасть№".$storage['Storage']['id']."<input type='checkbox' checked='checked' name='product_id_".$storage['Storage']['id']."' value='".$storage['Storage']['id']."'><br>";
+			//</td>
+			$table3="<td><select name=where_".$prod['id']." >";
+			foreach($storage_numbers as $storage_number):
+				$table3 .= "<option value=\"".$storage_number['StorageNumber']['storage']."\" ".($_GET['storage']==$storage_number['StorageNumber']['storage']? 'selected="selected"':'')."> ".$storage_number['StorageNumber']['name']." </option>";
+			endforeach;
+			$table3 .= "</select></td>
+			<td>
+				<input type=\"submit\" value=\"Сохранить\" name=\"save\" onclick=\"$('#id_product_".$prod['id']."').val(1);\">
+			</td>
+			</tr>";
+			}}}}
+			//if($i==1 && !empty($this_id)) echo $table1.$table2."<input type='text' name='order_complect_id_".$this_id."' style='display:none;' value='".$storage_product."'></td>".$table3;?>
+			</form>
+		<?php endforeach;echo $table1.$table2."<input type='text' name='order_complect_id_".$this_id."' style='display:none;' value='".$storage_product."'></td>".$table3; ?><form method="post" action="/admin/orders">
+	<tr><td colspan="15" class="row2">	
+	<p><!--<input type="checkbox" onClick="allDelClick(this);" name="chk_del2"> Выбрать все&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	С отмеченными: <select onChange='doAction(this)'><option value=''>= Выберите действие =</option><option value='1'>Удалить</option><option value='2'>Отказать</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+	-->Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>  
+	<?php endif;?>
+	</p>
+	</td></tr>
+	</table>
+	</form>
+<? else: ?>
+ <tr><td colspan="15" class="row1" align="center">по вашему запросу ничего не найдено</td></tr>
+<? endif; ?>
+<? endif; ?>
+</table>

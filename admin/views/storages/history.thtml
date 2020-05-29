@@ -1,0 +1,85 @@
+<h1>Перемищение</h1>
+<?=$tess['decline']?>
+<p>&nbsp;<?php $session->flash(); ?></p>
+			 	
+<table width="100%" cellpadding="4" cellspacing="1" border="0" class="forumline" align="center">
+<tr>
+	<th class="thHead" colspan="3">История перемещения</th>
+</tr>
+<tr>	
+	<td colspan="3" class="row2">		
+	    <a href="/admin/storages/ ">К складам</a>
+	</td>
+</tr>
+<tr>
+	<form method="get">
+	<td colspan="3" class="row2">
+		№ запчасти <input type="text" name="id" value="<?=$_GET['id']?>">
+		Наименование <input type="text" name="name" value="<?=$_GET['name']?>">
+		Номер <input type="text" name="number" value="<?=$_GET['number']?>">
+		Артикуль <input type="text" name="articul" value="<?=$_GET['articul']?>">
+	    <input type="submit" value="Поиск" class="mainoption"><a href="history"> Все записи</a>
+	</td>
+	</form>	
+</tr>
+
+
+<? if(isset($storages)) :?>
+<? if(count($storages)) :?>
+<form method="post" action="/admin/orders">
+<tr><td colspan="3" class="row2">
+	Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>
+	<?php endif;?>
+</form>	
+	</p>
+	</td></tr>
+	<tr>
+		<th>
+		 № запчасти
+		</th>
+		<th>
+			Информация о запчасти
+		</th>
+		<th>
+			История перемещения
+		</th>
+	</tr>
+	<?php foreach($storages as $storage): ?>
+	<tr>
+		<td class="row2">
+			<?=$storage['Storage']['id']?>
+		</td>
+		<td class="row2">
+			<b>Наименование:<b> <br><?=$storage['Storage']['name']?><br>
+			<b>Номер:</b><br><?=$storage['Storage']['manuf_number']?><br>
+			<b>Артикуль</b><br><?=$storage['Storage']['articul']?><br>
+		</td>
+		<td class="row2">
+			<?php foreach($historys as $history){
+				if($history['HistoryStorage']['storage_id'] == $storage['Storage']['id'])
+					foreach($storage_nums as $storage_num){
+						$name_price = '';
+						foreach($prices as $price)
+							if($price['Price']['id'] == $storage_num['StorageNumber']['price_id']) $name_price = $price['Price']['name'];
+						if($storage_num['StorageNumber']['storage'] == $history['HistoryStorage']['storage_num']) echo $storage_num['StorageNumber']['name']."(склад №".$storage_num['StorageNumber']['price_id'].", ".$name_price."):<br> ".$history['HistoryStorage']['date']."<br>";
+					}
+			}
+			?>
+		</td>
+	</tr>
+	<? endforeach;?>
+	
+	<tr><td colspan="3" class="row2">	
+	<p>Найдено записей: <?=$paging['count']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1):?>Страница: <?php echo $pagination->prevPage('Пред.');?> <?php echo $pagination->pageNumbers(' ');?> <?php echo $pagination->nextPage('След.');?>  
+	<?php endif;?>
+	</p>
+	</td></tr>
+	</table>
+	</form>
+<? else: ?>
+ <tr><td colspan="3" class="row1" align="center">по вашему запросу ничего не найдено</td></tr>
+<? endif; ?>
+<? endif; ?>
+</table>

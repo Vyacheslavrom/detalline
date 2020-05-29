@@ -1,0 +1,5 @@
+		<option value=0>= Выберите модель авто =</option>
+		<? foreach($data as $row) :?>
+		<option value="<?=$row["Model"]["id"]?>" <?=($_GET["sel"]==$row["Model"]["id"] ? "selected=selected":"")?>><?=$row["Model"]["name"]?></option>
+		<? endforeach;?>	
+

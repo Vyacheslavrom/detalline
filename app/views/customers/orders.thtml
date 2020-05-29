@@ -1,0 +1,317 @@
+<?php 
+ini_set('display_errors',1);
+error_reporting('E_ALL');
+?>
+<h1>Ваши заказы</h1>
+ <? $session->flash()?> 
+<p> 
+<table>
+<tr>
+<td><a href="?status=0" style="cursor: pointer;">Все заказы</a></td><td> <a style="cursor: pointer;" id="filt_sos">По состоянию \/</a></td><td> <a href="?decline=1" style="cursor: pointer;">Отказанные</a></td><td> <a href="?archive=1" style="cursor: pointer;">Архив</a></td>
+</tr>
+<tr id="status" style="display:none">
+<td colspan="4">
+<? if(isset($statuses)) :?>
+<? if(count($statuses)) :?>
+<?php foreach($statuses as $status) :?>
+<? if($status['Status']['id']!=7) :?>
+<a href="?status=<?=$status['Status']['id']?>"><?=$status['Status']['name']?></a> 
+<? endif ?>
+<? endforeach; ?>
+<? endif ?>
+<? endif ?>
+</td>
+</tr>
+</table>
+<p>   
+<font color=red><strong>ДВИЖЕНИЕ ТОВАРА НАЧИНАЕТСЯ ТОЛЬКО ПОСЛЕ ОПЛАТЫ.</strong></font>
+<p>
+!Оплата за доставку осуществляется наличными в кассу магазина или при получении товара водителю. 
+<p>
+<?php 
+if(!empty($_REQUEST["InvId"]))
+	if(!empty($_REQUEST["SignatureValue"])){
+?>
+<font color=green> Оплата прошла успешно.</font>
+<p>
+<? }else{?>
+<font color=red>Вы отказались от оплаты.</font>
+<p>
+<? }?>
+Пояснение цветам:
+<table border=1><tr align="center">
+<td style="width:110px;">Заказан</td>
+<td style="width:110px; background-color:gray">Резевр</td>
+<td style="width:110px; background-color:green">Выкуплено</td>
+<td style="width:110px; background-color:lightblue">В пути</td>
+<td style="width:110px; background-color:gold">В ростове</td>
+<td style="width:110px; background-color:yellow">Выдано</td>
+<td style="width:110px; background-color:#008B8B">Частично отказано/ожидается</td>
+<td style="width:110px; background-color:pink">Отказ</td>
+</tr></table>
+<p>
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+
+ 	<?php foreach ($data as $row): ?>
+
+<?php
+$sost_zak=1;
+foreach ($row['OrderProduct'] as $prods) {
+if($prods['status1']>0) $sost_zak=2;
+if($prods['status2']>0) $sost_zak=3;
+if($prods['status3']>0) $sost_zak=4;
+if($prods['status4']>0) $sost_zak=5;
+if($prods['status5']>0) $sost_zak=6;
+if($prods['status6']>0) $sost_zak=7;
+if($prods['decline']>0) $sost_zak=8;
+}
+?>
+
+<div style=" position:absolute; left:150px; width:450px; height:400px; border:5px solid black; background:#FFFAFA; display:none;" id="info_<?=$row['Order']['id']?>">
+<input type="button" value="Закрыть" onclick="infoshowhide('info_<?=$row['Order']['id']?>');" style="position:absolute;right:1px;"><center><h2>Информация о заказе</h2></center>
+<div style="position: absolute; right:7px; width:200px; height:45px;<?php foreach ($row['OrderProduct'] as $prod) { ?><?=$sost_zak==8 ? 'background-color:pink;' : ''?><?=$sost_zak==6 ? 'background-color:yellow;' : ''?><?=$sost_zak==5 ? 'background-color:gold;' : ''?><?=$sost_zak==4 ? 'background-color:lightblue;' : ''?><?=$sost_zak==3 ? 'background-color:green;' : ''?><?=$sost_zak==2 ? 'background-color:gray;' : ''?><?}?>">
+<center><b style="font-size:20px">состояние заказа</b><br>
+
+<?php if($sost_zak!=8){foreach($statuses as $status) {
+	if($status['Status']['id']==$sost_zak) {?><b><?=$status['Status']['name']?></b>
+	<?}}}else{?><b>Отказ</b><?}?>
+</center>
+</div>
+<table width="225px" style="position:absolute;left:5px" border="1">
+<tr><td colspan=2 align="center"><b>Общая информация</b></td></tr>
+<tr>
+	<td align="right">id:</td>
+	<td><?=$row['Order']['id']?></td>
+</tr>
+<tr>
+	<td align="right">Изменен:</td>
+	<td><?=$row['Order']['modified']?></td>
+</tr>
+<tr>
+	<td colspan="2" align="center"><b>Информация о товарах</b></td>
+</tr>
+<?php 
+$i=0;$height=450;
+foreach($row['OrderProduct'] as $product) :
+$i++;
+echo "<script> $('#info_".$row['Order']['id']."').css('height','".$height."px');</script>";
+$height+=252;
+?>
+<tr><td colspan=2></td><tr>
+<tr>
+	<td align="right"><b>Товара №</b></td>
+	<td><b><?=$i?></b></td>
+</tr>
+<tr>
+	<td align="right">Номер:</td>
+	<td><?=$product['number']?></td>
+</tr>
+<tr>
+<tr>
+	<td align="right">Марка и модель:</td>
+	<td><?=$product['mark_and_model']?></td>
+</tr>
+	<td align="right">Производитель:</td>
+	<td><?=$product['manufacturer']?></td>
+</tr>
+<tr>
+	<td align="right">Артикуль:</td>
+	<td><?=$product['articul']?></td>
+</tr>
+<tr>
+	<td align="right">Название:</td>
+	<td><?=$product['name']?></td>
+</tr>
+<tr>
+	<td align="right">Года:</td>
+	<td><?=$product['year1']?>-<?=$product['year2']?></td>
+</tr>
+<tr>
+	<td align="right">Цена:</td>
+	<td><?=$product['price']?></td>
+</tr>
+<tr>
+	<td align="right">Колличество:</td>
+	<td><?=$product['count']?></td>
+</tr>
+<?php endforeach; ?>
+</table>
+</div>
+<?php if(!isset($_GET['archive'])){?>
+<form action='https://merchant.roboxchange.com/Index.aspx' method=POST>
+<input type="button" value="Информация" id="<?=$row['Order']['id']?>" onclick="infoshowhide('info_'+this.id)">
+<input type="button" value="Задать вопрос" onclick="openWindow('/reverse.html?order=<?=$row['Order']['order_number']?>&order_id=<?=$row['Order']['id']?>&name=<?=$row['Order']['fname']?> <?=$row['Order']['lname']?>&phone=<?=$row['Order']['mphone']?>',630,600)">
+
+<?php // if($row['Payment']['id'] != 1):
+
+$month = date("m");
+//if($month==02):                      <form action='https://merchant.roboxchange.com/Index.aspx' method=POST>
+$mrh_login = "Detalline";
+$mrh_pass1 = "fqnL4l96Ymf0RvtcT1mD";
+$inv_id = 0;//$row['Order']['id']."9090";
+$inv_desc = "заказ № ".$row['Order']['pre_number'].$row['Order']['order_number'];
+$IsTest = 1;
+//$out_summ = "8.96";
+//$shp_item = "2";
+//$in_curr = "";
+//$culture = "ru";
+//endif;
+
+?> 
+
+
+
+<? //endif;?>
+<?php if($row['Order']['decline']==1 || $sost_zak==7){$sost_zak=6; ?><input type="button" value="В архив" onclick="window.location='?archivesave=<?=$row['Order']['id']?>'">
+<?}}?>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%">
+			<TR>
+			<TD class="txt" COLSPAN=14><b>Заказ №  <?php echo $row['Order']['order_number'] ? $row['Order']['pre_number'].$row['Order']['order_number'] : $row['Order']['id']; ?>.</b><br>
+	Дата и время заказа: <b><?=date("d.m.Y H:i",strtotime($row['Order']['created']))?></b><br>
+	Состояние заказа: <b>
+	<?php foreach($statuses as $status) {
+	if($status['Status']['id']==$sost_zak) {?><?=$status['Status']['name']?>
+	<?}}?>
+	<?php //echo $row['Status']['name'] ?><?//=($row['Status']['id']==1 ? "" : " (".date("d.m.Y H:i",strtotime($row['Order']['stage_date'])).")")?>
+	</b>
+			</TD></TR>
+			<? if($row['Order']['decline']):?>
+				<TR><TD COLSPAN=13 ALIGN="LEFT" class="txt"><B><font color=red>Запчастей по данному заказу нет в наличиию. Отказано в поставке запчастей!</font></B></TD>
+				</TR>
+				<? endif;?>
+			<TR class="th">
+				<TH class="txt">#</TH>
+				<TH class="txt">Название</TH><th CLASS="txt">Марка / модель авто<br>(Годы выпуска)</th><th CLASS="txt">Номер</th>
+				<th CLASS="txt">Дополнительно</th><TH class="txt">Зак.</TH><th CLASS="txt">Рез.</th><th CLASS="txt">Вык.</th>
+				<th CLASS="txt">В пути</th><th CLASS="txt">Рст.</th><th CLASS="txt">Выд.</th>
+				<TH class="txt" TITLE="">Цена, руб.</TH>
+				<TH class="txt" TITLE="">Сумма, руб.</TH>
+				</TR>
+				<?php 
+				$number = 0;
+				$sum = 0;
+				$sum_pay = 0;
+				 $main_col = 'count';
+                foreach ($row['OrderProduct'] as $prod) { 
+                      if($prod['status1']>0)
+                             $main_col = 'status1';
+                }
+                $schet = $main_col != 'count' ? true : false;
+		foreach ($row['OrderProduct'] as $prod) { 
+		
+		?>
+				<TR align="center" <?=$prod['decline'] ? 'style="background-color:pink;"' : ''?><?=$prod['status5'] ? $prod['status5']!=$prod['count']? 'style="background-color:#008B8B;"' : 'style="background-color:yellow;"' : ''?><?=$prod['status4'] ? $prod['status4']!=$prod['count']? 'style="background-color:#008B8B;"' : 'style="background-color:gold;"' : ''?><?=$prod['status3'] ? $prod['status3']!=$prod['count']? 'style="background-color:#008B8B;"' : 'style="background-color:lightblue;"' : ''?><?=$prod['status2'] ? $prod['status2']!=$prod['count']? 'style="background-color:#008B8B;"' : 'style="background-color:green;"' : ''?><?=$prod['status1'] ? $prod['status1']!=$prod['count']? 'style="background-color:#008B8B;"' : 'style="background-color:gray;"' : ''?>>
+			<TD class="txt"><?=(++$number)?></TD>
+			<TD class="txt"><strong><?=$prod['name']?></strong>
+			<?=($prod['delivery'] ? 'Срок поставки: '.$prod['delivery'].' дня' : '')?>
+			<?=$prod['decline'] ? '<br><span style="color:red;font-weight:bold;">Отказ</span>' : ''?>
+			</TD>
+			<td CLASS="txt"><?=($prod['mark_and_model'] ? $prod['mark_and_model'].'<br>('.$prod['year1'].'-'.$prod['year2'].')' : '')?>&nbsp;</td>
+			<td CLASS="txt"><?=$prod['number']?>&nbsp;</td>
+			<td CLASS="txt"><?=($prod['manufacturer'] ? 'Производитель - '.$prod['manufacturer'].'. ':'')?><?=($prod['articul'] ? 'Артикул - '.$prod['articul'].'. ':'')?><?=$prod['description']?>&nbsp;</td>
+			<TD CLASS="txt"><?=$prod['count']?></TD>
+			<td CLASS="txt"><?=$prod['status1']?>
+			<?php if($prod['status1']!=0){?><?=$prod['delayed1']>0? '<br>Ожид.<br>'.$prod['delayed1'] : ''?><?=($prod['count']-$prod['status1']-$prod['delayed1'])!=0? '<br>Отказ<br>'.($prod['count']-$prod['status1']-$prod['delayed1']):''?><?}?>
+			</td>
+			<td CLASS="txt"><?=$prod['status2']?>
+			<?php if($prod['status2']!=0){?><?=$prod['delayed1']>0? '<br>Ожид.<br>'.$prod['delayed2'] : ''?><?=($prod['count']-$prod['status2']-$prod['delayed2'])!=0? '<br>Отказ<br>'.($prod['count']-$prod['status2']-$prod['delayed2']):''?><?}?>
+			</td>
+			<td CLASS="txt"><?=$prod['status3']?>
+			<?php if($prod['status3']!=0){?><?=$prod['delayed1']>0? '<br>Ожид.<br>'.$prod['delayed3'] : ''?><?=($prod['count']-$prod['status3']-$prod['delayed3'])!=0? '<br>Отказ<br>'.($prod['count']-$prod['status3']-$prod['delayed3']):''?><?}?>
+			</td>
+			<td CLASS="txt"><?=$prod['status4']?>
+			<?php if($prod['status4']!=0){?><?=$prod['delayed1']>0? '<br>Ожид.<br>'.$prod['delayed4'] : ''?><?=($prod['count']-$prod['status4']-$prod['delayed4'])!=0? '<br>Отказ<br>'.($prod['count']-$prod['status4']-$prod['delayed4']):''?><?}?>
+			</td>
+			<td CLASS="txt"><?=$prod['status5']?>
+			<?php if($prod['status5']!=0){?><?=$prod['delayed1']>0? '<br>Ожид.<br>'.$prod['delayed5'] : ''?><?=($prod['count']-$prod['status5']-$prod['delayed5'])!=0? '<br>Отказ<br>'.($prod['count']-$prod['status5']-$prod['delayed5']):''?><?}?>
+			</td>
+			<TD ALIGN="RIGHT" class="txt"><?=number_format($prod['price'],2,'.',',')?></TD>
+			<TD ALIGN="RIGHT" class="txt"><?
+			$main_count = $prod[$main_col];
+			$sum += $prod['price']*$main_count;
+			if($prod['decline']!=1)
+				$sum_pay +=$prod['price']*$main_count;
+			
+			echo number_format($prod['price']*$main_count,2,'.',','); ?></TD>
+			</TR><? } ?>
+			<TR><TD COLSPAN=12 ALIGN="RIGHT" class="txt"><B>Всего:</B></TD>
+				<TD ALIGN="RIGHT" class="txt"><B><?php echo number_format($sum,2,'.',',') ?></B></TD>
+				</TR>
+				<TR><TD COLSPAN=12 ALIGN="RIGHT" class="txt"><B>Скидка:</B></TD>
+				<TD ALIGN="RIGHT" class="txt"><B><?php echo number_format($sum*($row['Order']['skidka']/100),2,'.',',') ?></B></TD>
+				</TR>
+				<TR><TD COLSPAN=12 ALIGN="RIGHT" class="txt"><B>Итого:</B></TD>
+				<TD ALIGN="RIGHT" class="txt"><B><?php echo number_format($sum*(1+$row['Order']['skidka']/100),2,'.',',') ?></B></TD>
+				</TR>
+				<? if($schet && !$row['Order']['decline']):?>
+				<TR><TD COLSPAN=4 ALIGN="LEFT" class="txt"><B><a href="/schet.html?id=<?php echo $row['Order']['id'] ?>" target=_blank>Распечатать счет/квитанцию на оплату</a></B></TD>
+				<td colspan=9 align=right>
+				<? if($row['Order']['payment_id']==3):?>&nbsp;<a style="color:grey;" href="/schet.html?id=<?php echo $row['Order']['id'] ?>&check"  target=_blank>Товарный чек</a><? endif;?>
+				</td>
+				</TR>
+				<TR><TD COLSPAN=13 ALIGN="center" class="txt">
+				<? if(!$row['Order']['paid']) :?>
+				<input type=button value="я оплатил данный заказ" onclick="window.location.href='/customers/paid/<?=$row['Order']['id']?>'">
+				<? else:?>
+				Подтверждение об оплате отправлено администраторам
+				<? endif;?>
+				</TD></TR>
+				<? else:?>
+				<? if($row['Order']['decline']!=1):?>
+				<TR><TD COLSPAN=13 ALIGN="center" class="txt">
+				
+				
+<?php 
+// <input type="submit" value="Онлаин платеж" style="  border: 1px solid red; background-color: yellow; color:red;">
+//if($month==02):
+$mrh_login = "Detallineru";
+$mrh_pass1 = "WSq7TV8Czb58FeJHV3jn";
+$inv_id = 0;//$row['Order']['id']."9090";
+$inv_desc = "заказ № ".$row['Order']['pre_number'].$row['Order']['order_number'];
+$IsTest = 1;
+$sum_pay = $sum*(1+$row['Order']['skidka']/100);
+//$sum_pay = number_format($sum*(1+$row['Order']['skidka']/100),2,'.',',');
+$crc = md5("$mrh_login:$sum_pay:$inv_id:$mrh_pass1");
+$formurl = "https://auth.robokassa.ru/Merchant/Index.aspx?MrchLogin=$mrh_login&".
+    "OutSum=$sum_pay&InvId=$inv_id&Desc=$inv_desc&SignatureValue=$crc&IsTest=$IsTest";
+//echo '<action="' . $formurl . '" method=GET>';
+//echo '<input type="hidden" name="page" value="' . $formurl . '">';
+//echo '<a href="' . $formurl . '">Payment link</a>';
+if($row['Order']['payment_id'] == 7){
+echo '<br>';
+echo '<a style="background-color: yellow; color: red; padding: 3px; border-top;border-width:thin;border-style:dotted ;" href="' . $formurl . '">Онлаин платеж</a>'; 
+echo '<p></p>';
+}
+?>				
+				
+				
+				</TD></TR>
+				<? endif;?>
+				<? endif;?>
+				<TR><TD COLSPAN=13 ALIGN="LEFT" class="txt">
+				<p>Способ оплаты: <b><?php echo $row['Payment']['name'] ?></b><br>
+				Способ доставки: <b><?php echo $row['Delivery']['name'].' - '.$row['Delivery']['description']; ?></b>
+		<p><small>Адрес доставки: <?php echo $row['Region']['name'] ?>, <?php echo $row['Order']['zipcode'] ?> <?php if(is_numeric($row['Order']['city'])==false) echo $row['Order']['city']; else foreach($city_names as $city_name){if($city_name['City']['id']==$row['Order']['city']) echo $city_name['City']['name'];}?>, <?php echo $row['Order']['address1'] ?> <?php echo $row['Order']['address2'] ?>
+		, тел.: <?php echo $row['Order']['mphone'] ?> <?php echo $row['Order']['hphone'] ?>, <?php echo $row['Order']['lname'] ?> 
+		<?php echo $row['Order']['fname'] ?> <?php echo $row['Order']['otch'] ?><br>Комментарий к заказу: <?php echo $row['Order']['comment'] ?></small></TD>
+				</TR>
+				</TABLE><br>
+
+</form>
+	<?php //endif;
+	endforeach; ?>	
+
+	<? else: ?>
+НЕТ ЗАКАЗОВ
+<? endif; ?>
+<? endif; ?>
+<script>
+$('#filt_sos').click(function(){
+$('#status').css('display')=='none'? $('#filt_sos').html('По состоянию -') : $('#filt_sos').html('По состоянию \\/');
+$('#status').css('display')=='none'? $('#status').show():$('#status').hide();
+});
+function infoshowhide(id){
+$('#'+id).css('display')=='none'? $('#'+id).show():$('#'+id).hide();
+}
+</script>

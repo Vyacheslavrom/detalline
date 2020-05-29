@@ -1,0 +1,27 @@
+<h1>Контакты</h1>
+<table>
+<!--<div style="float:left;">
+<p>
+<strong>Адрес местонахождения:</strong><br>Россия<br>г. Ростов-на-Дону, ул.Некрасовская 75
+<p>
+<strong>Отдел продаж:</strong><br>
+тел.: 8-904-503-07-07, 8-863-260-17-29<br>
+email: <a href="mailto:support@detalline.ru">support@detalline.ru</a>
+<p>
+<strong>Cлужба тех. поддержки:</strong><br>
+email: <a href="mailto:support@detalline.ru">support@detalline.ru</a>
+</div>
+<div style="float:right">
+<p>
+<strong>Схема проезда:</strong><br>
+<img src="/images/nekr.jpg" width="600" height="500"></div>
+<div class=clear></div>
+-->
+<?php
+$res1 = mysql_query('SELECT * FROM contact');
+$row1 = mysql_fetch_assoc($res1);
+//    print_r($row1);
+	echo $row1['kont'];
+?>	
+</table>
+

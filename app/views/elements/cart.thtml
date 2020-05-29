@@ -1,0 +1,32 @@
+<?if(count(@$_SESSION['cart']) || count(@$_SESSION['cart_from_request']) || count(@$_SESSION['cart_from_search_by_num']) ||  count(@$_SESSION['cart_from_avtoto'])) {
+	$cart_sum = 0;
+		$cart_count = 0;
+		$cart = @$_SESSION['cart'] ? $_SESSION['cart'] : array();
+		foreach($cart as $id=>$prod) {
+				$product = $this->controller->Product->find('Product.id='.Sanitize::paranoid($id));
+				$cart_sum+=$product['Product']['price']*$prod['count']*(1+intval($this->controller->othAuth->user("skidka"))/100);
+				$cart_count+=$prod['count'];
+		}
+        $cart_from_request = @$_SESSION['cart_from_request'] ? $_SESSION['cart_from_request'] : array();
+		foreach($cart_from_request as $id=>$answer_data) {
+				$answer = $this->controller->RequestAnswer->find('RequestAnswer.id='.Sanitize::paranoid($id));
+				$cart_sum+=$answer['RequestAnswer']['itog_price']*$answer_data['count'];
+				$cart_count+=$answer_data['count'];
+		}
+		$cart_from_search_by_num = @$_SESSION['cart_from_search_by_num'] ? $_SESSION['cart_from_search_by_num'] : array();
+		foreach($cart_from_search_by_num as $id=>$prod) {
+				$product = mysql_fetch_array(mysql_query("select * from nproducts where id='".$id."'"));
+				$cart_sum+=$product['price']*$prod['count']*(1+intval($this->controller->othAuth->user("skidka"))/100);
+				$cart_count+=$prod['count'];
+		}
+		$cart_from_avtoto = @$_SESSION['cart_from_avtoto'] ? $_SESSION['cart_from_avtoto'] : array();
+		foreach($cart_from_avtoto as $id=>$prod) {
+				$cart_sum+=$prod['price']*$prod['count']*(1+intval($this->controller->othAuth->user("skidka"))/100);
+				$cart_count+=$prod['count'];
+		}
+		?>
+<li class="b-bar__item light">
+	<span class="b-bar__icon b-bar__icon_cart"></span>
+		<a class="b-bar__link b-bar__link_underline b-bar__link_margtop_11 b-bar__link_float_left" href="/cart.html" title="Корзина покупок">В корзине товаров <?=count(@$_SESSION['cart'])+count(@$_SESSION['cart_from_request'])+count(@$_SESSION['cart_from_search_by_num'])+count(@$_SESSION['cart_from_avtoto'])?> на сумму <?=number_format($cart_sum,2,'.',' ');?> руб.</a>
+</li> 
+<? } ?>

@@ -1,0 +1,74 @@
+#page-wrap                      { width: 500px; margin: 30px auto; position: relative; }
+
+#chat-wrap                      { border: 1px solid #eee; margin: 0 0 10px 0; }
+#chat-area                      { height: 200px; overflow: scroll; border: 1px solid #777; padding: 5px; background-color: #DDD; }
+#chat-area span                 { color: white; background: green; padding: 4px 8px; -moz-border-radius: 5px; -webkit-border-radius: 8px; margin: 0 5px 0 0; }
+#chat-area p                    { padding: 8px 0; border-bottom: 1px solid #ccc; }
+
+#send-message-area p            { float: left; font-size: 14px; }
+#sendie                         { width: 375px; height: 200px; padding: 10px;  }
+
+#fields_requests li label {width:170px;display:block;}
+#fields_requests input {border:solid 1px #aaa;}
+
+
+#chat {
+  height: 200px; width: 375px; 
+}
+
+#chat p {
+  padding: 0; 
+  margin: 0 0 0 0;
+}
+
+#chat p.info {
+  font-weight: bold;
+  color: #007;
+}
+
+#chat p span.time {
+  font-weight: bold;
+}
+
+#chat p span.operator {
+  font-weight: bold;
+  color: #007;
+}
+
+#chat p span.customer {
+  font-weight: bold;
+  color: #070;
+}
+
+#chat p span.service {
+  font-weight: bold;
+  color: #D55;
+}
+
+#chat p span.action {
+  font-weight: bold;
+  color: #66cc22 !important;
+}
+
+#chat p span.alert {
+  font-weight:bold !important;
+  color: #ff2222 !important;	
+}
+
+#chat p span.internal {
+	color: #0077ff !important;
+}
+
+#chat p.error {
+  font-weight: bold;
+  color: #D00;
+}
+
+#chat p span.text {
+  color: black;
+  font-weight: normal;
+}
+
+#chat p span.text.service {
+  color: #AAA;
+}

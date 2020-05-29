@@ -1,0 +1,10 @@
+<div class="b-carusel b-carusel_width_full" style="top:376px;">
+				<div id="mycarousel" class="jcarousel-skin-tango">
+					<ul>
+					<!-- The content will be dynamically loaded in here -->
+					</ul>		
+			  </div>
+			  <!--<span class="b-carusel__add"><a class="b-carusel__link" href="#">
+				  Интересные предложения
+				</a></span>-->
+			</div> 

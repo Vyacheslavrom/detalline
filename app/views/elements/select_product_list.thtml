@@ -1,0 +1,64 @@
+<div>Найдено результатов: <?=$paging['count']?></div>
+
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+
+<ul class=spisok>
+<? foreach($products as $i=>$row):?> 
+	<li class=shop-item>
+		<ul>
+			<li class="imag">
+				<?
+$dir =   $row['Product']['price_id'] < 100 ? 'photos' : 'photos_'.$row['Product']['price_id'];
+ if($row['Product']['price_id']>=100   && file_exists("files/products/".$dir."/".$row['Product']['articul'].".jpg")) { ?>
+					<a href="/files/products/<?=$dir?>/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото"><img src="/images/camera.gif" width=20 height=20 alt="Фото"></a>
+<? } elseif(file_exists("files/products/photos/".$row['Product']['articul'].".jpg")) {?> 
+                                       <a href="/files/products/photos/<?=$row['Product']['articul']?>.jpg" target=_blank title="Фото"><img src="/images/camera.gif" width=20 height=20 alt="Фото"></a>
+				<? } ?>
+			</li>
+			<li><h2><?=$row['Product']['name']?></h2>
+ 
+<table>
+	<tr>
+		<th class="t01" title="Марка и модель автомобиля, на который устанавливается данная деталь">Марка/модель<br>авто:</th>
+		<th class="t02">Оригинал.<br>номер: </th>
+		<th class="t03" title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)">Года<br>выпуска: </th>
+		<th class="t04" title="Указан средний и гарантированный срок поставки запасти">Доставка:</th>
+		<th class="t05">Цена:</th>
+		<td class="t06" rowspan=2 >
+		<? if(isset($_GET['prod_edit'])) { ?>
+		<input type=button value="выбрать" onclick="if(document.getElementById('sparepartsform').model.selectedIndex>0) select_prod_for_prod_edit(document.getElementById('sparepartsform').mark.options[document.getElementById('sparepartsform').mark.selectedIndex].text+' '+document.getElementById('sparepartsform').model.options[document.getElementById('sparepartsform').model.selectedIndex].text, '<?=$row['Product']['name']?>', '<?=$row['Product']['number']?>', '<?=$row['Product']['year1']?>','<?=$row['Product']['year2']?>','<?=$row['Product']['price']?>', '<?=$row['Product']['articul']?>', '<?=$row['Product']['description']?>',<?=$row['Product']['bu']?>); else alert('Необходимо выбрать модель из выпадающего списка!');">
+		<? } else if($row['Product']['quantity']) { ?>
+		<input type=button value="выбрать" onclick="select_prod('<?=$row['Product']['name']?>', '<?=$row['Product']['number']?>', '<?=$row['Product']['price']?>', 'Описание: <?=($row['Product']['bu'] ? 'Б/У. ':'')?><?=($row['Product']['articul'] ? 'Артикул - '.$row['Product']['articul'].'.':'')?> <?=$row['Product']['description']?>','<?=$row['Product']['shipping_info']?>',<?=$row['Product']['bu']?>,<?=$row['Product']['price_id']?>,1)">
+		<br>
+		<div class="zakaz" style="display:none;">
+		<FORM METHOD="GET" ACTION="/cart.html" class="form-cart">
+			<input name="add" value="<?=$row['Product']['id']?>" type="hidden">
+			<a class="button grey" href="/cart.html" onclick="select_prod('<?=$row['Product']['name']?>', '<?=$row['Product']['number']?>', '<?=$row['Product']['price']?>', 'Описание: <?=($row['Product']['bu'] ? 'Б/У. ':'')?><?=($row['Product']['articul'] ? 'Артикул - '.$row['Product']['articul'].'.':'')?> <?=$row['Product']['description']?>','<?=$row['Product']['shipping_info']?>',<?=$row['Product']['bu']?>,<?=$row['Product']['price_id']?>,'');$(this).parent('.form-cart').submit(); return false;">в корзину</a>
+		</FORM>
+		</div>
+		<script>if('<?=$_GET['z']?>'!='') $('.zakaz').show(); </script>
+<? } else { ?>
+нет в наличии
+<? } ?>
+</td>
+	</tr>
+	<tr>
+		<td title="Марка и модель автомобиля, на который устанавливается данная деталь"><?=$row['Product']['mark_and_model']?></td>
+		<td><?=$row['Product']['number']?></td>
+		<td title="Указано с какого по какой год запчасть устанавливалась на авто (год выпуска авто)"><?=$row['Product']['year1']?>-<?=($row['Product']['year2']=='3000' ? ''  : $row['Product']['year2']) ?></td>
+		<td title="Указан средний и гарантированный срок поставки запасти"><?=$row['Product']['shipping_info']?></td>
+		<td class="t05"><?=$row['Product']['price']?> руб.</td>
+	</tr>
+</table>
+<em>Описание: <?=($row['Product']['bu'] ? 'Б/У. ':'')?><?=($row['Product']['articul'] ? 'Артикул - '.$row['Product']['articul'].'.':'')?> <?=$row['Product']['description']?> <span class=sm>(SM<?=$row['Product']['price_id']?>)</span></em>
+</li>
+		</ul>
+	</li>
+	<?endforeach;?>
+</ul>
+
+		
+<?php if($pagination->setPaging($paging) && $pagination->_pageDetails['pageCount']>1)	{
+echo '<div class="numberlink">Страницы: '.$pagination->myPageNumbers().'</div>';} ?>
+

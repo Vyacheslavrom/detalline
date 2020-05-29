@@ -1,0 +1,66 @@
+<? if(isset($data)) :?>
+<? if(count($data)) :?>
+
+ 	<?php foreach ($data as $row): ?>
+<h1>Запрос №  <?php echo $row['Request']['id'] ?></h1>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%">
+	<tr><td>Дата и время запроса: </td><td><b><?=date("d.m.Y H:i",strtotime($row['Request']['created']))?></b>
+			</TD></tr>
+<tr><td>Автомобиль: </td><td><b><?=$row['Mark']['name']?> <?=$row['Model']['name']?> <?=$row['Request']['year']?></b>, объем двигателя - <b><?=$row['EngineVolume']['name']?></b>, тип  - 
+
+<b><?=$row['EngineType']['name']?></b>, мощность - <b><?=$row['Request']['engine_power']?> л.с.</b>, привод - <b><?=$row['WheelDrive']['name']?></b>, тип кузова  - 
+
+<b><?=$row['BodyType']['name']?></b>, КПП  - <b><?=$row['Transmission']['name']?></b>, комплектация - <b><?=$row['Request']['complete_set']?></b>
+			</TD></tr>
+<tr><td>Двигатель: </td><td><b><?=$row['Request']['engine_code']?></b></TD></tr>
+<tr><td>Кузов: </td><td><b><?=$row['Request']['body_code']?></b></TD></tr>
+<tr><td>VIN/FRAME: </td><td><b><?=$row['Request']['vin_frame']?></b></TD></tr>
+<tr><td>Рынок: </td><td><b><?=$row['Market']['name']?></b>
+			</TD></tr>
+<tr><td>Примечание: </td><td><b><?=$row['Request']['comments']?></b>
+			</TD></tr>
+</table>
+<form method=post>
+<h1>Ответ на запрос №  <?php echo $row['Request']['id'] ?></h1>
+ <? $session->flash()?>   
+<?=@$errors['no_answers']?>
+<TABLE CELLSPACING=0 BORDER=1 WIDTH="100%">
+<? 
+$i=0;
+$sroki_dostavki = array('в наличии','1 день','1-2 дня','2-3 дня','3-5 дней', '5-7 дней','7-10 дней','10-12 дней','12-15 дней','15-20 дней','20-30 дней','30-45 дней','более 45 суток');
+$sost_arr = array('новый(ая) оригинал', 'новый(ая) неоригинал', 'Б/У оригинал',  'Б/У идеал',  'Б/У с дефектом',  'Б/У неоригинал',  'восстановленный(ая)'); 
+foreach($row['RequestPart'] as $part): ?>
+<tr><td valign=top><textarea style="font-weight:bold" readonly=true><?=$part['name']?></textarea><br>Ориг номер:<br><?=$part['number']?></td><td>
+<table>
+<? for($i=1;$i<=3;$i++) {?>
+
+<tr><td>Цена, руб<sup style="color:red">*</sup><br>
+<input type=text style="width:80px;" name="data[RequestAnswer][<?=$part['id']?>][<?=$i?>][start_price]" value="<?=$this->params['data']['RequestAnswer'][$part['id']][$i][start_price]?>"><?=@$errors[$part['id']][$i][start_price]?>
+</td><td>Наличие/заказ<sup style="color:red">*</sup><br>
+<select name="data[RequestAnswer][<?=$part['id']?>][<?=$i?>][delivery_term]"><option value="">-</option>
+<? foreach($sroki_dostavki as $srok) 
+	echo '<option value="'.$srok.'" '.($this->params['data']['RequestAnswer'][$part['id']][$i][delivery_term]==$srok ? 'selected=selected':'').'>'.$srok.'</option>';
+?>
+</select><?=@$errors[$part['id']][$i][delivery_term]?>
+</td><td>Состояние<sup style="color:red">*</sup> <b>(<?=$part['PartState']['name']?>)</b><br>
+<select name="data[RequestAnswer][<?=$part['id']?>][<?=$i?>][state]"><option value="">-</option>
+<? foreach($sost_arr as $sost) 
+	echo '<option value="'.$sost.'" '.($this->params['data']['RequestAnswer'][$part['id']][$i][state]==$sost ? 'selected=selected':'').'>'.$sost.'</option>';
+?>
+</select><?=@$errors[$part['id']][$i][state]?></td><td>Примечание<br>
+<input type=text name="data[RequestAnswer][<?=$part['id']?>][<?=$i?>][note]" value="<?=$this->params['data']['RequestAnswer'][$part['id']][$i][note]?>" maxlength=255></td></tr>
+<? }?>
+
+</table>
+</TD></tr>
+<? endforeach;?>
+<TR>
+			<TD COLSPAN=2><div style="padding:5px;float:left">Поля, отмеченные <sup style="color:red">*</sup>, являются обязательными для заполнения</div><div style="padding:5px; text-align:right;float:right;"><input type=submit value="Ответить" class=button> <input type=button value="Отмена" class=button onclick="window.location.href='/customer_requests.html'"></div></td></tr>
+				</TABLE></form>
+
+	<?php endforeach; ?>	
+
+	<? else: ?>
+НЕТ ТАКОГО ЗАПРОСА
+<? endif; ?>
+<? endif; ?>

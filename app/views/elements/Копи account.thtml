@@ -1,0 +1,38 @@
+
+
+
+
+
+	  <? if(!$this->controller->logged) :?>	
+
+		<div class=info>
+		
+		<i class="r10"></i><i class="r7"></i><i class="r5"></i><i class="r4"></i><i class="r3"></i><i class="r2"></i><i class="r2"></i><i class="r1"></i><i class="r1"></i><i class="r1"></i>
+			<div class="inner-box">
+			
+	<div class=title><img src="img/shp.gif" align=right><b>ЛИЧНЫЙ КАБИНЕТ&nbsp;&nbsp;</b></div>
+	<div class=body>
+	<form method="post" action="/login.html">
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr><td>E-mail:</td><td><input type=text name="data[Customer][login]" style="width:120px;" value="vasya_pupkin@mail.ru"></td></tr>
+<tr><td>Пароль:</td><td><input type=password name="data[Customer][passw]" style="width:120px;" value="12345678"></td></tr>
+<tr><td>&nbsp;</td><td><input type=submit value=войти></td></tr>
+<tr><td colspan=2><a href="/registr.html">регистрация</a><br><a href="/fogotten_password.html">забыли&nbsp;пароль?</a><br></td></tr>
+</table>
+</form>
+	</div>
+	
+	</div>
+		<i class="r1"></i><i class="r1"></i><i class="r1"></i><i class="r2"></i><i class="r2"></i><i class="r3"></i><i class="r4"></i><i class="r5"></i><i class="r7"></i><i class="r10"></i></div>
+	
+<? else: ?>
+
+<?if(count(@$_SESSION['wishlist'])) :?>
+<a href="wishlist.html" class="menu active"><img src="img/shp.gif" align=right><b>ИЗБРАННОЕ&nbsp;&nbsp;</b></a>
+<? endif;?>
+<a href="orders.html" class="menu"><img src="img/shp.gif" align=right><b>ВАШИ ЗАКАЗЫ&nbsp;&nbsp;</b></a>
+<a href="personal_details.html" class="menu"><img src="img/shp.gif" align=right><b>ВАШИ ДАННЫЕ&nbsp;&nbsp;</b></a>
+<a href="change_password.html" class="menu"><img src="img/shp.gif" align=right><b>СМЕНИТЬ ПАРОЛЬ&nbsp;&nbsp;</b></a>
+<a href="logout.html" class="menu"><img src="img/shp.gif" align=right><b>ВЫХОД&nbsp;&nbsp;</b></a>
+
+	  <? endif; ?>
